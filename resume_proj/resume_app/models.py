@@ -80,4 +80,14 @@ class Education(models.Model):
     updated_at = DateTimeField(auto_now=True)
     objects = EducationManager()
 
+class Additional(models.Model):
+    info = models.CharField(max_length=255)
+    user = models.ForeignKey(User, related_name="additionals", on_delete=models.CASCADE)
+    created_at = DateTimeField(auto_now_add=True)
+    updated_at = DateTimeField(auto_now=True)
+    objects = AdditionalManager()
+
+class Picture(models.Model):
+    img = models.ImageField()
+
 # Create your models here.
