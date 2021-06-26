@@ -1,0 +1,43 @@
+/* postregister css */
+h1{
+    color: blue;
+}
+
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+}
+
+.center p, h1, h3{
+    text-align: center;
+    word-wrap: break-word;
+}
+
+#obj_button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* postlogin css */
+
+.wrapper{
+    background-color: crimson;
+    position: relative;
+    height: 750px;
+    padding-top: 20%;
+}
+
+#view_button, #edit_button{
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#edit_info{
+    height: 40px;
+}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 def logreg(request):
-    return render(request, 'postregister.html')
+    return render(request, 'personalinfo.html')
 
 def register(request):
     pass
@@ -14,5 +14,9 @@ def newresume(request):
 
 def resumehome(request):
     pass
+
+def logout(request):
+    request.session.flush()
+    return redirect('/')
 
 # Create your views here.

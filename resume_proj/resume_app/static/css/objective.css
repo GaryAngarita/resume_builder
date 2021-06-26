@@ -1,0 +1,12 @@
+#name p{
+    display: flex;
+    vertical-align: bottom;
+}
+
+.social{
+    font-size: medium;
+}
+
+#submit{
+    width: 150px;
+}
