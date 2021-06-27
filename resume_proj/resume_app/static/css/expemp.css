@@ -1,0 +1,27 @@
+/* experience css */
+
+h2, .mb-3{
+    text-align: center;
+}
+
+#exp_form{
+    margin: 10px;
+}
+
+#add_new{
+    margin: 10px 0px 0px 20px;
+}
+
+#submit{
+    width: 150px;
+}
+
+.form-label, p{
+    word-wrap: break-word;
+    font-family: 'Times New Roman', Times, serif;
+    padding-top: 25px;
+}
+
+.desc-form-label{
+    font-family: 'Times New Roman', Times, serif;
+}
