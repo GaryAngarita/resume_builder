@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 def logreg(request):
-    return render(request, 'experience.html')
+    return render(request, 'education.html')
 
 def register(request):
     pass

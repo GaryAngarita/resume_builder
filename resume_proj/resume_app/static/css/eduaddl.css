@@ -1,0 +1,25 @@
+/* education css */
+
+h2{
+    text-align: center;
+}
+
+span{
+    font-size: small;
+}
+
+#edu_form{
+    margin: 10px;
+}
+
+#add_new{
+    margin-left: 10px;
+}
+
+#title_div{
+    margin-top: 10px;
+}
+
+.edu_form{
+    margin-bottom: 40px;
+}

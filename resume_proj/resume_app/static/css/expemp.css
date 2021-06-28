@@ -4,12 +4,12 @@ h2, .mb-3{
     text-align: center;
 }
 
-#exp_form{
+#exp_form, #emp_form{
     margin: 10px;
 }
 
 #add_new{
-    margin: 10px 0px 0px 20px;
+    margin-left: 20px;
 }
 
 #submit{
@@ -19,9 +19,23 @@ h2, .mb-3{
 .form-label, p{
     word-wrap: break-word;
     font-family: 'Times New Roman', Times, serif;
-    padding-top: 25px;
+    /* margin-top: 25px; */
 }
 
 .desc-form-label{
     font-family: 'Times New Roman', Times, serif;
+}
+
+/* employment css */
+
+.row, #title_div{
+    margin-top: 10px;
+}
+
+#emp_desc{
+    margin-bottom: 20px;
+}
+
+.emp_form, .exp_form{
+    margin: 0px 10px 50px 10px
 }

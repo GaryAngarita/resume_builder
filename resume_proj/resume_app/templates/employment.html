@@ -19,7 +19,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
-    <title>Fill out Experience</title>
+    <title>Fill out Employment</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/expemp.css' %}">
     <script>
@@ -29,8 +29,8 @@
             $('#add_new').click(function(){
                 counter++;
                 if(counter<=2)
-                var newElement = '<div class="exp_form"><div class="mb-3"><label for="title" class="form-label">Title</label><input type="text" class="form-control" id="exp_title" name="title"></div><div class="mb-3"><label for="desc" class="desc-form-label">Description</label><textarea class="form-control" id="exp_desc" rows="3" name="desc"></textarea></div></div>'
-                $('#experience').append( $(newElement) )
+                var newElement = '<div class="emp_form"><div class="row"><div class="col"><label for="date_from" class="form-label">From</label><input type="date" class="form-control" id="emp_from" name="date_from"></div><div class="col"><label for="date_to" class="form-label">To</label><input type="date" class="form-control" id="emp_to" name="date_to"></div></div><div class="mb-3" id="title_div"><label for="title" class="form-label">Title</label><input type="text" class="form-control" id="emp_title" name="title"></div><div class="mb-3"><label for="desc" class="desc-form-label">Description</label><textarea class="form-control" id="emp_desc" rows="3" name="desc"></textarea></div></div>'
+                $('#employment').append( $(newElement) )
             })            
         })
     </script>
@@ -53,27 +53,37 @@
         </div>
     </nav><!-- /NAVBAR -->
     <br>
-    <h2>Experience</h2>
+    <h2>Employment</h2>
     <br>
-    <div id="exp_form">
-        <form action="/experience" method="POST" id="experience">
+    <div id="emp_form">
+        <form action="/employment" method="POST" id="employment">
             {% csrf_token %}
-        <div class="exp_form">
-            <div class="mb-3">
+        <div class="emp_form">
+            <div class="row">
+                <div class="col">
+                    <label for="date_from" class="form-label">From</label>
+                    <input type="date" class="form-control" id="emp_from" name="date_from">
+                </div>
+                <div class="col">
+                    <label for="date_to" class="form-label">To</label>
+                    <input type="date" class="form-control" id="emp_to" name="date_to">
+                </div>
+            </div>
+            <div class="mb-3" id="title_div">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="exp_title" name="title">
+                <input type="text" class="form-control" id="emp_title" name="title">
             </div>
             <div class="mb-3">
                 <label for="desc" class="desc-form-label">Description</label>
-                <textarea class="form-control" id="exp_desc" rows="3" name="desc"></textarea>
+                <textarea class="form-control" id="emp_desc" rows="3" name="desc"></textarea>
             </div>
         </div>       
         </form>
     </div>
-    <input type="button" id="add_new" value="Add Experience">
+    <input type="button" id="add_new" value="Add Employment">
     <div id="add_new">
             <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
-                <button class="btn btn-primary" id="submit" type="submit">Next page - Employment</button>
+                <button class="btn btn-primary" id="submit" type="submit">Next page - Education</button>
             </div>
     </div>
 </body>

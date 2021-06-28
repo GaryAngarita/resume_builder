@@ -66,7 +66,7 @@
 #     objects = EmploymentManager()
 
 # class Education(models.Model):
-#     CHOICES = [
+#     GRAD_CHOICES = [
 #         ('Y', 'Yes'),
 #         ('N', 'No'),
 #     ]
