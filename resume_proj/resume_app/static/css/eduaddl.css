@@ -1,6 +1,6 @@
 /* education css */
 
-h2{
+h2, p{
     text-align: center;
 }
 
@@ -8,7 +8,7 @@ span{
     font-size: small;
 }
 
-#edu_form{
+#edu_form, #addl_form, .img_form{
     margin: 10px;
 }
 
@@ -22,4 +22,10 @@ span{
 
 .edu_form{
     margin-bottom: 40px;
+}
+
+/* additional css */
+
+#final_btm_btn{
+    width:fit-content;
 }

@@ -19,18 +19,18 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
-    <title>Fill out Experience</title>
+    <title>Fill out Additional and Upload Photo</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/expemp.css' %}">
+    <link rel="stylesheet" href="{% static 'css/eduaddl.css' %}">
     <script>
         $(document).ready(function(){
             
             var counter = 0;
             $('#add_new').click(function(){
                 counter++;
-                if(counter<=2)
-                var newElement = '<div class="exp_form"><div class="mb-3"><label for="title" class="form-label">Title</label><input type="text" class="form-control" id="exp_title" name="title"></div><div class="mb-3"><label for="desc" class="desc-form-label">Description</label><textarea class="form-control" id="exp_desc" rows="3" name="desc"></textarea></div></div>'
-                $('#experience').append( $(newElement) )
+                if(counter<=5)
+                var newElement = '<div class="addl_form"><div class="mb-3" id="title_div"><label for="info" class="form-label">Additional Info Entry</label><input type="text" class="form-control" id="addl_info" name="info"></div></div>'
+                $('#additional').append( $(newElement) )
             })            
         })
     </script>
@@ -53,25 +53,34 @@
         </div>
     </nav><!-- /NAVBAR -->
     <br>
-    <h2>Experience</h2>
+    <h2>Additional Info</h2>
+    <p>These entries can range from: honors/awards; certifications; volunteerism; fluent languages</p>
     <br>
-    <div id="exp_form">
-        <form action="/experience" method="POST" id="experience">
+    <div id="addl_form">
+        <form action="/additional" method="POST" id="additional">
             {% csrf_token %}
-        <div class="exp_form">
-            <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="exp_title" name="title">
+        <div class="addl_form">
+            <div class="mb-3" id="title_div">
+                <label for="info" class="form-label">Additional Info Entry</label>
+                <input type="text" class="form-control" id="addl_info" name="info">
             </div>
-            <div class="mb-3">
-                <label for="desc" class="desc-form-label">Description</label>
-                <textarea class="form-control" id="exp_desc" rows="3" name="desc"></textarea>
-            </div>
-        </div>       
+        </div>
         </form>
     </div>
-    <input type="button" id="add_new" value="Add Experience">
-    <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
-        <button class="btn btn-primary" id="submit" type="submit">Next page - Employment</button>
+    <input type="button" id="add_new" value="Add Additional">
+    <br>
+    <br>
+    <h2>Upload a Profile Picture</h2>
+    <form action="/picture" method="POST" id="picture">
+        {% csrf_token %}
+    <div class="img_form">
+        <div class="mb-3">
+            <label for="img" class="form-label">Upload pic here</label>
+            <input class="form-control" type="file" id="img_file" name="img">
+        </div>
     </div>
-</body>
+    </form>
+    <div class="d-grid gap-2 col-2 mx-auto" id="final_btm_btn">
+        <button class="btn btn-primary" id="submit" type="submit">Final Step - Choose Template</button>
+    </div>
+            
