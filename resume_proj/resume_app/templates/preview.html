@@ -19,24 +19,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
-    <title>Fill out Additional and Upload Photo</title>
+    <title>Select Resume Template</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/eduaddl.css' %}">
-    <script>
-        $(document).ready(function(){
-            
-            var counter = 0;
-            $('#add_new').click(function(){
-                counter++;
-                if(counter<=5)
-                var newElement = '<div class="addl_form"><div class="mb-3" id="title_div"><label for="info" class="form-label">Additional Info Entry</label><input type="text" class="form-control" id="addl_info" name="info"></div></div>'
-                $('#additional').append( $(newElement) )
-                if(counter>5)
-                $('#add_new').remove()
-            })            
-        })
-    </script>
-</head>
+    <link rel="stylesheet" href="{% static 'css/preview.css' %}">
+    </head>
 <body>
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -55,34 +41,20 @@
         </div>
     </nav><!-- /NAVBAR -->
     <br>
-    <h2>Additional Info</h2>
-    <p>These entries can range from: honors/awards; certifications; volunteerism; fluent languages</p>
+    <h2>Choose a Template</h2>
     <br>
-    <div id="addl_form">
-        <form action="/additional" method="POST" id="additional">
-            {% csrf_token %}
-        <div class="addl_form">
-            <div class="mb-3" id="title_div">
-                <label for="info" class="form-label">Additional Info Entry</label>
-                <input type="text" class="form-control" id="addl_info" name="info">
-            </div>
+    <div id="pic_temps">
+        <div class="temp_one">
+            <img src="{% static 'img/Background_picture_template_v2.jpg' %}" class="mx-auto d-block" alt="Template 1" id="first_pic">
+            <p><a href="/template1/{{user.id}}" id="temp_one" role="button">Template 1</a></p>
         </div>
-        </form>
-    </div>
-    <input type="button" id="add_new" value="Add Additional">
-    <br>
-    <br>
-    <h2>Upload a Profile Picture</h2>
-    <form action="/picture" method="POST" id="picture">
-        {% csrf_token %}
-    <div class="img_form">
-        <div class="mb-3">
-            <label for="formFile" class="form-label">Upload pic here</label>
-            <input class="form-control" type="file" id="formFile" name="img">
+        <div class="temp_two">
+            <img src="{% static 'img/Background_picture_template_v2.jpg' %}" class="mx-auto d-block" alt="Template 2" id="second_pic">
+            <p><a href="/template2/{{user.id}}" id="temp_one" role="radio">Template 2</a></p>
+        </div>
+        <div class="temp_three">
+            <img src="{% static 'img/Background_picture_template_v2.jpg' %}" class="mx-auto d-block" alt="Template 2" id="third_pic">
+            <p><a href="/template3/{{user.id}}" id="temp_one" role="radio">Template 3</a></p>
         </div>
     </div>
-    </form>
-    <div class="d-grid gap-2 col-2 mx-auto" id="final_btm_btn">
-        <button class="btn btn-primary" id="submit" type="submit">Final Step - Choose Template</button>
-    </div>
-            
+</body>

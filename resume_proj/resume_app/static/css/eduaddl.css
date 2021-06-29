@@ -26,6 +26,10 @@ span{
 
 /* additional css */
 
-#final_btm_btn{
-    width:fit-content;
+#submit{
+    width: 150px;
+}
+
+#img_file{
+    margin:auto;
 }

@@ -31,6 +31,8 @@
                 if(counter<=2)
                 var newElement = '<div class="emp_form"><div class="row"><div class="col"><label for="date_from" class="form-label">From</label><input type="date" class="form-control" id="emp_from" name="date_from"></div><div class="col"><label for="date_to" class="form-label">To</label><input type="date" class="form-control" id="emp_to" name="date_to"></div></div><div class="mb-3" id="title_div"><label for="title" class="form-label">Title</label><input type="text" class="form-control" id="emp_title" name="title"></div><div class="mb-3"><label for="desc" class="desc-form-label">Description</label><textarea class="form-control" id="emp_desc" rows="3" name="desc"></textarea></div></div>'
                 $('#employment').append( $(newElement) )
+                if(counter>2)
+                $('#add_new').remove()
             })            
         })
     </script>
