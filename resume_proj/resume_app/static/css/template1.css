@@ -1,0 +1,97 @@
+#container{
+    background-image: url(FB_IMG_1507835697822~2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode:soft-light;
+    /* width: 1000px auto;
+    height: 2000px auto; */
+    margin: 0px auto;
+    padding: 0px;
+    background-color: skyblue;
+}
+
+.col-9, .col-3{
+    padding: 3px 0px 3px 0px;
+    border: 1px solid black;
+}
+
+.name{
+    display: flex;
+    place-content: center;
+    width: 1000px auto;
+    align-items: center;
+    height: 75px auto;
+}
+h1{
+    font-size: 50px;
+}
+
+svg{
+    color: black;
+}
+
+h2{
+    margin: 5px;
+}
+/* May put in less margin for h2 */
+.address1, .address2{
+    display: flex;
+    place-content: center;
+    align-items: center;
+    width: 1000px auto;
+    height: 25px;
+}
+
+.phone{
+    display: flex;
+    place-content: center;
+    align-items: center;
+    height: 25px;
+}
+.nav_bar ul{
+    display: flex;
+    place-content: center;
+    list-style: none;
+    width: 500px auto;
+    height: fit-content;
+}
+
+.nav_bar ul li{
+    display: inline;
+    padding-right: 20px;
+}
+
+/* div{
+    background-color: green;
+} */
+
+.intro p{
+    width: 500px auto;
+    text-align: center;
+}
+
+.skills{
+    display: flex;
+    place-content: center;
+
+}
+.skills ul{
+    /* padding-bottom: 0px; */
+    margin: 0px;
+}
+.skills1{
+    display: inline-block;
+    width: 250px;
+    place-content: center;
+    height: fit-content;
+}
+.skills li{
+    padding-bottom: 5px;
+    font-size:medium;
+}
+.date, .title{
+    font-weight: bold;
+}
+.additional ul{
+    list-style-type: square;
+}
