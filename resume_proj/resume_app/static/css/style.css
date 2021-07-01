@@ -23,13 +23,13 @@ h1{
 /* postlogin css */
 
 .wrapper{
-    background-color: crimson;
+    /* background-color: crimson; */
     position: relative;
     height: 750px;
     padding-top: 20%;
 }
 
-#view_button, #edit_button{
+#view_button, #edit_button, #new_button{
     margin-left: auto;
     margin-right: auto;
     width: 300px;
