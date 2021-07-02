@@ -1,12 +1,12 @@
 from django.contrib.messages.api import error
 from django.db import models
 import re
-from localflavor.models import USStateField
 from django.db.models.fields import DateTimeField
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, URLValidator
 import bcrypt
 
 email_regex = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+phone_regex = RegexValidator(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$', 'Valid phone number is required')
 
 class UserManager(models.Manager):
     def reg_validator(self, postData):
@@ -64,7 +64,12 @@ class ContactManager(models.Manager):
         errors = {}
         if len(postData['street']) < 2:
             errors['street'] = "Enter a legit street"
-        #insert phone validation error here
+        if not phone_regex(postData['phone_number']):
+            errors['phone_number'] = "You must enter a valid phone number"
+        if len(postData['zip']) < 5 or len(postData['zip']) > 5:
+            errors['zip'] = "Zip code must be 5 numbers"
+        if len(postData['phone_number']) < 10:
+            errors['short_number'] = "Phone number must be 10 digits"
         return errors
 
 class Contact(models.Model):
@@ -72,33 +77,58 @@ class Contact(models.Model):
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=2)
     zip = models.CharField(max_length=5)
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
     objects = ContactManager()
 
+class SocialManager(models.Manager):
+    def site_validator(self, postData):
+        errors = {}
+        if URLValidator(postData['site']) == True:
+            print('Site is valid')
+        else:
+            errors['site'] = 'Check your website and try again'
+        
+        return errors
+
 class Social(models.Model):
-    site = models.CharField(max_length=255)
+    site = models.URLField(max_length=200)
     user = models.ForeignKey(User, related_name="social_medias", on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
-    #objects = SocialManager()
+    objects = SocialManager()
+
+class ObjectiveManager(models.Manager):
+    def obj_validator(self, postData):
+        errors = {}
+        if len(postData['content']) < 25:
+            errors['content'] = "You should expand on your Objective more"
+        return errors
 
 class Objective(models.Model):
     content = models.TextField()
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
-    #objects = ObjectiveManager()
+    objects = ObjectiveManager()
+
+class SkillManager(models.Manager):
+    def skill_validator(self, postData):
+        errors = {}
+        if len(postData['selected']) < 5:
+            errors['selected'] = "Skill should be longer than 5 characters"
+        if postData['selected'] < 6:
+            errors['few_selected'] = "You should have at least 6 Skills"
+        return errors
 
 class Skill(models.Model):
     selected = models.CharField(max_length=255)
     user = models.ForeignKey(User, related_name="skills", on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
-    #objects = SkillManager()
+    objects = SkillManager()
 
 class Experience(models.Model):
     title = models.CharField(max_length=100)
