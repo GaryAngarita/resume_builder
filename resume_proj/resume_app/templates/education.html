@@ -77,7 +77,7 @@
                 <label for="program" class="desc-form-label">Program <span>(ex: Bachelor of Science in Aeronautics)</span></label>
                 <input type="text" class="form-control" id="edu_program" name="program">
             </div>
-            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="grad">
                 <option selected>Did you graduate?</option>
                 {% for key, value in grad_choices %}
                 <option value="{{choice.key}}">{{choice.value}}</option>

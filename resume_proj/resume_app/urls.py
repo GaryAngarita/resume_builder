@@ -14,5 +14,13 @@ urlpatterns = [
     path('objective', views.objective),
     path('skill', views.skill),
     path('experiencepage', views.experiencepage),
+    path('experience', views.experience),
+    path('employmentpage', views.employmentpage),
+    path('employment', views.employment),
+    path('educationpage', views.educationpage),
+    path('education', views.education),
+    path('additionalpage', views.additionalpage),
+    path('additional', views.additional),
+    path('picture', views.picture),
     path('logout', views.logout),
 ]

@@ -59,7 +59,7 @@
     <p>These entries can range from: honors/awards; certifications; volunteerism; fluent languages</p>
     <br>
     <div id="addl_form">
-        <form action="/additional" method="POST" id="additional">
+        <form action="/additional" method="POST" id="additional" enctype="multipart/form-data">
             {% csrf_token %}
         <div class="addl_form">
             <div class="mb-3" id="title_div">
