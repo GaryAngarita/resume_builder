@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.logreg),
@@ -21,6 +23,9 @@ urlpatterns = [
     path('education', views.education),
     path('additionalpage', views.additionalpage),
     path('additional', views.additional),
-    path('picture', views.picture),
+    path('picture/', views.picture),
     path('logout', views.logout),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
