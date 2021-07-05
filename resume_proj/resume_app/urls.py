@@ -24,6 +24,13 @@ urlpatterns = [
     path('additionalpage', views.additionalpage),
     path('additional', views.additional),
     path('picture/', views.picture),
+    path('templatepage', views.templatepage),
+    path('editpersonalpage/<int:user_id>', views.editpersonalpage),
+    path('editcontact/<int:user_id>', views.editcontact),
+    path('editsocial/<int:user_id>', views.editsocial),
+    path('editobjandskillpage/<int:user_id>', views.editobjandskillpage),
+    path('editobjective/<int:user_id>', views.editobjective),
+    path('editskill/<int:user_id>', views.editskill),
     path('logout', views.logout),
 ]
 

@@ -255,7 +255,99 @@ def picture(request):
         fs.save(uploaded_file.name, uploaded_file.size)
         print(uploaded_file.name)
         print(uploaded_file.size)
-    return render(request, 'additional.html')
+    return redirect('/templatepage')
+
+def templatepage(request):
+    return render(request, 'preview.html')
+
+def editpersonalpage(request, user_id):
+    if 'id' not in request.session:
+        return redirect('/')
+    else:
+        user_id = request.session['id']
+        context = {
+            'user': User.objects.get(id = user_id)
+        }
+    return render(request, 'editpersonal.html', context)
+
+def editcontact(request, user_id):
+    if request.method == 'GET':
+        return redirect('/')
+    errors = User.objects.address_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/')
+    else:
+        updated = User.objects.get(id = user_id)
+        user = updated
+        updated.street = request.POST['street']
+        updated.city = request.POST['city']
+        updated.state = request.POST['state']
+        updated.zip = request.POST['zip']
+        updated.phone_number = request.POST['phone_number']
+        updated.save()
+        request.session['id'] = user.id
+        return redirect(f'/resumehome/{user.id}')
+
+def editsocial(request, user_id):
+    if request.method == 'GET':
+        return redirect('/')
+    errors = User.objects.site_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/')
+    else:
+        updated = User.objects.get(id = user_id)
+        user = updated
+        updated.street = request.POST['site']
+        updated.save()
+        request.session['id'] = user.id
+        return redirect(f'/resumehome/{user.id}')
+
+def editobjandskillpage(request, user_id):
+    if 'id' not in request.session:
+        return redirect('/')
+    else:
+        user_id = request.session['id']
+        context = {
+            'user': User.objects.get(id = user_id)
+        }
+    return render(request, 'editobjandskill.html', context)
+
+def editobjective(request, user_id):
+    if request.method == 'GET':
+        return redirect('/')
+    errors = User.objects.obj_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/')
+    else:
+        updated = User.objects.get(id = user_id)
+        user = updated
+        updated.content = request.POST['content']
+        updated.save()
+        request.session['id'] = user.id
+        return redirect(f'/resumehome/{user.id}')
+
+def editskill(request, user_id):
+    if request.method == 'GET':
+        return redirect('/')
+    errors = User.objects.skill_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/')
+    else:
+        updated = User.objects.get(id = user_id)
+        user = updated
+        updated.selected = request.POST['selected']
+        updated.save()
+        request.session['id'] = user.id
+        return redirect(f'/resumehome/{user.id}')
+
 
 def logout(request):
     request.session.flush()
