@@ -63,7 +63,7 @@
                 <form action="/editskill/{{user.id}}" method="POST" id="skill">
                     {% csrf_token %}
                 <div class="row">
-                    {% for selected in all_selected %}
+                    {% for selected in selecteds %}
                     <div class="col">
                         <label for="selected" class="form-label">Skill</label>
                         <input type="text" class="form-control" id="skills" value="{{skill.selected}}" name="selected">

@@ -58,15 +58,15 @@
     <div id="exp_form">
         <form action="/editexperience/{{user.id}}" method="POST" id="experience">
             {% csrf_token %}
-            {% for experience in all_experience %}
+            {% for experience in experiences %}
         <div class="exp_form">
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="exp_title" value="{{exp.title}}" name="title">
+                <input type="text" class="form-control" id="exp_title" value="{{experience.title}}" name="title">
             </div>
             <div class="mb-3">
                 <label for="desc" class="desc-form-label">Description</label>
-                <textarea class="form-control" id="exp_desc" rows="3" name="desc">{{exp.desc}}</textarea>
+                <textarea class="form-control" id="exp_desc" rows="3" name="desc">{{experience.desc}}</textarea>
             </div>
         </div>
             {% endfor %}     

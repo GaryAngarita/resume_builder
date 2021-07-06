@@ -172,10 +172,10 @@
             {% csrf_token %}
         <h2>Social Media <span class="social">(LinkedIn, GitHub, etc)</span></h2>
         <div class="row">
-            {% for site in all_sites %}
+            {% for social in socials %}
             <div class="col">
                 <label for="site" class="form-label">Paste site</label>
-                <input type="url" class="form-control" id="exampleFormControlInput1" value="{{user.site}}" name="site">
+                <input type="url" class="form-control" id="exampleFormControlInput1" value="{{social.site}}" name="site">
             </div>
             {% endfor %}
             <!-- <div class="col">

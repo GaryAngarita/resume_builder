@@ -266,7 +266,9 @@ def editpersonalpage(request, user_id):
     else:
         user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id)
+            'user': User.objects.get(id = user_id),
+            'contact': Contact.objects.get(id = user_id),
+            'social': Social.objects.get(id = user_id)
         }
     return render(request, 'editpersonal.html', context)
 
@@ -279,8 +281,8 @@ def editcontact(request, user_id):
             messages.error(request, value)
         return redirect('/')
     else:
-        updated = User.objects.get(id = user_id)
-        user = updated
+        user = User.objects.get(id = user_id)
+        updated = Contact.objects.get(id = user)
         updated.street = request.POST['street']
         updated.city = request.POST['city']
         updated.state = request.POST['state']
@@ -299,8 +301,8 @@ def editsocial(request, user_id):
             messages.error(request, value)
         return redirect('/')
     else:
-        updated = User.objects.get(id = user_id)
-        user = updated
+        user = User.objects.get(id = user_id)
+        updated = Social.objects.get(id = user)
         updated.street = request.POST['site']
         updated.save()
         request.session['id'] = user.id
@@ -312,7 +314,9 @@ def editobjandskillpage(request, user_id):
     else:
         user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id)
+            'user': User.objects.get(id = user_id),
+            'objective': Objective.objects.get(id = user_id),
+            'skill': Skill.objects.get(id = user_id)
         }
     return render(request, 'editobjandskill.html', context)
 
@@ -325,8 +329,8 @@ def editobjective(request, user_id):
             messages.error(request, value)
         return redirect('/')
     else:
-        updated = User.objects.get(id = user_id)
-        user = updated
+        user = User.objects.get(id = user_id)
+        updated = Objective.objects.get(id = user)
         updated.content = request.POST['content']
         updated.save()
         request.session['id'] = user.id
@@ -341,8 +345,8 @@ def editskill(request, user_id):
             messages.error(request, value)
         return redirect('/')
     else:
-        updated = User.objects.get(id = user_id)
-        user = updated
+        user = User.objects.get(id = user_id)
+        updated = Skill.objects.get(id = user)
         updated.selected = request.POST['selected']
         updated.save()
         request.session['id'] = user.id
@@ -354,7 +358,8 @@ def editexperiencepage(request, user_id):
     else:
         user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id)
+            'user': User.objects.get(id = user_id),
+            'experience': Experience.objects.get(id = user_id)
         }
     return render(request, 'editexperience.html', context)
 
@@ -367,8 +372,8 @@ def editexperience(request, user_id):
             messages.error(request, value)
         return redirect('/')
     else:
-        updated = User.objects.get(id = user_id)
-        user = updated
+        user = User.objects.get(id = user_id)
+        updated = Experience.objects.get(id = user)
         updated.title = request.POST['title']
         updated.desc = request.POST['desc']
         updated.save()
