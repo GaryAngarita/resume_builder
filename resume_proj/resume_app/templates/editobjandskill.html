@@ -52,7 +52,7 @@
                     your resume. A resume objective is typically one or two sentences long, and can be tricky to write
                     given the
                     space limitations.</label>
-                <textarea class="form-control" id="obj" rows="3" name="content">{{user.content}}</textarea>
+                <textarea class="form-control" id="obj" rows="3" name="content">{{objective.content}}</textarea>
             </form>
         </div>
         <br>
@@ -66,7 +66,7 @@
                     {% for selected in all_selected %}
                     <div class="col">
                         <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" value="{{user.selected}}" name="selected">
+                        <input type="text" class="form-control" id="skills" value="{{skill.selected}}" name="selected">
                     </div>
                     {% endfor %}
                     <!-- <div class="col">

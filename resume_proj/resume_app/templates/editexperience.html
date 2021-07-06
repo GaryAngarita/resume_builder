@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -19,27 +19,27 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
-    <title>Continue Resume</title>
+    <title>Fill out Experience</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/expemp.css' %}">
     <script>
-        $(document).ready(function() {
-            $('#changes').hide();
-
-            $('#edit_info').click(function(){
-                $('#changes').toggle();
-            })
+        $(document).ready(function(){
+            
+            var counter = 0;
+            $('#add_new').click(function(){
+                counter++;
+                if(counter<=2)
+                var newElement = '<div class="exp_form"><div class="mb-3"><label for="title" class="form-label">Title</label><input type="text" class="form-control" id="exp_title" name="title"></div><div class="mb-3"><label for="desc" class="desc-form-label">Description</label><textarea class="form-control" id="exp_desc" rows="3" name="desc"></textarea></div></div>'
+                $('#experience').append( $(newElement) )
+            })            
         })
-
-
     </script>
 </head>
-
 <body>
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">Welcome back, {{user.first_name}} {{user.last_name}}!</a>
+            <a class="navbar-brand" href="#">Welcome {{user.first_name}} {{user.last_name}}!</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -53,25 +53,27 @@
         </div>
     </nav><!-- /NAVBAR -->
     <br>
-    <div class="wrapper">
-        <div id="new_button">
-            <a class="btn btn-primary" href="/newresume/{{user.id}}" role="button">Start Process</a>
+    <h2>Experience</h2>
+    <br>
+    <div id="exp_form">
+        <form action="/editexperience/{{user.id}}" method="POST" id="experience">
+            {% csrf_token %}
+            {% for experience in all_experience %}
+        <div class="exp_form">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="exp_title" value="{{exp.title}}" name="title">
+            </div>
+            <div class="mb-3">
+                <label for="desc" class="desc-form-label">Description</label>
+                <textarea class="form-control" id="exp_desc" rows="3" name="desc">{{exp.desc}}</textarea>
+            </div>
         </div>
-        <br>
-        <div id="view_button">
-            <a class="btn btn-primary" href="/templates" role="button">View Template</a>
-        </div>
-        <br>
-        <div id="edit_button">
-            <a class="btn btn-primary" id="edit_info" href="#" role="button">Edit Info</a>
-            <ul id="changes">
-                <li><a href="/editpersonalpage/{{user.id}}">Personal Info</a></li>
-                <li><a href="/editobjandskillpage/{{user.id}}">Objective & Skills</a></li>
-                <li><a href="/editexperiencepage/{{user.id}}">Experience</a></li>
-                <li><a href="/editemployment/{{user.id}}">Employment</a></li>
-                <li><a href="/editeducation/{{user.id}}">Education</a></li>
-                <li><a href="/editadditional/{{user.id}}">Additional Info & Pic</a></li>
-            </ul>
-        </div>
+            {% endfor %}     
+        </form>
+    </div>
+    <input type="button" id="add_new" value="Add Experience">
+    <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
+        <button class="btn btn-primary" id="submit" type="submit">Back Home</button>
     </div>
 </body>

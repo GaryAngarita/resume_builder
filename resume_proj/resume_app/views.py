@@ -63,14 +63,14 @@ def personalinfo(request, user_id):
 def contact(request):
     if request.method == 'GET':
         return redirect('/')
-    errors = User.objects.address_validator(request.POST)
+    errors = Contact.objects.address_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/')
     else:
         user_id = request.session['id']
-        Social.objects.create(street = request.POST['street'], 
+        Contact.objects.create(street = request.POST['street'], 
         city = request.POST['street'], 
         state = request.POST['state'], 
         zip = request.POST['zip'], 
@@ -81,7 +81,7 @@ def contact(request):
 def social(request):
     if request.method == 'GET':
         return redirect('/')
-    errors = User.objects.site_validator(request.POST)
+    errors = Social.objects.site_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
@@ -105,7 +105,7 @@ def objectiveandskill(request, user_id):
 def objective(request):
     if request.method == 'GET':
         return redirect('/')
-    errors = User.objects.obj_validator(request.POST)
+    errors = Objective.objects.obj_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
@@ -119,7 +119,7 @@ def objective(request):
 def skill(request):
     if request.method == 'GET':
         return redirect('/')
-    errors = User.objects.skill_validator(request.POST)
+    errors = Skill.objects.skill_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
@@ -143,7 +143,7 @@ def experiencepage(request):
 def experience(request):
     if request.method == 'GET':
         return redirect('/')
-    errors = User.objects.exp_validator(request.POST)
+    errors = Experience.objects.exp_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
@@ -168,7 +168,7 @@ def employmentpage(request):
 def employment(request):
     if request.method == 'GET':
         return redirect('/')
-    errors = User.objects.emp_validator(request.POST)
+    errors = Employment.objects.emp_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
@@ -195,7 +195,7 @@ def educationpage(request):
 def education(request):
     if request.method == 'GET':
         return redirect('/')
-    errors = User.objects.edu_validator(request.POST)
+    errors = Education.objects.edu_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
@@ -223,7 +223,7 @@ def additionalpage(request):
 def additional(request):
     if request.method == 'GET':
         return redirect('/')
-    errors = User.objects.add_validator(request.POST)
+    errors = Additional.objects.add_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
@@ -273,7 +273,7 @@ def editpersonalpage(request, user_id):
 def editcontact(request, user_id):
     if request.method == 'GET':
         return redirect('/')
-    errors = User.objects.address_validator(request.POST)
+    errors = Contact.objects.address_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
@@ -293,7 +293,7 @@ def editcontact(request, user_id):
 def editsocial(request, user_id):
     if request.method == 'GET':
         return redirect('/')
-    errors = User.objects.site_validator(request.POST)
+    errors = Social.objects.site_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
@@ -319,7 +319,7 @@ def editobjandskillpage(request, user_id):
 def editobjective(request, user_id):
     if request.method == 'GET':
         return redirect('/')
-    errors = User.objects.obj_validator(request.POST)
+    errors = Objective.objects.obj_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
@@ -335,7 +335,7 @@ def editobjective(request, user_id):
 def editskill(request, user_id):
     if request.method == 'GET':
         return redirect('/')
-    errors = User.objects.skill_validator(request.POST)
+    errors = Skill.objects.skill_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
@@ -344,6 +344,33 @@ def editskill(request, user_id):
         updated = User.objects.get(id = user_id)
         user = updated
         updated.selected = request.POST['selected']
+        updated.save()
+        request.session['id'] = user.id
+        return redirect(f'/resumehome/{user.id}')
+
+def editexperiencepage(request, user_id):
+    if 'id' not in request.session:
+        return redirect('/')
+    else:
+        user_id = request.session['id']
+        context = {
+            'user': User.objects.get(id = user_id)
+        }
+    return render(request, 'editexperience.html', context)
+
+def editexperience(request, user_id):
+    if request.method == 'GET':
+        return redirect('/')
+    errors = Experience.objects.exp_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/')
+    else:
+        updated = User.objects.get(id = user_id)
+        user = updated
+        updated.title = request.POST['title']
+        updated.desc = request.POST['desc']
         updated.save()
         request.session['id'] = user.id
         return redirect(f'/resumehome/{user.id}')

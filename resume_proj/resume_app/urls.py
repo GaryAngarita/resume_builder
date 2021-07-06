@@ -31,6 +31,8 @@ urlpatterns = [
     path('editobjandskillpage/<int:user_id>', views.editobjandskillpage),
     path('editobjective/<int:user_id>', views.editobjective),
     path('editskill/<int:user_id>', views.editskill),
+    path('editexperiencepage/<int:user_id>', views.editexperiencepage),
+    path('editexperience/<int:user_id>', views.editexperience),
     path('logout', views.logout),
 ]
 
