@@ -59,7 +59,7 @@
     <p>These entries can range from: honors/awards; certifications; volunteerism; fluent languages</p>
     <br>
     <div id="addl_form">
-        <form action="/additional" method="POST" id="additional" enctype="multipart/form-data">
+        <form action="/additional" method="POST" id="additional" >
             {% csrf_token %}
         <div class="addl_form">
             <div class="mb-3" id="title_div">
@@ -73,12 +73,12 @@
     <br>
     <br>
     <h2>Upload a Profile Picture</h2>
-    <form action="/picture" method="POST" id="picture">
+    <form action="/picture" method="POST" id="picture" enctype="multipart/form-data">
         {% csrf_token %}
     <div class="img_form">
         <div class="mb-3">
             <label for="formFile" class="form-label">Upload pic here</label>
-            <input class="form-control" type="file" id="formFile" name="img">
+            <input class="form-control" type="file" id="formFile" name="img" >
         </div>
     </div>
     </form>

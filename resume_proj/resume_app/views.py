@@ -2,7 +2,6 @@ from django.contrib.messages.api import info
 from django.shortcuts import render, redirect
 from django.contrib import messages
 import bcrypt
-from django.core.files.storage import FileSystemStorage
 from .models import *
 
 def logreg(request):
@@ -234,28 +233,28 @@ def additional(request):
         user = user_id)
         return redirect('/templatepage')
 
-# def picture(request):
-#     if request.method == 'GET':
-#         return redirect('/')
-#     errors = User.objects.add_validator(request.POST)
-#     if len(errors) > 0:
-#         for key, value in errors.items():
-#             messages.error(request, value)
-#         return redirect('/')
-#     else:
-#         user_id = request.session['id']
-#         Additional.objects.create(img = request.POST['img'], 
-#         user = user_id)
-#         return redirect('/templatepage')
-
 def picture(request):
-    if request.method == 'POST':
-        uploaded_file = request.FILES['img']
-        fs = FileSystemStorage()
-        fs.save(uploaded_file.name, uploaded_file.size)
-        print(uploaded_file.name)
-        print(uploaded_file.size)
-    return redirect('/templatepage')
+    if request.method == 'GET':
+        return redirect('/')
+    errors = Picture.objects.pic_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/')
+    else:
+        user_id = request.session['id']
+        Picture.objects.create(img = request.POST['img'], 
+        user = user_id)
+        return redirect('/templatepage')
+
+# def picture(request):
+#     if request.method == 'POST':
+#         uploaded_file = request.FILES['img']
+#         fs = FileSystemStorage()
+#         fs.save(uploaded_file.name, uploaded_file.size)
+#         print(uploaded_file.name)
+#         print(uploaded_file.size)
+#     return redirect('/templatepage')
 
 def templatepage(request):
     return render(request, 'preview.html')

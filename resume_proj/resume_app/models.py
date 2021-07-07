@@ -8,6 +8,7 @@ import bcrypt
 
 email_regex = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 phone_regex = RegexValidator(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$', 'Valid phone number is required')
+image_regex = "([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp))$)"
 
 class UserManager(models.Manager):
     def reg_validator(self, postData):
@@ -211,10 +212,17 @@ class Additional(models.Model):
     updated_at = DateTimeField(auto_now=True)
     objects = AdditionalManager()
 
-# class PictureManager(models.Manager):
-#     def pic_validator(self, postData):
-#         errors = {}
-#         if postData['img'] != '' and postData['img'] not validate_image_file_extension
+class PictureManager(models.Manager):
+    def pic_validator(self, postData):
+        errors = {}
+        test = re.compile(image_regex)
+        if postData['img'] != '':
+            if (re.search(test, str)):
+                return True
+            else:
+                errors['img'] = "That is not a supported image type. Must be .jpg, .png, .gif, .bmp"
+                return False
+        return errors
 
 class Picture(models.Model):
     img = models.ImageField(null=True, blank=True)
