@@ -1,7 +1,5 @@
 from django.urls import path
 from . import views
-from django.conf import settings
-from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.logreg),
@@ -33,8 +31,12 @@ urlpatterns = [
     path('editskill/<int:user_id>', views.editskill),
     path('editexperiencepage/<int:user_id>', views.editexperiencepage),
     path('editexperience/<int:user_id>', views.editexperience),
+    path('editemploymentpage/<int:user_id>', views.editemploymentpage),
+    path('editemployment/<int:user_id>', views.editemployment),
+    path('editeducationpage/<int:user_id>', views.editeducationpage),
+    path('editeducation/<int:user_id>', views.editeducation),
+    path('editadditionalpage/<int:user_id>', views.editadditionalpage),
+    path('editadditional/<int:user_id>', views.editadditional),
+    path('editpicture/<int:user_id>', views.editpicture),
     path('logout', views.logout),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

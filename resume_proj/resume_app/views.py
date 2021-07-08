@@ -379,6 +379,110 @@ def editexperience(request, user_id):
         request.session['id'] = user.id
         return redirect(f'/resumehome/{user.id}')
 
+def editemploymentpage(request, user_id):
+    if 'id' not in request.session:
+        return redirect('/')
+    else:
+        user_id = request.session['id']
+        context = {
+            'user': User.objects.get(id = user_id),
+            'employment': Employment.objects.get(id = user_id)
+        }
+    return render(request, 'editemployment.html', context)
+
+def editemployment(request, user_id):
+    if request.method == 'GET':
+        return redirect('/')
+    errors = Employment.objects.emp_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/')
+    else:
+        user = User.objects.get(id = user_id)
+        updated = Employment.objects.get(id = user)
+        updated.date_from = request.POST['date_from']
+        updated.date_to = request.POST['date_to']
+        updated.title = request.POST['title']
+        updated.desc = request.POST['desc']
+        updated.save()
+        request.session['id'] = user.id
+        return redirect(f'/resumehome/{user.id}')
+
+def editeducationpage(request, user_id):
+    if 'id' not in request.session:
+        return redirect('/')
+    else:
+        user_id = request.session['id']
+        context = {
+            'user': User.objects.get(id = user_id),
+            'education': Education.objects.get(id = user_id)
+        }
+    return render(request, 'editeducation.html', context)
+
+def editeducation(request, user_id):
+    if request.method == 'GET':
+        return redirect('/')
+    errors = Education.objects.edu_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/')
+    else:
+        user = User.objects.get(id = user_id)
+        updated = Education.objects.get(id = user)
+        updated.date_from = request.POST['date_from']
+        updated.date_to = request.POST['date_to']
+        updated.school = request.POST['school']
+        updated.program = request.POST['program']
+        updated.grad = request.POST['grad']
+        updated.save()
+        request.session['id'] = user.id
+        return redirect(f'/resumehome/{user.id}')
+
+def editadditionalpage(request, user_id):
+    if 'id' not in request.session:
+        return redirect('/')
+    else:
+        user_id = request.session['id']
+        context = {
+            'user': User.objects.get(id = user_id),
+            'additional': Additional.objects.get(id = user_id)
+        }
+    return render(request, 'editadditional.html', context)
+
+def editadditional(request, user_id):
+    if request.method == 'GET':
+        return redirect('/')
+    errors = Additional.objects.add_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/')
+    else:
+        user = User.objects.get(id = user_id)
+        updated = Additional.objects.get(id = user)
+        updated.info = request.POST['info']
+        updated.save()
+        request.session['id'] = user.id
+        return redirect(f'/resumehome/{user.id}')
+
+def editpicture(request, user_id):
+    if request.method == 'GET':
+        return redirect('/')
+    errors = Picture.objects.pic_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/')
+    else:
+        user = User.objects.get(id = user_id)
+        updated = Picture.objects.get(id = user)
+        updated.img = request.POST['img']
+        updated.save()
+        request.session['id'] = user.id
+        return redirect(f'/resumehome/{user.id}')
+
 
 def logout(request):
     request.session.flush()

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <title>Edit Education</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/eduaddl.css' %}">
+    <script>
+        $(document).ready(function(){
+            
+            var counter = 0;
+            $('#add_new').click(function(){
+                counter++;
+                if(counter<=2)
+                var newElement = '<div class="edu_form"><div class="row"><div class="col"><label for="date_from" class="form-label">From</label><input type="date" class="form-control" id="edu_from" name="date_from"></div><div class="col"><label for="date_to" class="form-label">To</label><input type="date" class="form-control" id="edu_to" name="date_to"></div></div><div class="mb-3" id="title_div"><label for="school" class="form-label">School Name</label><input type="text" class="form-control" id="edu_title" name="school"></div><div class="mb-3"><label for="program" class="desc-form-label">Program <span>(ex: Bachelor of Science in Aeronautics)</span></label><input type="text" class="form-control" id="edu_program" name="program"></div><select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"><option selected>Did you graduate?</option>{% for key, value in grad_choices %}<option value="{{choice.key}}">{{choice.value}}</option>{% endfor %}</select></div>'
+                $('#education').append( $(newElement) )
+            })            
+        })
+    </script>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Welcome {{user.first_name}} {{user.last_name}}!</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto"></ul>
+                <span class="navbar-text">
+                    <a href="/logout" role="button" class="btn btn-sm btn-info ml-2 text-white">Logout</a>
+                </span>
+            </div>
+        </div>
+    </nav><!-- /NAVBAR -->
+    <br>
+    <h2>Education</h2>
+    <br>
+    <div id="edu_form">
+        <form action="/editeducation/{{user.id}}" method="POST" id="education">
+            {% csrf_token %}
+            {% for education in educations %}
+        <div class="edu_form">
+            <div class="row">
+                <div class="col">
+                    <label for="date_from" class="form-label">From</label>
+                    <input type="date" class="form-control" id="edu_from" value="{{education.date_from}}" name="date_from">
+                </div>
+                <div class="col">
+                    <label for="date_to" class="form-label">To</label>
+                    <input type="date" class="form-control" id="edu_to" value="{{education.date_to}}" name="date_to">
+                </div>
+            </div>
+            <div class="mb-3" id="title_div">
+                <label for="school" class="form-label">School Name</label>
+                <input type="text" class="form-control" id="edu_title" value="{{education.school}}" name="school">
+            </div>
+            <div class="mb-3">
+                <label for="program" class="desc-form-label">Program <span>(ex: Bachelor of Science in Aeronautics)</span></label>
+                <input type="text" class="form-control" id="edu_program" value="{{education.program}}" name="program">
+            </div>
+            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="grad">
+                <option selected>value="{{education.grad}}"</option>
+                {% for key, value in grad_choices %}
+                <option value="{{choice.key}}">{{choice.value}}</option>
+                {% endfor %}
+            </select>
+        </div>      
+            {% endfor %} 
+        </form>
+    </div>
+    <input type="button" id="add_new" value="Add Education">
+    <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
+        <button class="btn btn-primary" id="submit" type="submit">Back Home</button>
+    </div>
+</body>

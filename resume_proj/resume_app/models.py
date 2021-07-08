@@ -229,6 +229,6 @@ class Picture(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
-    #objects = PictureManager()
+    objects = PictureManager()
 
 # Create your models here.
