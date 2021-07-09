@@ -311,7 +311,7 @@ def editsocial(request, user_id):
     else:
         user = User.objects.get(id = user_id)
         updated = Social.objects.get(id = user)
-        updated.street = request.POST['site']
+        updated.site = request.POST['site']
         updated.save()
         request.session['id'] = user.id
         return redirect(f'/resumehome/{user.id}')
