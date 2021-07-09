@@ -1,5 +1,5 @@
 #container{
-    background-image: url(FB_IMG_1507835697822~2.jpg);
+    background-image: url({{picture.img}});
     background-repeat: no-repeat;
     background-size: cover;
     background-blend-mode:soft-light;

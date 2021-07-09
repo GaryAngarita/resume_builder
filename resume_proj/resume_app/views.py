@@ -67,14 +67,15 @@ def contact(request):
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/')
-    else:
+    else:        
         user_id = request.session['id']
+        user = User.objects.get(id = user_id)
         Contact.objects.create(street = request.POST['street'], 
         city = request.POST['street'], 
         state = request.POST['state'], 
         zip = request.POST['zip'], 
         phone_number = request.POST['site'],
-        user = user_id)
+        user = user)
         return redirect('/objectiveandskill')
 
 def social(request):
@@ -85,13 +86,14 @@ def social(request):
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/')
-    else:
+    else:        
         user_id = request.session['id']
+        user = User.objects.get(id = user_id)
         Social.objects.create(site = request.POST['site'], 
-        user = user_id)
+        user = user)
         return redirect('/objectiveandskill')
 
-def objectiveandskill(request, user_id):
+def objectiveandskill(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
@@ -109,10 +111,11 @@ def objective(request):
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/')
-    else:
+    else:        
         user_id = request.session['id']
+        user = User.objects.get(id = user_id)
         Objective.objects.create(content = request.POST['content'], 
-        user = user_id)
+        user = user)
         return redirect('/experiencepage')
 
 def skill(request):
@@ -123,10 +126,11 @@ def skill(request):
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/')
-    else:
+    else:        
         user_id = request.session['id']
+        user = User.objects.get(id = user_id)
         Skill.objects.create(selected = request.POST['selected'], 
-        user = user_id)
+        user = user)
         return redirect('/experiencepage')
 
 def experiencepage(request):
@@ -147,11 +151,12 @@ def experience(request):
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/')
-    else:
+    else:        
         user_id = request.session['id']
+        user = User.objects.get(id = user_id)
         Experience.objects.create(title = request.POST['title'], 
         desc = request.POST['desc'], 
-        user = user_id)
+        user = user)
         return redirect('/employmentpage')
 
 def employmentpage(request):
@@ -172,13 +177,14 @@ def employment(request):
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/')
-    else:
+    else:        
         user_id = request.session['id']
+        user = User.objects.get(id = user_id)
         Employment.objects.create(date_from = request.POST['date_from'], 
         date_to = request.POST['date_to'], 
         title = request.POST['title'], 
         desc = request.POST['desc'], 
-        user = user_id)
+        user = user)
         return redirect('/educationpage')
 
 def educationpage(request):
@@ -199,14 +205,15 @@ def education(request):
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/')
-    else:
+    else:        
         user_id = request.session['id']
+        user = User.objects.get(id = user_id)
         Education.objects.create(date_from = request.POST['date_from'], 
         date_to = request.POST['date_to'], 
         school = request.POST['school'], 
         program = request.POST['program'], 
         grad = request.POST['grad'], 
-        user = user_id)
+        user = user)
         return redirect('/additionalpage')
 
 def additionalpage(request):
@@ -227,10 +234,11 @@ def additional(request):
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/')
-    else:
+    else:        
         user_id = request.session['id']
+        user = User.objects.get(id = user_id)
         Additional.objects.create(info = request.POST['info'], 
-        user = user_id)
+        user = user)
         return redirect('/templatepage')
 
 def picture(request):
@@ -241,10 +249,11 @@ def picture(request):
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/')
-    else:
+    else:        
         user_id = request.session['id']
+        user = User.objects.get(id = user_id)
         Picture.objects.create(img = request.POST['img'], 
-        user = user_id)
+        user = user)
         return redirect('/templatepage')
 
 # def picture(request):

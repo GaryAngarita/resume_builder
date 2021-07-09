@@ -113,70 +113,80 @@
         </div>
         <h2 id="exp">Experience</h2>
         <div class="exp_block">
-            <ul class="experience">
-                <!-- {% for experience in experiences %} -->
-                <li><span class="title">Math Teacher</span> - Developed consistent lesson plans for
-                    Algebra, Pre-algebra, and lower level mathematics while maintaining
-                    academic and behavior records for over 200 students</li>
-                    <!-- {{ experience }} -->
-                <li><span class="title">Pilot-in-Command/Chief Warrant Officer/Training Officer</span> - Operated $38
+                {% for experience in experiences %}
+                <ul class="experience">
+                <li><span class="title">{{experience.title}}</span> - {{experience.desc}}</li>
+                <!-- <li><span class="title">Pilot-in-Command/Chief Warrant Officer/Training Officer</span> - Operated $38
                     million aircraft in National Airspace under tactical and non-tactical
                     conditions. Organized and briefed air movements with mixed airframes.
                     Created training calendars for company of 72 Soldiers forecasted up to 6 weeks
                 </li>
                 <li><span class="title">Squad Leader</span> - Served as first-line supervisor to 16 Soldiers 
                     while in support of chemical operations. Trained Soldiers on basic marksmanship, customs & 
-                    courtesies, and discipline.</li>
-                    <!-- {% endfor %} -->
-            </ul>
+                    courtesies, and discipline.</li> -->
+                </ul>
+                {% endfor %}
         </div>
         <h2 id="emp">Employment</h2>
         <div class="emp_block">
+            {% for employment in employments %}
             <ul class="employment">
-                <!-- {% for employment in employments %} -->
-                <li><span class="date">Aug 2020 - Present</span> - <span class="job_title">ESS</span> Substitute
-                    Teacher. Amidst pandemic, filled vacancies left by teachers unwilling to return to
-                    hazardous environments. Taught all subjects but maintained focus on math and science
-                    while interacting with.</li>
+                <li><span class="date">{{employment.date_from}} - {{employment.date_to}}</span> - <span class="job_title">{{employment.title}}</span> {{employment.desc}}</li>
                     <!-- {{ employment }} -->
-                <li><span class="date">Mar 2019 - Jun 2020</span> - <span class="job_title">Duval County Public
+                <!-- <li><span class="date">Mar 2019 - Jun 2020</span> - <span class="job_title">Duval County Public
                         Schools</span>
                     Middle School Math/Science Teacher. Created lesson plans, coordinated with department
                     heads, and maintained testing statistics through 36 weeks of forecasted planning.</li>
                 <li><span class="date">Sep 2003 - Apr 2016</span> - <span class="job_title">US Army</span>Served
                     as Pilot, Tactical Operations Officer, Squad Leader, and Physical Training Officer. Taught
                     classes to groups ranging from 20-100 Soldiers in topics ranging from aerodynamics and flight
-                    operations to aircraft software and flight tactics.</li>
-                    <!-- {% endfor %} -->
+                    operations to aircraft software and flight tactics.</li> -->
             </ul>
+            {% endfor %}
         </div>
         <h2 id="edu">Education</h2>
         <div class="container">
             <div class="row">
-                <!-- {% for education in educations %} -->
+                <table style="width: 100%">
+                    <tr>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Name</th>
+                        <th>Program/Degree</th>
+                        <th>Graduated?</th>
+                    </tr>
+                    {% for education in educations %}
+                    <tr>
+                        <td>{{education.date_from}}</td>
+                        <td>{{education.date_to}}</td>
+                        <td>{{education.School}}</td>
+                        <td>{{education.program}}</td>
+                        <td>{{education.grad}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
                 <!-- May need to do this separately since it has dates -->
-                <div class="col-9">Coding Dojo Bootcamp</div>
+                <!-- <div class="col-9">Coding Dojo Bootcamp</div>
                 <div class="col-3"> Jan 2021 - Jul 2021</div>
                 <div class="col-9">Embry-Riddle Aeronautical University - Master's of Science in Aeronautics</div>
                 <div class="col-3">Jul 2020 - </div>
                 <div class="col-9">Embry-Riddle Aeronautical University - Graduated Magna Cum Laude Bachelor's of
                     Science in Aeronautics</div>
-                <div class="col-3">Jan 2014 - May 2018</div>
+                <div class="col-3">Jan 2014 - May 2018</div> -->
             </div>
         </div>
         <h2 id="add">Additional Information</h2>
         <div class="additional">
+            {% for additional in additionals %}
             <ul>
-                <!-- {% for additional in additionals %} -->
-                <li>Graduated Bachelor's with 3.83 GPA</li>
-                <!-- {{ additional }} -->
+                <li>{{ additional.info }}</li>
+<!--                 
                 <li>Heavy public speaking experience</li>
                 <li>Have held TS security clearance</li>
                 <li>Willing to relocate</li>
-                <li>Fluent in Spanish</li>
-                <!-- {% endfor %} -->
+                <li>Fluent in Spanish</li> -->
             </ul>
-
+            {% endfor %}
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"

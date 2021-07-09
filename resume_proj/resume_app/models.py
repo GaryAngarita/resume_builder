@@ -88,11 +88,11 @@ class Contact(models.Model):
 class SocialManager(models.Manager):
     def site_validator(self, postData):
         errors = {}
-        if URLValidator(postData['site']) == True:
-            print('Site is valid')
-        else:
-            errors['site'] = 'Check your website and try again'
-        
+        if postData['site'] != '':
+            if URLValidator(postData['site']) == True:
+                print('Site is valid')
+            else:
+                errors['site'] = 'Check your website and try again'
         return errors
 
 class Social(models.Model):

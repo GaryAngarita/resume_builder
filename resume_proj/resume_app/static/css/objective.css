@@ -9,6 +9,10 @@
     font-size: medium;
 }
 
+.phone{
+    font-size: small;
+}
+
 #submit{
     width: 150px;
 }
