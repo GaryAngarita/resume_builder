@@ -61,6 +61,7 @@
         <form action="/contact" method="POST" id="contact">
         {% csrf_token %}
         <h2>Name</h2>
+        {% if /contact.exists())  %}
         <div class="row">
             <div class="col">
                 <label for="first_name" class="form-label">First Name</label>
@@ -76,17 +77,17 @@
         <div class="row">
             <div class="col">
                 <label for="street" class="form-label">Street</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" name="street">
+                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{contact.street}}" name="street">
             </div>
             <div class="col">
                 <label for="city" class="form-label">City</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" name="city">
+                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{contact.city}}" name="city">
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <select class="form-select" aria-label="Default select example" name="state">
-                    <option selected>Select a state</option>
+                    <option selected>{{contact.city}}"</option>
                     <option value="AA">Armed Forces Americas</option>
                     <option value="AP">Armed Forces Pacific</option>
                     <option value="AE">Armed Forces Others</option>
@@ -151,7 +152,7 @@
             </div>
             <div class="col">
                 <label for="zip" class="form-label">Zip</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" name="zip">
+                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{contact.zip}}" name="zip">
             </div>
         </div>
         <br>
@@ -159,12 +160,16 @@
         <div class="row">
             <div class="col">
                 <label for="phone_number" class="form-label">Phone <span class="phone">(no dashes)</span></label>
-                <input type="tel" class="form-control" id="exampleFormControlInput1" name="phone_number">
+                <input type="tel" class="form-control" id="exampleFormControlInput1" value="{{contact.phone_number}}" name="phone_number">
             </div>
             <div class="col">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="{{user.email}}">
             </div>
+        </div>
+        <br>
+        <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
+            <button class="btn btn-primary" id="submit" type="submit">Submit</button>
         </div>
         </form>
         <br>

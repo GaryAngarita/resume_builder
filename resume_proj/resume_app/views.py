@@ -63,20 +63,21 @@ def contact(request):
     if request.method == 'GET':
         return redirect('/')
     errors = Contact.objects.address_validator(request.POST)
+    user = User.objects.get(id = request.session['id'])
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect(f'/personalinfo/{user.id}')
     else:        
         user_id = request.session['id']
         user = User.objects.get(id = user_id)
         Contact.objects.create(street = request.POST['street'], 
-        city = request.POST['street'], 
+        city = request.POST['city'], 
         state = request.POST['state'], 
         zip = request.POST['zip'], 
-        phone_number = request.POST['site'],
+        phone_number = request.POST['phone_number'],
         user = user)
-        return redirect('/objectiveandskill')
+        return redirect('/personalinfo')
 
 def social(request):
     if request.method == 'GET':

@@ -7,7 +7,6 @@ from django.db.models.fields.files import ImageField
 import bcrypt
 
 email_regex = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-phone_regex = RegexValidator(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$', 'Valid phone number is required')
 image_regex = "([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp))$)"
 
 class UserManager(models.Manager):
@@ -66,8 +65,6 @@ class ContactManager(models.Manager):
         errors = {}
         if len(postData['street']) < 2:
             errors['street'] = "Enter a legit street"
-        if not phone_regex(postData['phone_number']):
-            errors['phone_number'] = "You must enter a valid phone number"
         if len(postData['zip']) < 5 or len(postData['zip']) > 5:
             errors['zip'] = "Zip code must be 5 numbers"
         if len(postData['phone_number']) < 10:
@@ -79,7 +76,7 @@ class Contact(models.Model):
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=2)
     zip = models.CharField(max_length=5)
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
+    phone_number = models.CharField(max_length=17, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
