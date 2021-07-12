@@ -23,13 +23,16 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/objective.css' %}">
     <script>
-        $(document).ready(function() {
-
-            $('#btm_btn').click(function(){
-                $("#contact", "#social").submit();
-            })
+        $(document).ready(function(){
+            
+            var counter = 0;
+            $('#add_new').click(function(){
+                counter++;
+                if(counter<=2)
+                var newElement = '<div class="col"><label for="site" class="form-label">Paste site</label><input type="url" class="form-control" id="exampleFormControlInput1" name="site"></div>'
+                $('.site_row').append( $(newElement) )
+            })            
         })
-
     </script>
 </head>
 
@@ -58,10 +61,9 @@
             <li>{{ message }}</li>
         </ul>
         {% endfor %}
-        <form action="/contact" method="POST" id="contact">
+        <form action="/social" method="POST" id="social">
         {% csrf_token %}
         <h2>Name</h2>
-        {% if /contact.exists())  %}
         <div class="row">
             <div class="col">
                 <label for="first_name" class="form-label">First Name</label>
@@ -77,17 +79,17 @@
         <div class="row">
             <div class="col">
                 <label for="street" class="form-label">Street</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{contact.street}}" name="street">
+                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{user.contact.street}}" name="street">
             </div>
             <div class="col">
                 <label for="city" class="form-label">City</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{contact.city}}" name="city">
+                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{user.contact.city}}" name="city">
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <select class="form-select" aria-label="Default select example" name="state">
-                    <option selected>{{contact.city}}"</option>
+                    <option selected>{{user.contact.city}}</option>
                     <option value="AA">Armed Forces Americas</option>
                     <option value="AP">Armed Forces Pacific</option>
                     <option value="AE">Armed Forces Others</option>
@@ -152,7 +154,7 @@
             </div>
             <div class="col">
                 <label for="zip" class="form-label">Zip</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{contact.zip}}" name="zip">
+                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{user.contact.zip}}" name="zip">
             </div>
         </div>
         <br>
@@ -160,23 +162,19 @@
         <div class="row">
             <div class="col">
                 <label for="phone_number" class="form-label">Phone <span class="phone">(no dashes)</span></label>
-                <input type="tel" class="form-control" id="exampleFormControlInput1" value="{{contact.phone_number}}" name="phone_number">
+                <input type="tel" class="form-control" id="exampleFormControlInput1" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="{{user.contact.phone_number}}" name="phone_number">
             </div>
             <div class="col">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="{{user.email}}">
             </div>
         </div>
-        <br>
-        <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
+        <!-- <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
             <button class="btn btn-primary" id="submit" type="submit">Submit</button>
-        </div>
-        </form>
+        </div> -->
         <br>
-        <form action="/social" method="POST" id="social">
-            {% csrf_token %}
         <h2>Social Media <span class="social">(LinkedIn, GitHub, etc)</span></h2>
-        <div class="row">
+        <div class="site_row">
             <div class="col">
                 <label for="site" class="form-label">Paste site</label>
                 <input type="url" class="form-control" id="exampleFormControlInput1" name="site">
@@ -186,7 +184,7 @@
                 <input type="url" class="form-control" id="exampleFormControlInput1" name="site">
             </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col">
                 <label for="site" class="form-label">Paste site</label>
                 <input type="url" class="form-control" id="exampleFormControlInput1" name="site">
@@ -195,7 +193,10 @@
                 <label for="site" class="form-label">Paste site</label>
                 <input type="url" class="form-control" id="exampleFormControlInput1" name="site">
             </div>
+        </div> -->
         </div>
+        <input type="button" id="add_new" value="Add Site">
+        <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
         <br>
         <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
             <button class="btn btn-primary" id="submit" type="submit">Next page - Objective</button>

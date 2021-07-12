@@ -42,72 +42,69 @@
         </div>
     </nav><!-- /NAVBAR -->
     <br>
-    <h2>Objective</h3>
-        <div class="mb-3">
-            <form action="/objective" method="POST" id="objective">
-                {% csrf_token %}
-                <label for="content" class="form-label">A resume objective is a statement of your
-                    professional goals as they relate to the job you are applying for, and it is usually listed at the
-                    top of
-                    your resume. A resume objective is typically one or two sentences long, and can be tricky to write
-                    given the
-                    space limitations.</label>
-                <textarea class="form-control" id="obj" rows="3" name="content"></textarea>
-            </form>
+    <h2>Objective</h2>
+    <div class="mb-3">
+        <form action="/objandskill" method="POST" id="ojandskill">
+        {% csrf_token %}
+        <label for="content" class="form-label">A resume objective is a statement of your
+            professional goals as they relate to the job you are applying for, and it is usually listed at the
+            top of
+            your resume. A resume objective is typically one or two sentences long, and can be tricky to write
+            given the
+            space limitations.</label>
+        <textarea class="form-control" id="obj" rows="3" name="content"></textarea>
+    </div>
+    <br>
+    <h2>Skills</h2>
+    <p>Hard skills are job-specific skills. For example, data analysis, project management, etc. Soft skills are
+        personal or creative skills. For example, critical thinking, teamwork.</p>
+    <div id="skill_list">
+        <div class="row">
+            <div class="col">
+                <label for="selected" class="form-label">Skill</label>
+                <input type="text" class="form-control" id="skills" name="selected">
+            </div>
+            <div class="col">
+                <label for="selected" class="form-label">Skill</label>
+                <input type="text" class="form-control" id="skills" name="selected">
+            </div>
+            <div class="col">
+                <label for="selected" class="form-label">Skill</label>
+                <input type="text" class="form-control" id="skills" name="selected">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="selected" class="form-label">Skill</label>
+                <input type="text" class="form-control" id="skills" name="selected">
+            </div>
+            <div class="col">
+                <label for="selected" class="form-label">Skill</label>
+                <input type="text" class="form-control" id="skills" name="selected">
+            </div>
+            <div class="col">
+                <label for="selected" class="form-label">Skill</label>
+                <input type="text" class="form-control" id="skills" name="selected">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="selected" class="form-label">Skill</label>
+                <input type="text" class="form-control" id="skills" name="selected">
+            </div>
+            <div class="col">
+                <label for="selected" class="form-label">Skill</label>
+                <input type="text" class="form-control" id="skills" name="selected">
+            </div>
+            <div class="col">
+                <label for="selected" class="form-label">Skill</label>
+                <input type="text" class="form-control" id="skills" name="selected">
+            </div>
         </div>
         <br>
-            <h2>Skills</h2>
-            <p>Hard skills are job-specific skills. For example, data analysis, project management, etc. Soft skills are
-                personal or creative skills. For example, critical thinking, teamwork.</p>
-            <div id="skill_list">
-                <form action="/skill" method="POST" id="skill">
-                    {% csrf_token %}
-                <div class="row">
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div>
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div>
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div>
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div>
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div>
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div>
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div>
-                </div>
-                <br>
-                <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
-                    <button class="btn btn-primary" id="submit" type="submit">Next page - Experience</button>
-                </div>
-                </form>
-            </div>
-            
+        <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
+            <button class="btn btn-primary" id="submit" type="submit">Next page - Experience</button>
+        </div>
+        </form>
+    </div>
+</body>    

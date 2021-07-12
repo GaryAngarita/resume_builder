@@ -76,17 +76,17 @@
         <div class="row">
             <div class="col">
                 <label for="street" class="form-label">Street</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" value={{user.street}} name="street">
+                <input type="text" class="form-control" id="exampleFormControlInput1" value={{user.contact.street}} name="street">
             </div>
             <div class="col">
                 <label for="city" class="form-label">City</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{user.city}}" name="city">
+                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{user.contact.city}}" name="city">
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <select class="form-select" aria-label="Default select example" value="{{user.state}}" name="state">
-                    <option selected>{{user.state}}</option>
+                <select class="form-select" aria-label="Default select example" value="{{user.contact.state}}" name="state">
+                    <option selected>{{user.contact.state}}</option>
                     <option value="AA">Armed Forces Americas</option>
                     <option value="AP">Armed Forces Pacific</option>
                     <option value="AE">Armed Forces Others</option>
@@ -151,7 +151,7 @@
             </div>
             <div class="col">
                 <label for="zip" class="form-label">Zip</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{user.zip}}" name="zip">
+                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{user.contact.zip}}" name="zip">
             </div>
         </div>
         <br>
@@ -159,11 +159,11 @@
         <div class="row">
             <div class="col">
                 <label for="phone_number" class="form-label">Phone</label>
-                <input type="tel" class="form-control" id="exampleFormControlInput1"  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="{{user.phone_number}}" name="phone_number">
+                <input type="tel" class="form-control" id="exampleFormControlInput1"  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="{{user.contact.phone_number}}" name="phone_number">
             </div>
             <div class="col">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" value="{{user.email}}" name="email">
+                <input type="email" class="form-control" id="exampleFormControlInput1" value="{{user.contact.email}}" name="email">
             </div>
         </div>
         </form>
@@ -175,7 +175,7 @@
             {% for social in socials %}
             <div class="col">
                 <label for="site" class="form-label">Paste site</label>
-                <input type="url" class="form-control" id="exampleFormControlInput1" value="{{social.site}}" name="site">
+                <input type="url" class="form-control" id="exampleFormControlInput1" value="{{user.social.site}}" name="site">
             </div>
             {% endfor %}
             <!-- <div class="col">

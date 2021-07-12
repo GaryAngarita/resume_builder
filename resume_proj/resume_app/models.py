@@ -8,6 +8,13 @@ import bcrypt
 
 email_regex = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 image_regex = "([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp))$)"
+url_regex = re.compile(
+        r'^(?:http|ftp)s?://' # http:// or https://
+        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' #domain...
+        r'localhost|' #localhost...
+        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
+        r'(?::\d+)?' # optional port
+        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
 class UserManager(models.Manager):
     def reg_validator(self, postData):
@@ -86,10 +93,10 @@ class SocialManager(models.Manager):
     def site_validator(self, postData):
         errors = {}
         if postData['site'] != '':
-            if URLValidator(postData['site']) == True:
-                print('Site is valid')
-            else:
+            if not url_regex.match(postData['site']):
                 errors['site'] = 'Check your website and try again'
+            else:
+                print('Site is valid')
         return errors
 
 class Social(models.Model):
@@ -118,8 +125,8 @@ class SkillManager(models.Manager):
         errors = {}
         if postData['selected'] != '' and len(postData['selected']) < 5:
             errors['selected'] = "Skill should be longer than 5 characters"
-        if postData['selected'] < 6:
-            errors['few_selected'] = "You should have at least 6 Skills"
+        if len(postData['selected']) < 1:
+            errors['few_selected'] = "You should have 9 Skills"
         return errors
 
 class Skill(models.Model):

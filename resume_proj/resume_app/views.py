@@ -59,11 +59,26 @@ def personalinfo(request, user_id):
         }
         return render(request, 'personalinfo.html', context)
 
-def contact(request):
+# def contact(request):
+#     if request.method == 'GET':
+#         return redirect('/')
+    
+#     else:        
+#         user_id = request.session['id']
+#         user = User.objects.get(id = user_id)
+        
+#         return redirect(f'/personalinfo/{user.id}')
+
+def social(request):
     if request.method == 'GET':
-        return redirect('/')
-    errors = Contact.objects.address_validator(request.POST)
+        return redirect('/')    
     user = User.objects.get(id = request.session['id'])
+    mistakes = Contact.objects.address_validator(request.POST)
+    if len(mistakes) > 0:
+        for key, value in mistakes.items():
+            messages.error(request, value)
+        return redirect(f'/personalinfo/{user.id}')
+    errors = Social.objects.site_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
@@ -77,20 +92,7 @@ def contact(request):
         zip = request.POST['zip'], 
         phone_number = request.POST['phone_number'],
         user = user)
-        return redirect('/personalinfo')
-
-def social(request):
-    if request.method == 'GET':
-        return redirect('/')
-    errors = Social.objects.site_validator(request.POST)
-    if len(errors) > 0:
-        for key, value in errors.items():
-            messages.error(request, value)
-        return redirect('/')
-    else:        
-        user_id = request.session['id']
-        user = User.objects.get(id = user_id)
-        Social.objects.create(site = request.POST['site'], 
+        Social.objects.create(site = request.POST.getlist('site'), 
         user = user)
         return redirect('/objectiveandskill')
 
@@ -104,33 +106,40 @@ def objectiveandskill(request):
         }
     return render(request, 'objandskill.html', context)
 
-def objective(request):
+# def objective(request):
+#     if request.method == 'GET':
+#         return redirect('/')
+#     errors = Objective.objects.obj_validator(request.POST)
+#     if len(errors) > 0:
+#         for key, value in errors.items():
+#             messages.error(request, value)
+#         return redirect('/')
+#     else:        
+#         user_id = request.session['id']
+#         user = User.objects.get(id = user_id)
+        
+#         return redirect('/experiencepage')
+
+def objandskill(request):
     if request.method == 'GET':
         return redirect('/')
-    errors = Objective.objects.obj_validator(request.POST)
+    user = User.objects.get(id = request.session['id'])
+    mistakes = Objective.objects.obj_validator(request.POST)
+    if len(mistakes) > 0:
+        for key, value in mistakes.items():
+            messages.error(request, value)
+        return redirect(f'/objective/{user.id}')
+    errors = Skill.objects.skill_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect(f'/objective/{user.id}')
     else:        
         user_id = request.session['id']
         user = User.objects.get(id = user_id)
         Objective.objects.create(content = request.POST['content'], 
         user = user)
-        return redirect('/experiencepage')
-
-def skill(request):
-    if request.method == 'GET':
-        return redirect('/')
-    errors = Skill.objects.skill_validator(request.POST)
-    if len(errors) > 0:
-        for key, value in errors.items():
-            messages.error(request, value)
-        return redirect('/')
-    else:        
-        user_id = request.session['id']
-        user = User.objects.get(id = user_id)
-        Skill.objects.create(selected = request.POST['selected'], 
+        Skill.objects.create(selected = request.POST.getlist('selected'), 
         user = user)
         return redirect('/experiencepage')
 
@@ -151,12 +160,12 @@ def experience(request):
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect('/experiencepage')
     else:        
         user_id = request.session['id']
         user = User.objects.get(id = user_id)
-        Experience.objects.create(title = request.POST['title'], 
-        desc = request.POST['desc'], 
+        Experience.objects.create(title = request.POST.getlist('title'), 
+        desc = request.POST.getlist('desc'), 
         user = user)
         return redirect('/employmentpage')
 
@@ -181,10 +190,10 @@ def employment(request):
     else:        
         user_id = request.session['id']
         user = User.objects.get(id = user_id)
-        Employment.objects.create(date_from = request.POST['date_from'], 
-        date_to = request.POST['date_to'], 
-        title = request.POST['title'], 
-        desc = request.POST['desc'], 
+        Employment.objects.create(date_from = request.POST.getlist('date_from'), 
+        date_to = request.POST.getlist('date_to'), 
+        title = request.POST.getlist('title'), 
+        desc = request.POST.getlist('desc'), 
         user = user)
         return redirect('/educationpage')
 
@@ -209,11 +218,11 @@ def education(request):
     else:        
         user_id = request.session['id']
         user = User.objects.get(id = user_id)
-        Education.objects.create(date_from = request.POST['date_from'], 
-        date_to = request.POST['date_to'], 
-        school = request.POST['school'], 
-        program = request.POST['program'], 
-        grad = request.POST['grad'], 
+        Education.objects.create(date_from = request.POST.getlist('date_from'), 
+        date_to = request.POST.getlist('date_to'), 
+        school = request.POST.getlist('school'), 
+        program = request.POST.getlist('program'), 
+        grad = request.POST.getlist('grad'), 
         user = user)
         return redirect('/additionalpage')
 
@@ -238,7 +247,7 @@ def additional(request):
     else:        
         user_id = request.session['id']
         user = User.objects.get(id = user_id)
-        Additional.objects.create(info = request.POST['info'], 
+        Additional.objects.create(info = request.POST.getlist('info'), 
         user = user)
         return redirect('/templatepage')
 
@@ -312,7 +321,7 @@ def editsocial(request, user_id):
     else:
         user = User.objects.get(id = user_id)
         updated = Social.objects.get(id = user)
-        updated.site = request.POST['site']
+        updated.site = request.POST.getlist('site')
         updated.save()
         request.session['id'] = user.id
         return redirect(f'/resumehome/{user.id}')
@@ -356,7 +365,7 @@ def editskill(request, user_id):
     else:
         user = User.objects.get(id = user_id)
         updated = Skill.objects.get(id = user)
-        updated.selected = request.POST['selected']
+        updated.selected = request.POST.getlist('selected')
         updated.save()
         request.session['id'] = user.id
         return redirect(f'/resumehome/{user.id}')
@@ -383,8 +392,8 @@ def editexperience(request, user_id):
     else:
         user = User.objects.get(id = user_id)
         updated = Experience.objects.get(id = user)
-        updated.title = request.POST['title']
-        updated.desc = request.POST['desc']
+        updated.title = request.POST.getlist('title')
+        updated.desc = request.POST.getlist('desc')
         updated.save()
         request.session['id'] = user.id
         return redirect(f'/resumehome/{user.id}')
@@ -411,10 +420,10 @@ def editemployment(request, user_id):
     else:
         user = User.objects.get(id = user_id)
         updated = Employment.objects.get(id = user)
-        updated.date_from = request.POST['date_from']
-        updated.date_to = request.POST['date_to']
-        updated.title = request.POST['title']
-        updated.desc = request.POST['desc']
+        updated.date_from = request.POST.getlist('date_from')
+        updated.date_to = request.POST.getlist('date_to')
+        updated.title = request.POST.getlist('title')
+        updated.desc = request.POST.getlist('desc')
         updated.save()
         request.session['id'] = user.id
         return redirect(f'/resumehome/{user.id}')
@@ -441,11 +450,11 @@ def editeducation(request, user_id):
     else:
         user = User.objects.get(id = user_id)
         updated = Education.objects.get(id = user)
-        updated.date_from = request.POST['date_from']
-        updated.date_to = request.POST['date_to']
-        updated.school = request.POST['school']
-        updated.program = request.POST['program']
-        updated.grad = request.POST['grad']
+        updated.date_from = request.POST.getlist('date_from')
+        updated.date_to = request.POST.getlist('date_to')
+        updated.school = request.POST.getlist('school')
+        updated.program = request.POST.getlist('program')
+        updated.grad = request.POST.getlist('grad')
         updated.save()
         request.session['id'] = user.id
         return redirect(f'/resumehome/{user.id}')
@@ -472,7 +481,7 @@ def editadditional(request, user_id):
     else:
         user = User.objects.get(id = user_id)
         updated = Additional.objects.get(id = user)
-        updated.info = request.POST['info']
+        updated.info = request.POST.getlist('info')
         updated.save()
         request.session['id'] = user.id
         return redirect(f'/resumehome/{user.id}')
