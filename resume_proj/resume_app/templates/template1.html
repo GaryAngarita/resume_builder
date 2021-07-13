@@ -131,7 +131,7 @@
         <div class="emp_block">
             {% for employment in employments %}
             <ul class="employment">
-                <li><span class="date">{{employment.date_from}} - {{employment.date_to}}</span> - <span class="job_title">{{employment.title}}</span> {{employment.desc}}</li>
+                <li><span class="date">{{employment.date_from|date:"M y"}} - {{employment.date_to|date:"M y"}}</span> - <span class="job_title">{{employment.title}}</span> {{employment.desc}}</li>
                     <!-- {{ employment }} -->
                 <!-- <li><span class="date">Mar 2019 - Jun 2020</span> - <span class="job_title">Duval County Public
                         Schools</span>
@@ -157,8 +157,8 @@
                     </tr>
                     {% for education in educations %}
                     <tr>
-                        <td>{{education.date_from}}</td>
-                        <td>{{education.date_to}}</td>
+                        <td>{{education.date_from|date:"M y"}}</td>
+                        <td>{{education.date_to|date:"M y"}}</td>
                         <td>{{education.School}}</td>
                         <td>{{education.program}}</td>
                         <td>{{education.grad}}</td>

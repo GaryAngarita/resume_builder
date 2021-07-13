@@ -1,8 +1,11 @@
 from django.contrib.messages.api import error
 from django.db import models
 import re
+from datetime import date
+
+from django.utils import timezone
 from django.db.models.fields import DateTimeField
-from django.core.validators import RegexValidator, URLValidator, validate_image_file_extension
+from django.core.validators import RegexValidator, URLValidator, validate_image_file_extension, MaxValueValidator
 from django.db.models.fields.files import ImageField
 import bcrypt
 
@@ -123,8 +126,6 @@ class Objective(models.Model):
 class SkillManager(models.Manager):
     def skill_validator(self, postData):
         errors = {}
-        if postData['selected'] != '' and len(postData['selected']) < 5:
-            errors['selected'] = "Skill should be longer than 5 characters"
         if len(postData['selected']) < 1:
             errors['few_selected'] = "You should have 9 Skills"
         return errors
@@ -157,8 +158,8 @@ class EmploymentManager(models.Manager):
     def emp_validator(self, postData):
         errors = {}
         #need to figure out how to deal with date
-        if postData['date_from'] == 'Today':
-            errors['date_from'] = "Date must be in the past"
+        # if postData['date_from'] >= timezone.now().date():
+        #     errors['date_from'] = "Date must be in the past"
         if postData['title'] != '' and len(postData['title']) < 2:
             errors['title'] = "Title should be expanded"
         if postData['desc'] != '' and len(postData['desc']) < 10:
@@ -166,8 +167,8 @@ class EmploymentManager(models.Manager):
         return errors
 
 class Employment(models.Model):
-    date_from = models.DateTimeField()
-    date_to = models.DateTimeField()
+    date_from = models.DateField(validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
+    date_to = models.DateField()
     title = models.CharField(max_length=100)
     desc = models.TextField()
     user = models.ForeignKey(User, related_name="employments", on_delete=models.CASCADE)
@@ -192,8 +193,8 @@ class Education(models.Model):
         ('Y', 'Yes'),
         ('N', 'No'),
     ]
-    date_from = models.DateTimeField()
-    date_to = models.DateTimeField()
+    date_from = models.DateField(validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
+    date_to = models.DateField()
     school = models.CharField(max_length=255)
     program = models.CharField(max_length=255)
     grad = models.CharField(max_length=1, choices=GRAD_CHOICES, default='Y')

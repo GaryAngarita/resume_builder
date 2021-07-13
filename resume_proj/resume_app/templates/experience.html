@@ -29,8 +29,10 @@
             $('#add_new').click(function(){
                 counter++;
                 if(counter<=2)
-                var newElement = '<div class="exp_form"><div class="mb-3"><label for="title" class="form-label">Title</label><input type="text" class="form-control" id="exp_title" name="title"></div><div class="mb-3"><label for="desc" class="desc-form-label">Description</label><textarea class="form-control" id="exp_desc" rows="3" name="desc"></textarea></div></div>'
+                var newElement = '<div class="mb-3"><label for="title" class="form-label">Title</label><input type="text" class="form-control" id="exp_title" name="title"></div><div class="mb-3"><label for="desc" class="desc-form-label">Description</label><textarea class="form-control" id="exp_desc" rows="3" name="desc"></textarea></div>'
                 $('.exp_form').append( $(newElement) )
+                if(counter>2)
+                $('#add_new').remove()
             })            
         })
     </script>
@@ -69,8 +71,8 @@
             </div>
         </div>    
         <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
-            </div>
-        <input type="button" id="add_new" value="Add Experience">
+            <input type="button" id="add_new" value="Add Experience">
+        </div>
         <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
             <button class="btn btn-primary" id="submit" type="submit">Next page - Employment</button>
         </div>  

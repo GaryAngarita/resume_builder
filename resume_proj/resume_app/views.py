@@ -186,7 +186,7 @@ def employment(request):
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect('/employmentpage')
     else:        
         user_id = request.session['id']
         user = User.objects.get(id = user_id)
@@ -214,7 +214,7 @@ def education(request):
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect('/educationpage')
     else:        
         user_id = request.session['id']
         user = User.objects.get(id = user_id)
@@ -239,32 +239,34 @@ def additionalpage(request):
 def additional(request):
     if request.method == 'GET':
         return redirect('/')
+    mistakes = Picture.objects.pic_validator(request.POST)
+    if len(mistakes) > 0:
+        for key, value in mistakes.items():
+            messages.error(request, value)
+        return redirect('/additionalpage')
     errors = Additional.objects.add_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect('/additionalpage')
     else:        
         user_id = request.session['id']
         user = User.objects.get(id = user_id)
         Additional.objects.create(info = request.POST.getlist('info'), 
         user = user)
-        return redirect('/templatepage')
-
-def picture(request):
-    if request.method == 'GET':
-        return redirect('/')
-    errors = Picture.objects.pic_validator(request.POST)
-    if len(errors) > 0:
-        for key, value in errors.items():
-            messages.error(request, value)
-        return redirect('/')
-    else:        
-        user_id = request.session['id']
-        user = User.objects.get(id = user_id)
         Picture.objects.create(img = request.POST['img'], 
         user = user)
         return redirect('/templatepage')
+
+# def picture(request):
+#     if request.method == 'GET':
+#         return redirect('/')
+    
+#     else:        
+#         user_id = request.session['id']
+#         user = User.objects.get(id = user_id)
+        
+#         return redirect('/templatepage')
 
 # def picture(request):
 #     if request.method == 'POST':

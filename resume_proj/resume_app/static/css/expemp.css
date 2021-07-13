@@ -32,6 +32,10 @@ h2, .mb-3{
     margin-top: 10px;
 }
 
+.emp_notes{
+    font-size: small;
+}
+
 #emp_desc{
     margin-bottom: 20px;
 }

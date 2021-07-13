@@ -21,7 +21,7 @@ urlpatterns = [
     path('education', views.education),
     path('additionalpage', views.additionalpage),
     path('additional', views.additional),
-    path('picture/', views.picture),
+    # path('picture/', views.picture),
     path('templatepage', views.templatepage),
     path('editpersonalpage/<int:user_id>', views.editpersonalpage),
     path('editcontact/<int:user_id>', views.editcontact),
