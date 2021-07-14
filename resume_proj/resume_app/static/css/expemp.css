@@ -43,3 +43,13 @@ h2, .mb-3{
 .emp_form, .exp_form{
     margin: 0px 10px 50px 10px
 }
+
+#next_page{
+    color: white;
+}
+
+table{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}

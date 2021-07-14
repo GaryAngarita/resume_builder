@@ -2,6 +2,7 @@ from django.contrib.messages.api import error
 from django.db import models
 import re
 from datetime import date
+import imghdr
 
 from django.utils import timezone
 from django.db.models.fields import DateTimeField
@@ -180,24 +181,20 @@ class EducationManager(models.Manager):
     def edu_validator(self, postData):
         errors = {}
         #need to figure out how to deal with date
-        if postData['date_from'] == 'Today':
-            errors['date_from'] = "Date must be in the past"
-        if postData['school'] != '' and len(postData['school']) < 5:
+        # if postData['date_from'] == 'Today':
+        #     errors['date_from'] = "Date must be in the past"
+        if postData['school'] != '' and len(postData['school']) < 2:
             errors['school'] = "Schools need to be spelled out"
         if postData['program'] != '' and len(postData['program']) < 5:
             errors['program'] = "Program needs to be spelled out"
         return errors
 
 class Education(models.Model):
-    GRAD_CHOICES = [
-        ('Y', 'Yes'),
-        ('N', 'No'),
-    ]
     date_from = models.DateField(validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
     date_to = models.DateField()
     school = models.CharField(max_length=255)
     program = models.CharField(max_length=255)
-    grad = models.CharField(max_length=1, choices=GRAD_CHOICES, default='Y')
+    grad = models.CharField(max_length=1)
     user = models.ForeignKey(User, related_name="educations", on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
@@ -223,6 +220,7 @@ class PictureManager(models.Manager):
         test = re.compile(image_regex)
         if postData['img'] != '':
             if (re.search(test, str)):
+                print(imghdr.what(postData['img']))
                 return True
             else:
                 errors['img'] = "That is not a supported image type. Must be .jpg, .png, .gif, .bmp"

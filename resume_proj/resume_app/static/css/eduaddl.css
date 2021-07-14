@@ -4,6 +4,16 @@ h2, p{
     text-align: center;
 }
 
+#next_page{
+    color: white;
+}
+
+table{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 span{
     font-size: small;
 }

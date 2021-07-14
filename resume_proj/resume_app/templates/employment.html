@@ -22,7 +22,7 @@
     <title>Fill out Employment</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/expemp.css' %}">
-    <script>
+    <!-- <script>
         $(document).ready(function(){
             
             var counter = 0;
@@ -35,7 +35,7 @@
                 $('#add_new').remove()
             })            
         })
-    </script>
+    </script> -->
 </head>
 <body>
     <!-- NAVBAR -->
@@ -56,6 +56,11 @@
     </nav><!-- /NAVBAR -->
     <br>
     <h2>Employment <span class="emp_notes">(start with most current)</span></h2>
+    {% for message in messages %}
+    <ul>
+        <li>{{ message }}</li>
+    </ul>
+    {% endfor %}
     <br>
     <div id="emp_form">
         <form action="/employment" method="POST" id="employment">
@@ -63,7 +68,7 @@
         <div class="emp_form">
             <div class="row">
                 <div class="col">
-                    <label for="date_from" class="form-label">From</label>
+                    <label for="date_from" class="form-label">From <span class="emp_notes">(must be in the past)</span></label>
                     <input type="date" class="form-control" id="emp_from" name="date_from">
                 </div>
                 <div class="col">
@@ -81,12 +86,29 @@
             </div>
         </div>
         <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
-            <input type="button" id="add_new" value="Add Employment">
-        </div>
-        <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
-            <button class="btn btn-primary" id="submit" type="submit">Next page - Education</button>
-        </div>     
+            <button class="btn btn-primary" id="submit" type="submit">Add Employment</button>
+        </div>  
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-primary" ><a href="/educationpage" id="next_page">Next page - Education</a></button>
+        </div>       
         </form>
     </div>
-    </div>
+    <div id="emp_table">
+        <table style="width: fit-content;" class="table table-bordered">
+            <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Title</th>
+                <th>Description</th>
+            </tr>
+            {% for education in user.employments.all %}
+            <tr>
+                <td>{{ employment.date_from }}</td>
+                <td>{{ employment.date_to }}</td>
+                <td>{{ employment.title }}</td>
+                <td>{{ employment.desc }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>  
 </body>

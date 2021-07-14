@@ -56,6 +56,11 @@
     </nav><!-- /NAVBAR -->
     <br>
     <h2>Experience</h2>
+    {% for message in messages %}
+    <ul>
+        <li>{{ message }}</li>
+    </ul>
+    {% endfor %}
     <br>
     <div id="exp_form">
         <form action="/experience" method="POST" id="experience">

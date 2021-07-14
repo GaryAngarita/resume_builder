@@ -22,7 +22,7 @@
     <title>Fill out Education</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/eduaddl.css' %}">
-    <script>
+    <!-- <script>
         $(document).ready(function(){
             
             var counter = 0;
@@ -33,7 +33,7 @@
                 $('#education').append( $(newElement) )
             })            
         })
-    </script>
+    </script> -->
 </head>
 <body>
     <!-- NAVBAR -->
@@ -54,6 +54,11 @@
     </nav><!-- /NAVBAR -->
     <br>
     <h2>Education</h2>
+    {% for message in messages %}
+    <ul>
+        <li>{{ message }}</li>
+    </ul>
+    {% endfor %}
     <br>
     <div id="edu_form">
         <form action="/education" method="POST" id="education">
@@ -77,17 +82,38 @@
                 <label for="program" class="desc-form-label">Program <span>(ex: Bachelor of Science in Aeronautics)</span></label>
                 <input type="text" class="form-control" id="edu_program" name="program">
             </div>
-            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="grad">
+            <select class="form-select" aria-label="Default select example" name="grad">
                 <option selected>Did you graduate?</option>
-                {% for key, value in grad_choices %}
-                <option value="{{choice.key}}">{{choice.value}}</option>
-                {% endfor %}
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
             </select>
-        </div>       
+        </div>    
+        <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
+            <button class="btn btn-primary" id="submit" type="submit">Add Education</button>
+        </div>  
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-primary" ><a href="/additionalpage" id="next_page">Next page - Additional</a></button>
+        </div>   
         </form>
-    </div>
-    <input type="button" id="add_new" value="Add Education">
-    <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
-        <button class="btn btn-primary" id="submit" type="submit">Last page - Additional</button>
-    </div>
+    </div>  
+    <div id="emp_table">
+        <table style="width: fit-content;" class="table table-bordered">
+            <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>School</th>
+                <th>Program/Degree</th>
+                <th>Graduated?</th>
+            </tr>
+            {% for education in user.educations.all %}
+            <tr>
+                <td>{{ education.date_from }}</td>
+                <td>{{ education.date_to }}</td>
+                <td>{{ education.school }}</td>
+                <td>{{ education.program }}</td>
+                <td>{{ education.grad }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>  
 </body>

@@ -174,8 +174,10 @@ def employmentpage(request):
         return redirect('/')
     else:
         user_id = request.session['id']
+        user = User.objects.get(id = user_id)
         context = {
-            'user': User.objects.get(id = user_id)
+            'user': User.objects.get(id = user_id),
+            'employments': Employment.objects.get(user = user)
         }
     return render(request, 'employment.html', context)
 
@@ -190,12 +192,13 @@ def employment(request):
     else:        
         user_id = request.session['id']
         user = User.objects.get(id = user_id)
-        Employment.objects.create(date_from = request.POST.getlist('date_from'), 
-        date_to = request.POST.getlist('date_to'), 
-        title = request.POST.getlist('title'), 
-        desc = request.POST.getlist('desc'), 
+        Employment.objects.create(date_from = request.POST['date_from'], 
+        date_to = request.POST['date_to'], 
+        title = request.POST['title'], 
+        desc = request.POST['desc'], 
         user = user)
-        return redirect('/educationpage')
+        print(type(request.POST['date_from']))
+        return redirect('/employmentpage')
 
 def educationpage(request):
     if 'id' not in request.session:
@@ -203,7 +206,8 @@ def educationpage(request):
     else:
         user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id)
+            'user': User.objects.get(id = user_id),
+            'education': Education.objects.filter(user = user_id)
         }
     return render(request, 'education.html', context)
 
@@ -218,13 +222,13 @@ def education(request):
     else:        
         user_id = request.session['id']
         user = User.objects.get(id = user_id)
-        Education.objects.create(date_from = request.POST.getlist('date_from'), 
-        date_to = request.POST.getlist('date_to'), 
-        school = request.POST.getlist('school'), 
-        program = request.POST.getlist('program'), 
-        grad = request.POST.getlist('grad'), 
+        Education.objects.create(date_from = request.POST['date_from'], 
+        date_to = request.POST['date_to'], 
+        school = request.POST['school'], 
+        program = request.POST['program'], 
+        grad = request.POST['grad'], 
         user = user)
-        return redirect('/additionalpage')
+        return redirect('/educationpage')
 
 def additionalpage(request):
     if 'id' not in request.session:
@@ -239,14 +243,14 @@ def additionalpage(request):
 def additional(request):
     if request.method == 'GET':
         return redirect('/')
-    mistakes = Picture.objects.pic_validator(request.POST)
-    if len(mistakes) > 0:
-        for key, value in mistakes.items():
-            messages.error(request, value)
-        return redirect('/additionalpage')
     errors = Additional.objects.add_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/additionalpage')
+    mistakes = Picture.objects.pic_validator(request.POST)
+    if len(mistakes) > 0:
+        for key, value in mistakes.items():
             messages.error(request, value)
         return redirect('/additionalpage')
     else:        
@@ -256,17 +260,17 @@ def additional(request):
         user = user)
         Picture.objects.create(img = request.POST['img'], 
         user = user)
-        return redirect('/templatepage')
+        return redirect('/additionalpage')
 
-# def picture(request):
-#     if request.method == 'GET':
-#         return redirect('/')
+def picture(request):
+    if request.method == 'GET':
+        return redirect('/')
     
-#     else:        
-#         user_id = request.session['id']
-#         user = User.objects.get(id = user_id)
+    else:        
+        user_id = request.session['id']
+        user = User.objects.get(id = user_id)
         
-#         return redirect('/templatepage')
+        return redirect('/templatepage')
 
 # def picture(request):
 #     if request.method == 'POST':
