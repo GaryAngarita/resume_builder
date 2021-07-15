@@ -1,5 +1,4 @@
 #container{
-    background-image: url({{user.picture.img}});
     background-repeat: no-repeat;
     background-size: cover;
     background-blend-mode:soft-light;
@@ -10,8 +9,9 @@
     /* background-color: skyblue; */
 }
 
-#intro, #profile_pic{
-    display: inline-block;
+img{
+    height: 300px;
+    width: 200px;
 }
 
 .col-9, .col-3{

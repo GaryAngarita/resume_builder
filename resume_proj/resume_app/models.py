@@ -2,7 +2,6 @@ from django.contrib.messages.api import error
 from django.db import models
 import re
 from datetime import date
-import imghdr
 
 from django.utils import timezone
 from django.db.models.fields import DateTimeField
@@ -11,7 +10,6 @@ from django.db.models.fields.files import ImageField
 import bcrypt
 
 email_regex = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-image_regex = "([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp))$)"
 url_regex = re.compile(
         r'^(?:http|ftp)s?://' # http:// or https://
         r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' #domain...
@@ -104,7 +102,9 @@ class SocialManager(models.Manager):
         return errors
 
 class Social(models.Model):
-    site = models.URLField(max_length=200)
+    github = models.URLField(max_length=200, null=True)
+    linkedin = models.URLField(max_length=200, null=True)
+    facebook = models.URLField(max_length=200, null=True)
     user = models.ForeignKey(User, related_name="social_medias", on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
@@ -132,7 +132,15 @@ class SkillManager(models.Manager):
         return errors
 
 class Skill(models.Model):
-    selected = models.CharField(max_length=255)
+    selected1 = models.CharField(max_length=255, null=False, blank=False)
+    selected2 = models.CharField(max_length=255, null=False, blank=False)
+    selected3 = models.CharField(max_length=255, null=False, blank=False)
+    selected4 = models.CharField(max_length=255, null=False, blank=False)
+    selected5 = models.CharField(max_length=255, null=False, blank=False)
+    selected6 = models.CharField(max_length=255, null=False, blank=False)
+    selected7 = models.CharField(max_length=255, null=False, blank=False)
+    selected8 = models.CharField(max_length=255, null=False, blank=False)
+    selected9 = models.CharField(max_length=255, null=False, blank=False)
     user = models.ForeignKey(User, related_name="skills", on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
@@ -215,17 +223,20 @@ class Additional(models.Model):
     objects = AdditionalManager()
 
 class PictureManager(models.Manager):
-    def pic_validator(self, postData):
+    def pic_validator(self, postFile):
+        image_regex = "([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp))$)"
         errors = {}
         test = re.compile(image_regex)
-        if postData['img'] != '':
-            if (re.search(test, str)):
-                print(imghdr.what(postData['img']))
-                return True
-            else:
-                errors['img'] = "That is not a supported image type. Must be .jpg, .png, .gif, .bmp"
-                return False
+        # if (postFile['img'] == None):
+        #     return False
+        if (re.search(test, str(postFile['img']))) == False:
+            # print(imghdr.what(postFile['img']))
+            # return True
+        # else:
+            errors['img'] = "That is not a supported image type. Must be .jpg, .png, .gif, .bmp"
         return errors
+        # elif postData['img'] != '' and len(postData['img']) < 4:
+        #     errors['not_img'] = "Filename must be greater than 4 characters"
 
 class Picture(models.Model):
     img = models.ImageField(null=True, blank=True)

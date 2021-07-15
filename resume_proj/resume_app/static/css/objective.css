@@ -35,3 +35,23 @@ h2, .mb-3, p{
 #skill_list{
     margin: 10px;
 }
+
+.skills{
+    display: flex;
+    place-content: center;
+
+}
+.skills ul{
+    /* padding-bottom: 0px; */
+    margin: 0px;
+}
+.skills1{
+    display: inline-block;
+    width: 250px;
+    place-content: center;
+    height: fit-content;
+}
+.skills li{
+    padding-bottom: 5px;
+    font-size:medium;
+}

@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Resume Display</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/template1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/template2.css' %}">
     <script>
         $(document).ready(function () {
             $('.experience, .row, .employment, .additional').hide();
@@ -34,3 +34,173 @@
 
     </script>
 </head>
+
+<body>
+    <div id="container">
+        <div class="clearfix">
+            <img src="{{ user.picture.img }}" class="col-md-6 float-md-end mb-3 ms-md-3" alt="profile pic">
+                <div class="name">
+                    <h1>{{user.first_name}} {{user.last_name}}</h1>
+                    <!-- <h1>{{user.name}}</h1> -->
+                </div>
+                <div class="address1">
+                    <p><a href=" http://maps.google.com/?q={{user.contact.street}} {{user.contact.city}} {{user.contact.state}} {{user.contact.zip}}" target="_blank">{{user.contact.street}}</a></p>
+                    <!-- <p><a href=" http://maps.google.com/?q={{user.street_address}}" target="_blank"> {{user.street_address}} </a></p> -->
+                </div>
+                <div class="address2">
+                    <p> {{user.contact.city}} {{user.contact.state}} {{user.contact.zip}}</p>
+                    <!-- {{user.city_state_zip}}</p> -->
+                </div>
+                <div class="phone">
+                    <p><span pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">{{user.contact.phone_number}}</span> </p>
+                    <!-- <p>{{phone}}</p> -->
+                </div>
+                <div class="nav_bar">
+                    {% for social in user.social_medias.all %}
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{social.site}}"
+                                target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                                        {{social.site}}</svg></a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="https://www.linkedin.com/in/garythepilot/" target="_blank"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    class="bi bi-linkedin" viewBox="0 0 16 16">
+                                    <path
+                                        d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
+                                </svg></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        </li> -->
+                    </ul>
+                    {% endfor %}
+                </div>
+        </div>
+        <div class="intro">
+            <h2>Objective:</h2>
+            <p>{{user.objective.content}}.</p>
+                <!-- <p>{{user.objective}}</p> -->
+        </div>
+        <h2>Skills:</h2>
+        <div class="skills">
+            <!-- <div class="skills1">
+                {% for skill in user.skills.all %}
+                <ul>
+                    <li>{{skill.selected}}</li>            
+                </ul>
+                {% endfor %} -->
+        
+        <div class="skills1">
+            <ul>
+                <li>{{user.skill.selected1}}</li>
+                <li>{{user.skill.selected2}}</li>
+                <li>{{user.skill.selected3}}</li>
+            </ul>
+        </div>
+        <div class="skills1">
+            <ul>
+                <li>{{user.skill.selected4}}</li>
+                <li>{{user.skill.selected5}}</li>
+                <li>{{user.skill.selected6}}</li>
+            </ul>
+        </div>
+        <div class="skills1">
+            <ul>
+                <li>{{user.skill.selected7}}</li>
+                <li>{{user.skill.selected8}}</li>
+                <li>{{user.skill.selected9}}</li>
+            </ul>
+        </div>
+        </div>
+        <h2 id="exp">Experience</h2>
+        <div class="exp_block">
+                {% for experience in user.experiences.all %}
+                <ul class="experience">
+                <li><span class="title">{{experience.title}}</span> - {{experience.desc}}</li>
+                <!-- <li><span class="title">Pilot-in-Command/Chief Warrant Officer/Training Officer</span> - Operated $38
+                    million aircraft in National Airspace under tactical and non-tactical
+                    conditions. Organized and briefed air movements with mixed airframes.
+                    Created training calendars for company of 72 Soldiers forecasted up to 6 weeks
+                </li>
+                <li><span class="title">Squad Leader</span> - Served as first-line supervisor to 16 Soldiers 
+                    while in support of chemical operations. Trained Soldiers on basic marksmanship, customs & 
+                    courtesies, and discipline.</li> -->
+                </ul>
+                {% endfor %}
+        </div>
+        <h2 id="emp">Employment</h2>
+        <div class="emp_block">
+            {% for employment in user.employments.all %}
+            <ul class="employment">
+                <li><span class="date">{{employment.date_from|date:"M y"}} - {{employment.date_to|date:"M y"}}</span> - <span class="job_title">{{employment.title}}</span> {{employment.desc}}</li>
+                    <!-- {{ employment }} -->
+                <!-- <li><span class="date">Mar 2019 - Jun 2020</span> - <span class="job_title">Duval County Public
+                        Schools</span>
+                    Middle School Math/Science Teacher. Created lesson plans, coordinated with department
+                    heads, and maintained testing statistics through 36 weeks of forecasted planning.</li>
+                <li><span class="date">Sep 2003 - Apr 2016</span> - <span class="job_title">US Army</span>Served
+                    as Pilot, Tactical Operations Officer, Squad Leader, and Physical Training Officer. Taught
+                    classes to groups ranging from 20-100 Soldiers in topics ranging from aerodynamics and flight
+                    operations to aircraft software and flight tactics.</li> -->
+            </ul>
+            {% endfor %}
+        </div>
+        <h2 id="edu">Education</h2>
+        <div class="container">
+            <div class="row">
+                <table style="width: 100%">
+                    <tr>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Name</th>
+                        <th>Program/Degree</th>
+                        <th>Graduated?</th>
+                    </tr>
+                    {% for education in user.educations.all %}
+                    <tr>
+                        <td>{{education.date_from|date:"M y"}}</td>
+                        <td>{{education.date_to|date:"M y"}}</td>
+                        <td>{{education.school}}</td>
+                        <td>{{education.program}}</td>
+                        <td>{{education.grad}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <!-- May need to do this separately since it has dates -->
+                <!-- <div class="col-9">Coding Dojo Bootcamp</div>
+                <div class="col-3"> Jan 2021 - Jul 2021</div>
+                <div class="col-9">Embry-Riddle Aeronautical University - Master's of Science in Aeronautics</div>
+                <div class="col-3">Jul 2020 - </div>
+                <div class="col-9">Embry-Riddle Aeronautical University - Graduated Magna Cum Laude Bachelor's of
+                    Science in Aeronautics</div>
+                <div class="col-3">Jan 2014 - May 2018</div> -->
+            </div>
+        </div>
+        <h2 id="add">Additional Information</h2>
+        <div class="additional">
+            {% for additional in user.additionals.all %}
+            <ul>
+                <li>{{ additional.info }}</li>
+<!--                 
+                <li>Heavy public speaking experience</li>
+                <li>Have held TS security clearance</li>
+                <li>Willing to relocate</li>
+                <li>Fluent in Spanish</li> -->
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

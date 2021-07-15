@@ -2,6 +2,7 @@ from django.contrib.messages.api import info
 from django.shortcuts import render, redirect
 from django.contrib import messages
 import bcrypt
+import imghdr
 from .models import *
 
 def logreg(request):
@@ -92,7 +93,7 @@ def social(request):
         zip = request.POST['zip'], 
         phone_number = request.POST['phone_number'],
         user = user)
-        Social.objects.create(site = request.POST.getlist('site'), 
+        Social.objects.create(site = request.POST['site'], 
         user = user)
         return redirect('/objectiveandskill')
 
@@ -139,7 +140,15 @@ def objandskill(request):
         user = User.objects.get(id = user_id)
         Objective.objects.create(content = request.POST['content'], 
         user = user)
-        Skill.objects.create(selected = request.POST.getlist('selected'), 
+        Skill.objects.create(selected1 = request.POST['selected1'], 
+        selected2 = request.POST['selected2'], 
+        selected3 = request.POST['selected3'], 
+        selected4 = request.POST['selected4'], 
+        selected5 = request.POST['selected5'], 
+        selected6 = request.POST['selected6'], 
+        selected7 = request.POST['selected7'], 
+        selected8 = request.POST['selected8'], 
+        selected9 = request.POST['selected9'],
         user = user)
         return redirect('/experiencepage')
 
@@ -165,7 +174,7 @@ def experience(request):
         user_id = request.session['id']
         user = User.objects.get(id = user_id)
         Experience.objects.create(title = request.POST.getlist('title'), 
-        desc = request.POST.getlist('desc'), 
+        desc = request.POST['desc'], 
         user = user)
         return redirect('/employmentpage')
 
@@ -247,8 +256,18 @@ def additional(request):
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
+        return redirect('/additionalpage')    
+    else:        
+        user_id = request.session['id']
+        user = User.objects.get(id = user_id)
+        Additional.objects.create(info = request.POST['info'], 
+        user = user)        
         return redirect('/additionalpage')
-    mistakes = Picture.objects.pic_validator(request.POST)
+
+def picture(request):
+    if request.method == 'GET':
+        return redirect('/')
+    mistakes = Picture.objects.pic_validator(request.FILES)
     if len(mistakes) > 0:
         for key, value in mistakes.items():
             messages.error(request, value)
@@ -256,20 +275,9 @@ def additional(request):
     else:        
         user_id = request.session['id']
         user = User.objects.get(id = user_id)
-        Additional.objects.create(info = request.POST.getlist('info'), 
+        Picture.objects.create(img = str(request.FILES['img']), 
         user = user)
-        Picture.objects.create(img = request.POST['img'], 
-        user = user)
-        return redirect('/additionalpage')
-
-def picture(request):
-    if request.method == 'GET':
-        return redirect('/')
-    
-    else:        
-        user_id = request.session['id']
-        user = User.objects.get(id = user_id)
-        
+        print(imghdr.what(request.FILES['img']))
         return redirect('/templatepage')
 
 # def picture(request):
@@ -282,7 +290,44 @@ def picture(request):
 #     return redirect('/templatepage')
 
 def templatepage(request):
-    return render(request, 'preview.html')
+    if 'id' not in request.session:
+        return redirect('/')
+    else:
+        user_id = request.session['id']
+        context = {
+            'user': User.objects.get(id = user_id)
+        }
+    return render(request, 'preview.html', context)
+
+def template1(request, user_id):
+    if 'id' not in request.session:
+        return redirect('/')
+    else:
+        user_id = request.session['id']
+        context = {
+            'user': User.objects.get(id = user_id)
+        }
+    return render(request, 'template1.html', context)
+
+def template2(request, user_id):
+    if 'id' not in request.session:
+        return redirect('/')
+    else:
+        user_id = request.session['id']
+        context = {
+            'user': User.objects.get(id = user_id)
+        }
+    return render(request, 'template2.html', context)
+
+def template3(request, user_id):
+    if 'id' not in request.session:
+        return redirect('/')
+    else:
+        user_id = request.session['id']
+        context = {
+            'user': User.objects.get(id = user_id)
+        }
+    return render(request, 'template3.html', context)
 
 def editpersonalpage(request, user_id):
     if 'id' not in request.session:

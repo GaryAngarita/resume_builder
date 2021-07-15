@@ -36,33 +36,34 @@
 </head>
 
 <body>
-    <div id="container">
+    <!-- <div class="row first-info" style="background-image: url({{user.picture.img}})" > -->
+    <div id="container">    
         <div class="name">
             <h1>{{user.first_name}} {{user.last_name}}</h1>
             <!-- <h1>{{user.name}}</h1> -->
         </div>
         <div class="address1">
-            <p><a href=" http://maps.google.com/?q={{contact.street}} {{contact.city}} {{contact.state}} {{contact.zip}}" target="_blank">{{user.street}}</a></p>
+            <p><a href=" http://maps.google.com/?q={{user.contact.street}} {{user.contact.city}} {{user.contact.state}} {{user.contact.zip}}" target="_blank">{{user.contact.street}}</a></p>
             <!-- <p><a href=" http://maps.google.com/?q={{user.street_address}}" target="_blank"> {{user.street_address}} </a></p> -->
         </div>
         <div class="address2">
-            <p> {{contact.city}} {{contact.state}} {{contact.zip}}</p>
+            <p> {{user.contact.city}} {{user.contact.state}} {{user.contact.zip}}</p>
             <!-- {{user.city_state_zip}}</p> -->
         </div>
         <div class="phone">
-            <p><span pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">{{contact.phone}}</span> </p>
+            <p><span pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">{{user.contact.phone_number}}</span> </p>
             <!-- <p>{{phone}}</p> -->
         </div>
         <div class="nav_bar">
-            {% for social in socials %}
+            {% for social in user.social_medias.all %}
             <ul class="nav">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{social.site}}"
                         target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                            fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
-                            <path
-                                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
-                        </svg></a>
+                        fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                        <path
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                            {{social.site}}</svg></a>
                 </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="https://www.linkedin.com/in/garythepilot/" target="_blank"><svg
@@ -83,13 +84,13 @@
         </div>
         <div class="intro">
             <h2>Objective:</h2>
-            <p>{{objective.content}}.</p>
+            <p>{{user.objective.content}}.</p>
                 <!-- <p>{{user.objective}}</p> -->
         </div>
         <h2>Skills:</h2>
         <div class="skills">
             <div class="skills1">
-                {% for skill in skills %}
+                {% for skill in user.skills.all %}
                 <ul>
                     <li>{{skill.selected}}</li>                   
                 </ul>
@@ -113,7 +114,7 @@
         </div>
         <h2 id="exp">Experience</h2>
         <div class="exp_block">
-                {% for experience in experiences %}
+                {% for experience in user.experiences.all %}
                 <ul class="experience">
                 <li><span class="title">{{experience.title}}</span> - {{experience.desc}}</li>
                 <!-- <li><span class="title">Pilot-in-Command/Chief Warrant Officer/Training Officer</span> - Operated $38
@@ -129,7 +130,7 @@
         </div>
         <h2 id="emp">Employment</h2>
         <div class="emp_block">
-            {% for employment in employments %}
+            {% for employment in user.employments.all %}
             <ul class="employment">
                 <li><span class="date">{{employment.date_from|date:"M y"}} - {{employment.date_to|date:"M y"}}</span> - <span class="job_title">{{employment.title}}</span> {{employment.desc}}</li>
                     <!-- {{ employment }} -->
@@ -155,11 +156,11 @@
                         <th>Program/Degree</th>
                         <th>Graduated?</th>
                     </tr>
-                    {% for education in educations %}
+                    {% for education in user.educations.all %}
                     <tr>
                         <td>{{education.date_from|date:"M y"}}</td>
                         <td>{{education.date_to|date:"M y"}}</td>
-                        <td>{{education.School}}</td>
+                        <td>{{education.school}}</td>
                         <td>{{education.program}}</td>
                         <td>{{education.grad}}</td>
                     </tr>
@@ -177,7 +178,7 @@
         </div>
         <h2 id="add">Additional Information</h2>
         <div class="additional">
-            {% for additional in additionals %}
+            {% for additional in user.additionals.all %}
             <ul>
                 <li>{{ additional.info }}</li>
 <!--                 
