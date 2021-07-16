@@ -9,7 +9,7 @@
     font-size: medium;
 }
 
-.phone{
+.phone, .span_skills{
     font-size: small;
 }
 
@@ -19,7 +19,7 @@
 
 /* objective and skills css */
 
-h2, .mb-3, p{
+h2, .mb-3, p, h6{
     text-align: center;
 }
 

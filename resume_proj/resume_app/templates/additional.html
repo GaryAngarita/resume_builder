@@ -64,7 +64,7 @@
     {% endfor %}
     <br>
     <div id="addl_form">
-        <form action="/additional" method="POST" id="additional" enctype="multipart/form-data">
+        <form action="/additional" method="POST" id="additional">
             {% csrf_token %}
         <div class="addl_form">
             <div class="mb-3" id="title_div">
@@ -72,20 +72,24 @@
                 <input type="text" class="form-control" id="addl_info" name="info">
             </div>
         </div>
-        <input type="button" id="add_new" value="Add Additional">
         <br>
         <br>
-        <h2>Upload a Profile Picture <span>(must be .jpg, .jpeg, .png, .bmp, or .gif)</span></h2>
-        <div class="img_form">
-            <div class="mb-3">
-                <label for="formFile" class="form-label">Upload pic here</label>
-                <input class="form-control" type="file" id="formFile" name="img" >
-            </div>
-        </div>
         <div class="d-grid gap-2 col-2 mx-auto" id="final_btm_btn">
-            <button class="btn btn-primary" id="submit" type="submit">Final Step - Choose Template</button>
+            <button class="btn btn-primary" id="submit" type="submit">Add Additional</button>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a class="btn btn-primary" href="/picturepage" role="button" id="next_page">Almost done - Upload Photo</a>
         </div>
         </form>
+        {% if user.additionals.all %}
+    <div id="emp_table">
+            {% for additional in user.additionals.all %}
+            <ul>
+                <li>{{ additional.info }}</li>
+            </ul>
+            {% endfor %}
+    </div>  
+    {% endif %}
     </div>
     
             

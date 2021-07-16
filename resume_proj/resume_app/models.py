@@ -74,7 +74,7 @@ class ContactManager(models.Manager):
         errors = {}
         if len(postData['street']) < 2:
             errors['street'] = "Enter a legit street"
-        if len(postData['zip']) < 5 or len(postData['zip']) > 5:
+        if len(postData['zip']) != 5:
             errors['zip'] = "Zip code must be 5 numbers"
         if len(postData['phone_number']) < 10:
             errors['short_number'] = "Phone number must be 10 digits"
@@ -94,17 +94,26 @@ class Contact(models.Model):
 class SocialManager(models.Manager):
     def site_validator(self, postData):
         errors = {}
-        if postData['site'] != '':
-            if not url_regex.match(postData['site']):
-                errors['site'] = 'Check your website and try again'
-            else:
-                print('Site is valid')
+        if len(postData['github']) < 4:
+            errors['github'] = "Check your GitHub site again"
+        if len(postData['linkedin']) < 4:
+            errors['linkedin'] = "Check your LinkedIn site again"
+        if len(postData['facebook']) < 4:
+            errors['facebook'] = "Check your Facebook site again"
+        if len(postData['twitter']) < 4:
+            errors['twitter'] = "Check your Twitter site again"
+        # if postData['site'] != '':
+        #     if not url_regex.match(postData['site']):
+        #         errors['site'] = 'Check your website and try again'
+        #     else:
+        #         print('Site is valid')
         return errors
 
 class Social(models.Model):
-    github = models.URLField(max_length=200, null=True)
-    linkedin = models.URLField(max_length=200, null=True)
-    facebook = models.URLField(max_length=200, null=True)
+    github = models.CharField(max_length=200, blank=True)
+    linkedin = models.CharField(max_length=200, blank=True)
+    facebook = models.CharField(max_length=200, blank=True)
+    twitter = models.CharField(max_length=200, blank=True)
     user = models.ForeignKey(User, related_name="social_medias", on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
@@ -127,20 +136,36 @@ class Objective(models.Model):
 class SkillManager(models.Manager):
     def skill_validator(self, postData):
         errors = {}
-        if len(postData['selected']) < 1:
-            errors['few_selected'] = "You should have 9 Skills"
+        if len(postData['selected1']) < 1:
+            errors['few_selected1'] = "You should have 9 Skills"
+        if len(postData['selected2']) < 1:
+            errors['few_selected2'] = "You should have 9 Skills"
+        if len(postData['selected3']) < 1:
+            errors['few_selected3'] = "You should have 9 Skills"
+        if len(postData['selected4']) < 1:
+            errors['few_selected4'] = "You should have 9 Skills"
+        if len(postData['selected5']) < 1:
+            errors['few_selected5'] = "You should have 9 Skills"
+        if len(postData['selected6']) < 1:
+            errors['few_selected6'] = "You should have 9 Skills"
+        if len(postData['selected7']) < 1:
+            errors['few_selected7'] = "You should have 9 Skills"
+        if len(postData['selected8']) < 1:
+            errors['few_selected8'] = "You should have 9 Skills"
+        if len(postData['selected9']) < 1:
+            errors['few_selected9'] = "You should have 9 Skills"
         return errors
 
 class Skill(models.Model):
-    selected1 = models.CharField(max_length=255, null=False, blank=False)
-    selected2 = models.CharField(max_length=255, null=False, blank=False)
-    selected3 = models.CharField(max_length=255, null=False, blank=False)
-    selected4 = models.CharField(max_length=255, null=False, blank=False)
-    selected5 = models.CharField(max_length=255, null=False, blank=False)
-    selected6 = models.CharField(max_length=255, null=False, blank=False)
-    selected7 = models.CharField(max_length=255, null=False, blank=False)
-    selected8 = models.CharField(max_length=255, null=False, blank=False)
-    selected9 = models.CharField(max_length=255, null=False, blank=False)
+    selected1 = models.CharField(max_length=255, blank=True)
+    selected2 = models.CharField(max_length=255, blank=True)
+    selected3 = models.CharField(max_length=255, blank=True)
+    selected4 = models.CharField(max_length=255, blank=True)
+    selected5 = models.CharField(max_length=255, blank=True)
+    selected6 = models.CharField(max_length=255, blank=True)
+    selected7 = models.CharField(max_length=255, blank=True)
+    selected8 = models.CharField(max_length=255, blank=True)
+    selected9 = models.CharField(max_length=255, blank=True)
     user = models.ForeignKey(User, related_name="skills", on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
@@ -177,7 +202,7 @@ class EmploymentManager(models.Manager):
 
 class Employment(models.Model):
     date_from = models.DateField(validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
-    date_to = models.DateField()
+    date_to = models.DateField(blank=True)
     title = models.CharField(max_length=100)
     desc = models.TextField()
     user = models.ForeignKey(User, related_name="employments", on_delete=models.CASCADE)
@@ -189,8 +214,6 @@ class EducationManager(models.Manager):
     def edu_validator(self, postData):
         errors = {}
         #need to figure out how to deal with date
-        # if postData['date_from'] == 'Today':
-        #     errors['date_from'] = "Date must be in the past"
         if postData['school'] != '' and len(postData['school']) < 2:
             errors['school'] = "Schools need to be spelled out"
         if postData['program'] != '' and len(postData['program']) < 5:
@@ -199,7 +222,6 @@ class EducationManager(models.Manager):
 
 class Education(models.Model):
     date_from = models.DateField(validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
-    date_to = models.DateField()
     school = models.CharField(max_length=255)
     program = models.CharField(max_length=255)
     grad = models.CharField(max_length=1)
@@ -222,19 +244,19 @@ class Additional(models.Model):
     updated_at = DateTimeField(auto_now=True)
     objects = AdditionalManager()
 
-class PictureManager(models.Manager):
-    def pic_validator(self, postFile):
-        image_regex = "([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp))$)"
-        errors = {}
-        test = re.compile(image_regex)
-        # if (postFile['img'] == None):
-        #     return False
-        if (re.search(test, str(postFile['img']))) == False:
-            # print(imghdr.what(postFile['img']))
-            # return True
-        # else:
-            errors['img'] = "That is not a supported image type. Must be .jpg, .png, .gif, .bmp"
-        return errors
+# class PictureManager(models.Manager):
+#     def pic_validator(self, postFile):
+#         image_regex = "([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp))$)"
+#         errors = {}
+#         test = re.compile(image_regex)
+#         # if (postFile['img'] == None):
+#         #     return False
+#         if (re.search(test, str(postFile['img']))) == False:
+#             # print(imghdr.what(postFile['img']))
+#             # return True
+#         # else:
+#             errors['img'] = "That is not a supported image type. Must be .jpg, .png, .gif, .bmp"
+#         return errors
         # elif postData['img'] != '' and len(postData['img']) < 4:
         #     errors['not_img'] = "Filename must be greater than 4 characters"
 
@@ -243,6 +265,6 @@ class Picture(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
-    objects = PictureManager()
+    # objects = PictureManager()
 
 # Create your models here.

@@ -19,23 +19,23 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
-    <title>Fill out Experience</title>
+    <title>Fill out Additional and Upload Photo</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/expemp.css' %}">
-    <script>
+    <link rel="stylesheet" href="{% static 'css/preview.css' %}">
+    <!-- <script>
         $(document).ready(function(){
             
             var counter = 0;
             $('#add_new').click(function(){
                 counter++;
-                if(counter<=2)
-                var newElement = '<div class="mb-3"><label for="title" class="form-label">Title</label><input type="text" class="form-control" id="exp_title" name="title"></div><div class="mb-3"><label for="desc" class="desc-form-label">Description</label><textarea class="form-control" id="exp_desc" rows="3" name="desc"></textarea></div>'
-                $('.exp_form').append( $(newElement) )
-                if(counter>2)
+                if(counter<=8)
+                var newElement = '<div class="mb-3" id="title_div"><label for="info" class="form-label">Additional Info Entry</label><input type="text" class="form-control" id="addl_info" name="info"></div>'
+                $('.addl_form').append( $(newElement) )
+                if(counter>8)
                 $('#add_new').remove()
             })            
         })
-    </script>
+    </script> -->
 </head>
 <body>
     <!-- NAVBAR -->
@@ -55,49 +55,28 @@
         </div>
     </nav><!-- /NAVBAR -->
     <br>
-    <h2>Experience</h2>
-    <h6>3 should be your maximum entries</h6>
+    <h2>Upload a Profile Picture <span>(must be .jpg, .jpeg, .png, .bmp, or .gif)</span></h2>
     {% for message in messages %}
     <ul>
         <li>{{ message }}</li>
     </ul>
     {% endfor %}
     <br>
-    <div id="exp_form">
-        <form action="/experience" method="POST" id="experience">
+    <div id="pic_form">
+        <form action="/picture" method="POST" id="picture" enctype="multipart/form-data">
             {% csrf_token %}
-        <div class="exp_form">
-            <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="exp_title" name="title">
+            <div class="img_form">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Upload pic here</label>
+                    <input class="form-control" type="file" id="formFile" name="img" >
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="desc" class="desc-form-label">Description</label>
-                <textarea class="form-control" id="exp_desc" rows="3" name="desc"></textarea>
-            </div>
-        </div>    
-        <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
-            <button class="btn btn-primary" id="submit" type="submit">Add Experience</button>
-        </div>  
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-primary" ><a href="/employmentpage" id="next_page">Next page - Employment</a></button>
-        </div>    
+        <br>
+        <br>
+        <div class="d-grid gap-2 col-2 mx-auto" id="final_btm_btn">
+            <button class="btn btn-primary" id="submit" type="submit">Final Step - Choose Template</button>
+        </div>
         </form>
     </div>
-    {% if user.experiences.all %}
-    <div id="emp_table">
-        <table style="width: fit-content;" class="table table-bordered">
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-            </tr>
-            {% for experience in user.experiences.all %}
-            <tr>
-                <td>{{ experience.title }}</td>
-                <td>{{ experience.desc }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-    {% endif %}   
-</body>
+    
+            

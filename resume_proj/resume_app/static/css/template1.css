@@ -1,5 +1,5 @@
 #container{
-    background-image: url({{user.picture.img}});
+    /* background-image: url({{user.picture.img.url}}); */
     background-repeat: no-repeat;
     background-size: cover;
     background-blend-mode:soft-light;

@@ -53,7 +53,7 @@
         </div>
     </nav><!-- /NAVBAR -->
     <br>
-    <h2>Education</h2>
+    <h2>Education <span class="emp_notes">(start with most current)</span></h2>
     {% for message in messages %}
     <ul>
         <li>{{ message }}</li>
@@ -66,12 +66,8 @@
         <div class="edu_form">
             <div class="row">
                 <div class="col">
-                    <label for="date_from" class="form-label">From</label>
+                    <label for="date_from" class="form-label">Date Completed or, if still attending, today's date</label>
                     <input type="date" class="form-control" id="edu_from" name="date_from">
-                </div>
-                <div class="col">
-                    <label for="date_to" class="form-label">To</label>
-                    <input type="date" class="form-control" id="edu_to" name="date_to">
                 </div>
             </div>
             <div class="mb-3" id="title_div">
@@ -79,7 +75,7 @@
                 <input type="text" class="form-control" id="edu_title" name="school">
             </div>
             <div class="mb-3">
-                <label for="program" class="desc-form-label">Program <span>(ex: Bachelor of Science in Aeronautics)</span></label>
+                <label for="program" class="desc-form-label">Program/Degree <span>(ex: Bachelor of Science in Aeronautics)</span></label>
                 <input type="text" class="form-control" id="edu_program" name="program">
             </div>
             <select class="form-select" aria-label="Default select example" name="grad">
@@ -92,23 +88,22 @@
             <button class="btn btn-primary" id="submit" type="submit">Add Education</button>
         </div>  
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-primary" ><a href="/additionalpage" id="next_page">Next page - Additional</a></button>
+            <a class="btn btn-primary" href="/additionalpage" role="button" id="next_page">Next page - Additional</a>
         </div>   
         </form>
-    </div>  
+    </div>
+    {% if user.educations.all %}
     <div id="emp_table">
         <table style="width: fit-content;" class="table table-bordered">
             <tr>
-                <th>From</th>
-                <th>To</th>
+                <th>Completed</th>
                 <th>School</th>
                 <th>Program/Degree</th>
                 <th>Graduated?</th>
             </tr>
             {% for education in user.educations.all %}
             <tr>
-                <td>{{ education.date_from }}</td>
-                <td>{{ education.date_to }}</td>
+                <td>{{ education.date_from|date:"M y" }}</td>
                 <td>{{ education.school }}</td>
                 <td>{{ education.program }}</td>
                 <td>{{ education.grad }}</td>
@@ -116,4 +111,5 @@
             {% endfor %}
         </table>
     </div>  
+    {% endif %}
 </body>

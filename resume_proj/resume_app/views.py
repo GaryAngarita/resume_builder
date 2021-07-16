@@ -74,14 +74,14 @@ def social(request):
     if request.method == 'GET':
         return redirect('/')    
     user = User.objects.get(id = request.session['id'])
-    mistakes = Contact.objects.address_validator(request.POST)
-    if len(mistakes) > 0:
-        for key, value in mistakes.items():
-            messages.error(request, value)
-        return redirect(f'/personalinfo/{user.id}')
     errors = Social.objects.site_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
+            messages.error(request, value)
+        return redirect(f'/personalinfo/{user.id}')
+    mistakes = Contact.objects.address_validator(request.POST)
+    if len(mistakes) > 0:
+        for key, value in mistakes.items():
             messages.error(request, value)
         return redirect(f'/personalinfo/{user.id}')
     else:        
@@ -93,7 +93,10 @@ def social(request):
         zip = request.POST['zip'], 
         phone_number = request.POST['phone_number'],
         user = user)
-        Social.objects.create(site = request.POST['site'], 
+        Social.objects.create(github = request.POST['github'],
+        linkedin = request.POST['linkedin'],
+        facebook = request.POST['facebook'],
+        twitter = request.POST['twitter'], 
         user = user)
         return redirect('/objectiveandskill')
 
@@ -126,13 +129,13 @@ def objandskill(request):
         return redirect('/')
     user = User.objects.get(id = request.session['id'])
     mistakes = Objective.objects.obj_validator(request.POST)
-    if len(mistakes) > 0:
-        for key, value in mistakes.items():
-            messages.error(request, value)
-        return redirect(f'/objective/{user.id}')
     errors = Skill.objects.skill_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
+            messages.error(request, value)
+        return redirect(f'/objective/{user.id}')
+    if len(mistakes) > 0:
+        for key, value in mistakes.items():
             messages.error(request, value)
         return redirect(f'/objective/{user.id}')
     else:        
@@ -173,20 +176,18 @@ def experience(request):
     else:        
         user_id = request.session['id']
         user = User.objects.get(id = user_id)
-        Experience.objects.create(title = request.POST.getlist('title'), 
+        Experience.objects.create(title = request.POST['title'], 
         desc = request.POST['desc'], 
         user = user)
-        return redirect('/employmentpage')
+        return redirect('/experiencepage')
 
 def employmentpage(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
         user_id = request.session['id']
-        user = User.objects.get(id = user_id)
         context = {
-            'user': User.objects.get(id = user_id),
-            'employments': Employment.objects.get(user = user)
+            'user': User.objects.get(id = user_id)
         }
     return render(request, 'employment.html', context)
 
@@ -231,8 +232,7 @@ def education(request):
     else:        
         user_id = request.session['id']
         user = User.objects.get(id = user_id)
-        Education.objects.create(date_from = request.POST['date_from'], 
-        date_to = request.POST['date_to'], 
+        Education.objects.create(date_from = request.POST['date_from'],
         school = request.POST['school'], 
         program = request.POST['program'], 
         grad = request.POST['grad'], 
@@ -264,18 +264,28 @@ def additional(request):
         user = user)        
         return redirect('/additionalpage')
 
+def picturepage(request):
+    if 'id' not in request.session:
+        return redirect('/')
+    else:
+        user_id = request.session['id']
+        context = {
+            'user': User.objects.get(id = user_id)
+        }
+    return render(request, 'picture.html', context)
+
 def picture(request):
     if request.method == 'GET':
         return redirect('/')
-    mistakes = Picture.objects.pic_validator(request.FILES)
-    if len(mistakes) > 0:
-        for key, value in mistakes.items():
-            messages.error(request, value)
-        return redirect('/additionalpage')
+    # mistakes = Picture.objects.pic_validator(request.FILES)
+    # if len(mistakes) > 0:
+    #     for key, value in mistakes.items():
+    #         messages.error(request, value)
+    #     return redirect('/picturepage')
     else:        
         user_id = request.session['id']
         user = User.objects.get(id = user_id)
-        Picture.objects.create(img = str(request.FILES['img']), 
+        Picture.objects.create(img = request.FILES['img'], 
         user = user)
         print(imghdr.what(request.FILES['img']))
         return redirect('/templatepage')

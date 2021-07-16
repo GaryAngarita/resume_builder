@@ -56,6 +56,7 @@
     </nav><!-- /NAVBAR -->
     <br>
     <h2>Employment <span class="emp_notes">(start with most current)</span></h2>
+    <h6>3 should be your maximum entries</h6>
     {% for message in messages %}
     <ul>
         <li>{{ message }}</li>
@@ -93,6 +94,7 @@
         </div>       
         </form>
     </div>
+    {% if user.employments.all %}
     <div id="emp_table">
         <table style="width: fit-content;" class="table table-bordered">
             <tr>
@@ -101,14 +103,15 @@
                 <th>Title</th>
                 <th>Description</th>
             </tr>
-            {% for education in user.employments.all %}
+            {% for employment in user.employments.all %}
             <tr>
-                <td>{{ employment.date_from }}</td>
-                <td>{{ employment.date_to }}</td>
+                <td>{{ employment.date_from|date:"M y" }}</td>
+                <td>{{ employment.date_to|date:"M y" }}</td>
                 <td>{{ employment.title }}</td>
                 <td>{{ employment.desc }}</td>
             </tr>
             {% endfor %}
         </table>
     </div>  
+    {% endif %}
 </body>
