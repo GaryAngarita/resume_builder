@@ -72,12 +72,28 @@ class User(models.Model):
 class ContactManager(models.Manager):
     def address_validator(self, postData):
         errors = {}
+        user_emails = User.objects.filter(email = postData['email'])
+        if len(postData['first_name']) == 0:
+            errors['blank_first'] = "First name cannot be blank"
+        if len(postData['first_name']) < 2:
+            errors['first_name'] = "First name must be 2 letters or more"
+        if len(postData['last_name']) == 0:
+            errors['blank_last'] = 'Last name cannot be blank'
+        if len(postData['last_name']) < 2:
+            errors['last_name'] = "Last name must be 2 letters or more"
+        if len(postData['email']) == 0:
+            errors['blank_email'] = "Email cannot be blank"
+        if user_emails and postData['email'] != postData['email']:
+            errors['user_email'] = "Email already in use"
+        if not email_regex.match(postData['email']):
+            errors['email'] = "Invalid email address"
         if len(postData['street']) < 2:
             errors['street'] = "Enter a legit street"
         if len(postData['zip']) != 5:
             errors['zip'] = "Zip code must be 5 numbers"
         if len(postData['phone_number']) < 10:
             errors['short_number'] = "Phone number must be 10 digits"
+
         return errors
 
 class Contact(models.Model):
@@ -261,7 +277,7 @@ class Additional(models.Model):
         #     errors['not_img'] = "Filename must be greater than 4 characters"
 
 class Picture(models.Model):
-    img = models.ImageField(null=True, blank=True)
+    img = models.ImageField(upload_to='images/', null=True, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)

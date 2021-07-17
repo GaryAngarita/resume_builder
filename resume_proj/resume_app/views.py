@@ -60,16 +60,6 @@ def personalinfo(request, user_id):
         }
         return render(request, 'personalinfo.html', context)
 
-# def contact(request):
-#     if request.method == 'GET':
-#         return redirect('/')
-    
-#     else:        
-#         user_id = request.session['id']
-#         user = User.objects.get(id = user_id)
-        
-#         return redirect(f'/personalinfo/{user.id}')
-
 def social(request):
     if request.method == 'GET':
         return redirect('/')    
@@ -109,20 +99,6 @@ def objectiveandskill(request):
             'user': User.objects.get(id = user_id)
         }
     return render(request, 'objandskill.html', context)
-
-# def objective(request):
-#     if request.method == 'GET':
-#         return redirect('/')
-#     errors = Objective.objects.obj_validator(request.POST)
-#     if len(errors) > 0:
-#         for key, value in errors.items():
-#             messages.error(request, value)
-#         return redirect('/')
-#     else:        
-#         user_id = request.session['id']
-#         user = User.objects.get(id = user_id)
-        
-#         return redirect('/experiencepage')
 
 def objandskill(request):
     if request.method == 'GET':
@@ -339,230 +315,223 @@ def template3(request, user_id):
         }
     return render(request, 'template3.html', context)
 
-def editpersonalpage(request, user_id):
+def editpersonalpage(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
         user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id),
-            'contact': Contact.objects.get(id = user_id),
-            'social': Social.objects.get(id = user_id)
+            'user': User.objects.get(id = user_id)
         }
     return render(request, 'editpersonal.html', context)
 
-def editcontact(request, user_id):
+def editcontact(request):
     if request.method == 'GET':
         return redirect('/')
+    mistakes = Social.objects.site_validator(request.POST)
+    if len(mistakes) > 0:
+        for key, value in mistakes.items():
+            messages.error(request, value)
+        return redirect(f'/editpersonalpage')
     errors = Contact.objects.address_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect(f'/editpersonalpage')
     else:
-        user = User.objects.get(id = user_id)
-        updated = Contact.objects.get(id = user)
+        user = User.objects.get(id = request.session['id'])
+        identity = User.objects.get(id = request.session['id'])
+        identity.first_name = request.POST['first_name']
+        identity.last_name = request.POST['last_name']
+        identity.email = request.POST['email']
+        identity.save()
+        updated = Contact.objects.get(user = user)
         updated.street = request.POST['street']
         updated.city = request.POST['city']
         updated.state = request.POST['state']
         updated.zip = request.POST['zip']
         updated.phone_number = request.POST['phone_number']
         updated.save()
-        request.session['id'] = user.id
+        new_soc = Social.objects.get(user = user)
+        new_soc.github = request.POST['github']
+        new_soc.linkedin = request.POST['linkedin']
+        new_soc.facebook = request.POST['facebook']
+        new_soc.twitter = request.POST['twitter']
+        new_soc.save()
         return redirect(f'/resumehome/{user.id}')
 
-def editsocial(request, user_id):
-    if request.method == 'GET':
-        return redirect('/')
-    errors = Social.objects.site_validator(request.POST)
-    if len(errors) > 0:
-        for key, value in errors.items():
-            messages.error(request, value)
-        return redirect('/')
-    else:
-        user = User.objects.get(id = user_id)
-        updated = Social.objects.get(id = user)
-        updated.site = request.POST.getlist('site')
-        updated.save()
-        request.session['id'] = user.id
-        return redirect(f'/resumehome/{user.id}')
-
-def editobjandskillpage(request, user_id):
+def editobjandskillpage(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
         user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id),
-            'objective': Objective.objects.get(id = user_id),
-            'skill': Skill.objects.get(id = user_id)
+            'user': User.objects.get(id = user_id)
         }
     return render(request, 'editobjandskill.html', context)
 
-def editobjective(request, user_id):
+def editobjective(request):
     if request.method == 'GET':
         return redirect('/')
+    mistakes = Skill.objects.skill_validator(request.POST)
+    if len(mistakes) > 0:
+        for key, value in mistakes.items():
+            messages.error(request, value)
+        return redirect(f'/editobjandskillpage')
     errors = Objective.objects.obj_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect(f'/editobjandskillpage')
     else:
-        user = User.objects.get(id = user_id)
-        updated = Objective.objects.get(id = user)
+        user = User.objects.get(id = request.session['id'])
+        updated = Objective.objects.get(user = user)
         updated.content = request.POST['content']
         updated.save()
-        request.session['id'] = user.id
+        new_skill = Skill.objects.get(id = user)
+        new_skill.selected1 = request.POST['selected1']
+        new_skill.selected2 = request.POST['selected2']
+        new_skill.selected3 = request.POST['selected3']
+        new_skill.selected4 = request.POST['selected4']
+        new_skill.selected5 = request.POST['selected5']
+        new_skill.selected6 = request.POST['selected6']
+        new_skill.selected7 = request.POST['selected7']
+        new_skill.selected8 = request.POST['selected8']
+        new_skill.selected9 = request.POST['selected9']
+        new_skill.save()
         return redirect(f'/resumehome/{user.id}')
 
-def editskill(request, user_id):
-    if request.method == 'GET':
-        return redirect('/')
-    errors = Skill.objects.skill_validator(request.POST)
-    if len(errors) > 0:
-        for key, value in errors.items():
-            messages.error(request, value)
-        return redirect('/')
-    else:
-        user = User.objects.get(id = user_id)
-        updated = Skill.objects.get(id = user)
-        updated.selected = request.POST.getlist('selected')
-        updated.save()
-        request.session['id'] = user.id
-        return redirect(f'/resumehome/{user.id}')
-
-def editexperiencepage(request, user_id):
+def editexperiencepage(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
         user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id),
-            'experience': Experience.objects.get(id = user_id)
+            'user': User.objects.get(id = user_id)
         }
     return render(request, 'editexperience.html', context)
 
-def editexperience(request, user_id):
+def editexperience(request):
     if request.method == 'GET':
         return redirect('/')
     errors = Experience.objects.exp_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect('/editexperiencepage')
     else:
-        user = User.objects.get(id = user_id)
+        user = User.objects.get(id = request.session['id'])
         updated = Experience.objects.get(id = user)
         updated.title = request.POST.getlist('title')
         updated.desc = request.POST.getlist('desc')
         updated.save()
-        request.session['id'] = user.id
         return redirect(f'/resumehome/{user.id}')
 
-def editemploymentpage(request, user_id):
+def editemploymentpage(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
         user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id),
-            'employment': Employment.objects.get(id = user_id)
+            'user': User.objects.get(id = user_id)
         }
     return render(request, 'editemployment.html', context)
 
-def editemployment(request, user_id):
+def editemployment(request):
     if request.method == 'GET':
         return redirect('/')
     errors = Employment.objects.emp_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect('/editemploymentpage')
     else:
-        user = User.objects.get(id = user_id)
+        user = User.objects.get(id = request.session['id'])
         updated = Employment.objects.get(id = user)
-        updated.date_from = request.POST.getlist('date_from')
-        updated.date_to = request.POST.getlist('date_to')
-        updated.title = request.POST.getlist('title')
-        updated.desc = request.POST.getlist('desc')
+        updated.date_from = request.POST['date_from']
+        updated.date_to = request.POST['date_to']
+        updated.title = request.POST['title']
+        updated.desc = request.POST['desc']
         updated.save()
-        request.session['id'] = user.id
         return redirect(f'/resumehome/{user.id}')
 
-def editeducationpage(request, user_id):
+def editeducationpage(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
         user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id),
-            'education': Education.objects.get(id = user_id)
+            'user': User.objects.get(id = user_id)
         }
     return render(request, 'editeducation.html', context)
 
-def editeducation(request, user_id):
+def editeducation(request):
     if request.method == 'GET':
         return redirect('/')
     errors = Education.objects.edu_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect('/editeducationpage')
     else:
-        user = User.objects.get(id = user_id)
+        user = User.objects.get(id = request.session['id'])
         updated = Education.objects.get(id = user)
-        updated.date_from = request.POST.getlist('date_from')
-        updated.date_to = request.POST.getlist('date_to')
-        updated.school = request.POST.getlist('school')
-        updated.program = request.POST.getlist('program')
-        updated.grad = request.POST.getlist('grad')
+        updated.date_from = request.POST['date_from']
+        updated.school = request.POST['school']
+        updated.program = request.POST['program']
+        updated.grad = request.POST['grad']
         updated.save()
-        request.session['id'] = user.id
         return redirect(f'/resumehome/{user.id}')
 
-def editadditionalpage(request, user_id):
+def editadditionalpage(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
         user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id),
-            'additional': Additional.objects.get(id = user_id)
+            'user': User.objects.get(id = user_id)
         }
     return render(request, 'editadditional.html', context)
 
-def editadditional(request, user_id):
+def editadditional(request):
     if request.method == 'GET':
         return redirect('/')
     errors = Additional.objects.add_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect('/editadditionalpage')
     else:
-        user = User.objects.get(id = user_id)
+        user = User.objects.get(id = request.session['id'])
         updated = Additional.objects.get(id = user)
         updated.info = request.POST.getlist('info')
         updated.save()
-        request.session['id'] = user.id
         return redirect(f'/resumehome/{user.id}')
 
-def editpicture(request, user_id):
-    if request.method == 'GET':
-        return redirect('/')
-    errors = Picture.objects.pic_validator(request.POST)
-    if len(errors) > 0:
-        for key, value in errors.items():
-            messages.error(request, value)
+def editpicturepage(request):
+    if 'id' not in request.session:
         return redirect('/')
     else:
-        user = User.objects.get(id = user_id)
-        updated = Picture.objects.get(id = user)
-        updated.img = request.POST['img']
-        updated.save()
-        request.session['id'] = user.id
-        return redirect(f'/resumehome/{user.id}')
+        user_id = request.session['id']
+        context = {
+            'user': User.objects.get(id = user_id)
+        }
+    return render(request, 'editpicture.html', context)
 
+def editpicture(request):
+    if request.method == 'GET':
+        return redirect('/')
+    # errors = Picture.objects.pic_validator(request.POST)
+    # if len(errors) > 0:
+    #     for key, value in errors.items():
+    #         messages.error(request, value)
+        # return redirect('/editpicturepage')
+    else:
+        user = User.objects.get(id = request.session['id'])
+        updated = Picture.objects.get(user = user)
+        updated.img = request.FILES['img']
+        updated.save()
+        return redirect(f'/resumehome/{user.id}')
 
 def logout(request):
     request.session.flush()

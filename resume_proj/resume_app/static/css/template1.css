@@ -1,5 +1,4 @@
 #container{
-    /* background-image: url({{user.picture.img.url}}); */
     background-repeat: no-repeat;
     background-size: cover;
     background-blend-mode:soft-light;
@@ -8,6 +7,10 @@
     margin: 0px auto;
     padding: 0px;
     /* background-color: skyblue; */
+}
+
+.bgded{
+    background-image: url( "{% static '{{ user.picture.img }}' %}");
 }
 
 #intro, #profile_pic{

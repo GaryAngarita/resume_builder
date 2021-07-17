@@ -42,74 +42,72 @@
         </div>
     </nav><!-- /NAVBAR -->
     <br>
-    <h2>Objective</h3>
-        <div class="mb-3">
-            <form action="/editobjective/{{user.id}}" method="POST" id="objective">
-                {% csrf_token %}
-                <label for="content" class="form-label">A resume objective is a statement of your
-                    professional goals as they relate to the job you are applying for, and it is usually listed at the
-                    top of
-                    your resume. A resume objective is typically one or two sentences long, and can be tricky to write
-                    given the
-                    space limitations.</label>
-                <textarea class="form-control" id="obj" rows="3" name="content">{{objective.content}}</textarea>
-            </form>
+    <h2>Objective</h2>
+        <form action="/editobjective" method="POST" id="objective">
+            {% csrf_token %}
+        <div class="mb-3">            
+            <label for="content" class="form-label">A resume objective is a statement of your
+                professional goals as they relate to the job you are applying for, and it is usually listed at the
+                top of
+                your resume. A resume objective is typically one or two sentences long, and can be tricky to write
+                given the
+                space limitations.</label>
+            <textarea class="form-control" id="obj" rows="3" name="content">{{user.objective.content}}</textarea>
         </div>
         <br>
-            <h2>Skills</h2>
-            <p>Hard skills are job-specific skills. For example, data analysis, project management, etc. Soft skills are
-                personal or creative skills. For example, critical thinking, teamwork.</p>
-            <div id="skill_list">
-                <form action="/editskill/{{user.id}}" method="POST" id="skill">
-                    {% csrf_token %}
-                <div class="row">
-                    {% for selected in selecteds %}
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" value="{{skill.selected}}" name="selected">
-                    </div>
-                    {% endfor %}
-                    <!-- <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div>
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div> -->
-                <!-- </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div>
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div>
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div>
+        <h2>Skills <span class="span_skills">(9 required)</span></h2>
+        <p>Hard skills are job-specific skills. For example, data analysis, project management, etc. Soft skills are
+            personal or creative skills. For example, critical thinking, teamwork.</p>
+        <div id="skill_list">
+            {% for skill in user.skills.all %}
+            <div class="row">
+                <div class="col">
+                    <label for="selected1" class="form-label">Skill</label>
+                    <input type="text" class="form-control" id="skills" value="{{skill.selected1}}" name="selected1">
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div>
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div>
-                    <div class="col">
-                        <label for="selected" class="form-label">Skill</label>
-                        <input type="text" class="form-control" id="skills" name="selected">
-                    </div>
-                </div> -->
-                </form>
+                <div class="col">
+                    <label for="selected2" class="form-label">Skill</label>
+                    <input type="text" class="form-control" id="skills" value="{{skill.selected2}}" name="selected2">
+                </div>
+                <div class="col">
+                    <label for="selected3" class="form-label">Skill</label>
+                    <input type="text" class="form-control" id="skills" value="{{skill.selected3}}" name="selected3">
+                </div>
             </div>
-            <br>
-            <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
-                <button class="btn btn-primary" id="submit" type="submit">Back Home</button>
+            <div class="row">
+                <div class="col">
+                    <label for="selected4" class="form-label">Skill</label>
+                    <input type="text" class="form-control" id="skills" value="{{skill.selected4}}" name="selected4">
+                </div>
+                <div class="col">
+                    <label for="selected5" class="form-label">Skill</label>
+                    <input type="text" class="form-control" id="skills" value="{{skill.selected5}}" name="selected5">
+                </div>
+                <div class="col">
+                    <label for="selected6" class="form-label">Skill</label>
+                    <input type="text" class="form-control" id="skills" value="{{skill.selected6}}" name="selected6">
+                </div>
             </div>
+            <div class="row">
+                <div class="col">
+                    <label for="selected7" class="form-label">Skill</label>
+                    <input type="text" class="form-control" id="skills" value="{{skill.selected7}}" name="selected7">
+                </div>
+                <div class="col">
+                    <label for="selected8" class="form-label">Skill</label>
+                    <input type="text" class="form-control" id="skills" value="{{skill.selected8}}" name="selected8">
+                </div>
+                <div class="col">
+                    <label for="selected9" class="form-label">Skill</label>
+                    <input type="text" class="form-control" id="skills" value="{{skill.selected9}}" name="selected9">
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <br>
+        <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
+            <button class="btn btn-primary" id="submit" type="submit">Home</button>
+        </div>
         </form>
+</body>
+</html>
