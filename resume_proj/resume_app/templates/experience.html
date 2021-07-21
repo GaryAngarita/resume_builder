@@ -56,7 +56,7 @@
     </nav><!-- /NAVBAR -->
     <br>
     <h2>Experience</h2>
-    <h6>3 should be your maximum entries</h6>
+    <p>Maximum of 3 entries</p>
     {% for message in messages %}
     <ul>
         <li>{{ message }}</li>
@@ -68,19 +68,39 @@
             {% csrf_token %}
         <div class="exp_form">
             <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="exp_title" name="title">
+                <label for="title1" class="form-label">Title</label>
+                <input type="text" class="form-control" id="exp_title" name="title1">
             </div>
             <div class="mb-3">
-                <label for="desc" class="desc-form-label">Description</label>
-                <textarea class="form-control" id="exp_desc" rows="3" name="desc"></textarea>
+                <label for="desc1" class="desc-form-label">Description</label>
+                <textarea class="form-control" id="exp_desc" rows="3" name="desc1"></textarea>
             </div>
-        </div>    
+        </div>   
+        <div class="exp_form">
+            <div class="mb-3">
+                <label for="title2" class="form-label">Title</label>
+                <input type="text" class="form-control" id="exp_title" name="title2">
+            </div>
+            <div class="mb-3">
+                <label for="desc2" class="desc-form-label">Description</label>
+                <textarea class="form-control" id="exp_desc" rows="3" name="desc2"></textarea>
+            </div>
+        </div>  
+        <div class="exp_form">
+            <div class="mb-3">
+                <label for="title3" class="form-label">Title</label>
+                <input type="text" class="form-control" id="exp_title" name="title3">
+            </div>
+            <div class="mb-3">
+                <label for="desc3" class="desc-form-label">Description</label>
+                <textarea class="form-control" id="exp_desc" rows="3" name="desc3"></textarea>
+            </div>
+        <!-- </div>   
         <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
             <button class="btn btn-primary" id="submit" type="submit">Add Experience</button>
-        </div>  
+        </div>   -->
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-primary" ><a href="/employmentpage" id="next_page">Next page - Employment</a></button>
+            <button type="submit" class="btn btn-primary">Next page - Employment</button>
         </div>    
         </form>
     </div>
@@ -93,8 +113,24 @@
             </tr>
             {% for experience in user.experiences.all %}
             <tr>
-                <td>{{ experience.title }}</td>
-                <td>{{ experience.desc }}</td>
+                {% if experience.title1 %}
+                <td>{{ experience.title1 }}</td>
+                {% endif %}
+                {% if experience.desc1 %}
+                <td>{{ experience.desc1 }}</td>
+                {% endif %}
+                {% if experience.title2 %}
+                <td>{{ experience.title2 }}</td>
+                {% endif %}
+                {% if experience.desc2 %}
+                <td>{{ experience.desc2 }}</td>
+                {% endif %}
+                {% if experience.title3 %}
+                <td>{{ experience.title3 }}</td>
+                {% endif %}
+                {% if experience.desc3 %}
+                <td>{{ experience.desc3 }}</td>
+                {% endif %}
             </tr>
             {% endfor %}
         </table>

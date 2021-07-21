@@ -11,8 +11,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Resume Display</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/template2.css' %}">
-    <!-- <script>
+    <link rel="stylesheet" href="{% static 'css/template3.css' %}">
+    <script>
         $(document).ready(function () {
             $('.experience, .row, .employment, .additional').hide();
 
@@ -32,7 +32,7 @@
         })
 
 
-    </script> -->
+    </script>
 </head>
 
 <body>
@@ -44,7 +44,7 @@
                     <!-- <h1>{{user.name}}</h1> -->
                 </div>
                 <div class="address1">
-                    <p>{{user.contact.street}}</p>
+                    <p><a href=" http://maps.google.com/?q={{user.contact.street}} {{user.contact.city}} {{user.contact.state}} {{user.contact.zip}}" target="_blank">{{user.contact.street}}</a></p>
                 </div>
                 <div class="address2">
                     <p> {{user.contact.city}}, {{user.contact.state}} {{user.contact.zip}}</p>
@@ -52,7 +52,7 @@
                 <div class="phone">
                     <p><span pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">{{user.contact.phone_number}}</span></p>
                 </div>
-                <!-- {% if user.social_medias.all %}
+                {% if user.social_medias.all %}
                 <div class="nav_bar">
                     {% for social in user.social_medias.all %}
                     <ul class="nav">
@@ -90,8 +90,8 @@
                     </ul>
                     {% endfor %}                    
                 </div>
-                {% endif %} -->
-                {% if user.social_medias.all %}
+                {% endif %}
+                <!-- {% if user.social_medias.all %}
                 <div id="nav_bar">
                     {% for social in user.social_medias.all %}
                     {% if social.github %}
@@ -108,7 +108,7 @@
                     {% endif %}
                     {% endfor %}
                 {% endif %}
-                </div>
+                </div> -->
             </div>
             <div id="pro_pic">
                 <img src="{{ user.picture.img.url }}" class="profile" alt="profile pic">
@@ -146,16 +146,16 @@
         </div>
         <h2 id="exp">Experience</h2>
         <div class="exp_block">
-                {% for experience in user.experiences.all %}
-                <ul class="experience">
-                <li><span class="title">{{experience.title1}}</span> - {{experience.desc1}}</li>
-                {% if experience.title2 %}
-                <li><span class="title">{{experience.title2}}</span> - {{experience.desc2}}</li>
-                {% endif %}
-                {% if experience.title3 %}
-                <li><span class="title">{{experience.title3}}</span> - {{experience.desc3}}</li>
-                {% endif %}
-                {% endfor %}
+            {% for experience in user.experiences.all %}
+            <ul class="experience">
+            <li><span class="title">{{experience.title1}}</span> - {{experience.desc1}}</li>
+            {% if experience.title2 %}
+            <li><span class="title">{{experience.title2}}</span> - {{experience.desc2}}</li>
+            {% endif %}
+            {% if experience.title3 %}
+            <li><span class="title">{{experience.title3}}</span> - {{experience.desc3}}</li>
+            {% endif %}
+            {% endfor %}
         </div>
         <h2 id="emp">Employment</h2>
         <div class="emp_block">

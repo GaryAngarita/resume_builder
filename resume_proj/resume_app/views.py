@@ -1,6 +1,8 @@
 from django.contrib.messages.api import info
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from datetime import datetime, date
+from time import strptime
 import bcrypt
 import imghdr
 from .models import *
@@ -74,9 +76,8 @@ def social(request):
         for key, value in mistakes.items():
             messages.error(request, value)
         return redirect(f'/personalinfo/{user.id}')
-    else:        
-        user_id = request.session['id']
-        user = User.objects.get(id = user_id)
+    else:
+        user = User.objects.get(id = request.session['id'])
         Contact.objects.create(street = request.POST['street'], 
         city = request.POST['city'], 
         state = request.POST['state'], 
@@ -94,29 +95,26 @@ def objectiveandskill(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
-        user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id)
+            'user': User.objects.get(id = request.session['id'])
         }
     return render(request, 'objandskill.html', context)
 
 def objandskill(request):
     if request.method == 'GET':
         return redirect('/')
-    user = User.objects.get(id = request.session['id'])
     mistakes = Objective.objects.obj_validator(request.POST)
     errors = Skill.objects.skill_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect(f'/objective/{user.id}')
+        return redirect('/objectiveandskill')
     if len(mistakes) > 0:
         for key, value in mistakes.items():
             messages.error(request, value)
-        return redirect(f'/objective/{user.id}')
+        return redirect('/objectiveandskill')
     else:        
-        user_id = request.session['id']
-        user = User.objects.get(id = user_id)
+        user = User.objects.get(id = request.session['id'])
         Objective.objects.create(content = request.POST['content'], 
         user = user)
         Skill.objects.create(selected1 = request.POST['selected1'], 
@@ -149,13 +147,16 @@ def experience(request):
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/experiencepage')
-    else:        
-        user_id = request.session['id']
-        user = User.objects.get(id = user_id)
-        Experience.objects.create(title = request.POST['title'], 
-        desc = request.POST['desc'], 
+    else:
+        user = User.objects.get(id = request.session['id'])
+        Experience.objects.create(title1 = request.POST['title1'], 
+        desc1 = request.POST['desc1'],
+        title2 = request.POST['title2'], 
+        desc2 = request.POST['desc2'],
+        title3 = request.POST['title3'], 
+        desc3 = request.POST['desc3'], 
         user = user)
-        return redirect('/experiencepage')
+        return redirect('/employmentpage')
 
 def employmentpage(request):
     if 'id' not in request.session:
@@ -176,15 +177,22 @@ def employment(request):
             messages.error(request, value)
         return redirect('/employmentpage')
     else:        
-        user_id = request.session['id']
-        user = User.objects.get(id = user_id)
-        Employment.objects.create(date_from = request.POST['date_from'], 
-        date_to = request.POST['date_to'], 
-        title = request.POST['title'], 
-        desc = request.POST['desc'], 
+        user = User.objects.get(id = request.session['id'])
+        Employment.objects.create(date_from1 = request.POST['date_from1'], 
+        date_to1 = request.POST['date_to1'], 
+        title1 = request.POST['title1'], 
+        desc1 = request.POST['desc1'],
+        date_from2 = request.POST['date_from2'], 
+        date_to2 = request.POST['date_to2'], 
+        title2 = request.POST['title2'], 
+        desc2 = request.POST['desc2'],
+        date_from3 = request.POST['date_from3'], 
+        date_to3 = request.POST['date_to3'], 
+        title3 = request.POST['title3'], 
+        desc3 = request.POST['desc3'], 
         user = user)
-        print(type(request.POST['date_from']))
-        return redirect('/employmentpage')
+        print(type(request.POST['date_from1']))
+        return redirect('/educationpage')
 
 def educationpage(request):
     if 'id' not in request.session:
@@ -205,23 +213,49 @@ def education(request):
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/educationpage')
-    else:        
-        user_id = request.session['id']
-        user = User.objects.get(id = user_id)
-        Education.objects.create(date_from = request.POST['date_from'],
+    else: 
+        user = User.objects.get(id = request.session['id'])
+        date_from1 = request.POST['date_from1']
+        if request.POST['date_from1'] == '':
+            date_from1 = None
+        date_from2 = request.POST['date_from2']
+        if request.POST['date_from2'] == '':
+            date_from2 = None
+        date_from3 = request.POST['date_from3']
+        if request.POST['date_from3'] == '':
+            date_from3 = None
+        date_from4 = request.POST['date_from4']
+        if request.POST['date_from4'] == '':
+            date_from4 = None
+        Education.objects.create(date_from = datetime.strptime(request.POST['date_from'], '%Y-%m-%d').strftime('%Y-%m-%d'),
         school = request.POST['school'], 
         program = request.POST['program'], 
         grad = request.POST['grad'], 
+        date_from1 = date_from1,
+        school1 = request.POST['school1'], 
+        program1 = request.POST['program1'], 
+        grad1 = request.POST['grad1'],
+        date_from2 = date_from2,
+        school2 = request.POST['school2'], 
+        program2 = request.POST['program2'], 
+        grad2 = request.POST['grad2'],
+        date_from3 = date_from3,
+        school3 = request.POST['school3'], 
+        program3 = request.POST['program3'], 
+        grad3 = request.POST['grad3'],
+        date_from4 = date_from4,
+        school4 = request.POST['school4'], 
+        program4 = request.POST['program4'], 
+        grad4 = request.POST['grad4'],
         user = user)
-        return redirect('/educationpage')
+        return redirect('/additionalpage')
 
 def additionalpage(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
-        user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id)
+            'user': User.objects.get(id = request.session['id'])
         }
     return render(request, 'additional.html', context)
 
@@ -233,12 +267,17 @@ def additional(request):
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/additionalpage')    
-    else:        
-        user_id = request.session['id']
-        user = User.objects.get(id = user_id)
+    else:
+        user = User.objects.get(id = request.session['id'])
         Additional.objects.create(info = request.POST['info'], 
+        info1 = request.POST['info1'],
+        info2 = request.POST['info2'],
+        info3 = request.POST['info3'],
+        info4 = request.POST['info4'],
+        info5 = request.POST['info5'],
+        info6 = request.POST['info6'],
         user = user)        
-        return redirect('/additionalpage')
+        return redirect('/picturepage')
 
 def picturepage(request):
     if 'id' not in request.session:
@@ -315,6 +354,16 @@ def template3(request, user_id):
         }
     return render(request, 'template3.html', context)
 
+def template4(request, user_id):
+    if 'id' not in request.session:
+        return redirect('/')
+    else:
+        user_id = request.session['id']
+        context = {
+            'user': User.objects.get(id = user_id)
+        }
+    return render(request, 'template4.html', context)
+
 def editpersonalpage(request):
     if 'id' not in request.session:
         return redirect('/')
@@ -336,6 +385,11 @@ def editcontact(request):
     errors = Contact.objects.address_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
+            messages.error(request, value)
+        return redirect(f'/editpersonalpage')
+    frauds = User.objects.reg_validator(request.POST)
+    if len(frauds) > 0:
+        for key, value in frauds.items():
             messages.error(request, value)
         return redirect(f'/editpersonalpage')
     else:
@@ -388,7 +442,7 @@ def editobjective(request):
         updated = Objective.objects.get(user = user)
         updated.content = request.POST['content']
         updated.save()
-        new_skill = Skill.objects.get(id = user)
+        new_skill = Skill.objects.get(user = user)
         new_skill.selected1 = request.POST['selected1']
         new_skill.selected2 = request.POST['selected2']
         new_skill.selected3 = request.POST['selected3']
@@ -421,9 +475,13 @@ def editexperience(request):
         return redirect('/editexperiencepage')
     else:
         user = User.objects.get(id = request.session['id'])
-        updated = Experience.objects.get(id = user)
-        updated.title = request.POST.getlist('title')
-        updated.desc = request.POST.getlist('desc')
+        updated = Experience.objects.get(user = user)
+        updated.title1 = request.POST['title1']
+        updated.desc1 = request.POST['desc1']
+        updated.title2 = request.POST['title2']
+        updated.desc2 = request.POST['desc2']
+        updated.title3 = request.POST['title3']
+        updated.desc3 = request.POST['desc3']
         updated.save()
         return redirect(f'/resumehome/{user.id}')
 
@@ -447,11 +505,19 @@ def editemployment(request):
         return redirect('/editemploymentpage')
     else:
         user = User.objects.get(id = request.session['id'])
-        updated = Employment.objects.get(id = user)
-        updated.date_from = request.POST['date_from']
-        updated.date_to = request.POST['date_to']
-        updated.title = request.POST['title']
-        updated.desc = request.POST['desc']
+        updated = Employment.objects.get(user = user)
+        updated.date_from1 = request.POST['date_from1']
+        updated.date_to1 = request.POST['date_to1']
+        updated.title1 = request.POST['title1']
+        updated.desc1 = request.POST['desc1']
+        updated.date_from2 = request.POST['date_from2']
+        updated.date_to2 = request.POST['date_to2']
+        updated.title2 = request.POST['title2']
+        updated.desc2 = request.POST['desc2']
+        updated.date_from3 = request.POST['date_from3']
+        updated.date_to3 = request.POST['date_to3']
+        updated.title3 = request.POST['title3']
+        updated.desc3 = request.POST['desc3']
         updated.save()
         return redirect(f'/resumehome/{user.id}')
 
@@ -475,7 +541,7 @@ def editeducation(request):
         return redirect('/editeducationpage')
     else:
         user = User.objects.get(id = request.session['id'])
-        updated = Education.objects.get(id = user)
+        updated = Education.objects.get(user = user)
         updated.date_from = request.POST['date_from']
         updated.school = request.POST['school']
         updated.program = request.POST['program']

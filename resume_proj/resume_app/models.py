@@ -1,7 +1,7 @@
 from django.contrib.messages.api import error
 from django.db import models
 import re
-from datetime import date
+from datetime import date, datetime
 
 from django.utils import timezone
 from django.db.models.fields import DateTimeField
@@ -72,27 +72,12 @@ class User(models.Model):
 class ContactManager(models.Manager):
     def address_validator(self, postData):
         errors = {}
-        user_emails = User.objects.filter(email = postData['email'])
-        if len(postData['first_name']) == 0:
-            errors['blank_first'] = "First name cannot be blank"
-        if len(postData['first_name']) < 2:
-            errors['first_name'] = "First name must be 2 letters or more"
-        if len(postData['last_name']) == 0:
-            errors['blank_last'] = 'Last name cannot be blank'
-        if len(postData['last_name']) < 2:
-            errors['last_name'] = "Last name must be 2 letters or more"
-        if len(postData['email']) == 0:
-            errors['blank_email'] = "Email cannot be blank"
-        if user_emails and postData['email'] != postData['email']:
-            errors['user_email'] = "Email already in use"
-        if not email_regex.match(postData['email']):
-            errors['email'] = "Invalid email address"
         if len(postData['street']) < 2:
             errors['street'] = "Enter a legit street"
         if len(postData['zip']) != 5:
             errors['zip'] = "Zip code must be 5 numbers"
-        if len(postData['phone_number']) < 10:
-            errors['short_number'] = "Phone number must be 10 digits"
+        if len(postData['phone_number']) < 12:
+            errors['short_number'] = "Phone number must be 10 digits and include dashes"
 
         return errors
 
@@ -190,15 +175,27 @@ class Skill(models.Model):
 class ExperienceManager(models.Manager):
     def exp_validator(self, postData):
         errors = {}
-        if postData['title'] != '' and len(postData['title']) < 2:
-            errors['title'] = "Title should be expanded"
-        if postData['desc'] != '' and len(postData['desc']) < 10:
-            errors['desc'] = "Experience description should be expanded"
+        if postData['title1'] != '' and len(postData['title1']) < 2:
+            errors['title1'] = "Title should be expanded"
+        if postData['desc1'] != '' and len(postData['desc1']) < 10:
+            errors['desc1'] = "Experience description should be expanded"
+        if postData['title2'] != '' and len(postData['title2']) < 2:
+            errors['title2'] = "Title should be expanded"
+        if postData['desc2'] != '' and len(postData['desc2']) < 10:
+            errors['desc2'] = "Experience description should be expanded"
+        if postData['title3'] != '' and len(postData['title3']) < 2:
+            errors['title3'] = "Title should be expanded"
+        if postData['desc3'] != '' and len(postData['desc3']) < 10:
+            errors['desc3'] = "Experience description should be expanded"
         return errors
 
 class Experience(models.Model):
-    title = models.CharField(max_length=100)
-    desc = models.TextField()
+    title1 = models.CharField(blank=True, max_length=100)
+    desc1 = models.TextField(blank=True)
+    title2 = models.CharField(blank=True, max_length=100)
+    desc2 = models.TextField(blank=True)
+    title3 = models.CharField(blank=True, max_length=100)
+    desc3 = models.TextField(blank=True)
     user = models.ForeignKey(User, related_name="experiences", on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
@@ -210,17 +207,33 @@ class EmploymentManager(models.Manager):
         #need to figure out how to deal with date
         # if postData['date_from'] >= timezone.now().date():
         #     errors['date_from'] = "Date must be in the past"
-        if postData['title'] != '' and len(postData['title']) < 2:
-            errors['title'] = "Title should be expanded"
-        if postData['desc'] != '' and len(postData['desc']) < 10:
-            errors['desc'] = "Employment description should be expanded"
+        if postData['title1'] != '' and len(postData['title1']) < 2:
+            errors['title1'] = "Title should be expanded"
+        if postData['desc1'] != '' and len(postData['desc1']) < 10:
+            errors['desc1'] = "Employment description should be expanded"
+        if postData['title2'] != '' and len(postData['title2']) < 2:
+            errors['title2'] = "Title should be expanded"
+        if postData['desc2'] != '' and len(postData['desc2']) < 10:
+            errors['desc2'] = "Employment description should be expanded"
+        if postData['title3'] != '' and len(postData['title3']) < 2:
+            errors['title3'] = "Title should be expanded"
+        if postData['desc3'] != '' and len(postData['desc3']) < 10:
+            errors['desc3'] = "Employment description should be expanded"
         return errors
 
 class Employment(models.Model):
-    date_from = models.DateField(validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
-    date_to = models.DateField(blank=True)
-    title = models.CharField(max_length=100)
-    desc = models.TextField()
+    date_from1 = models.DateField(blank=True, validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
+    date_to1 = models.DateField(blank=False)
+    title1 = models.CharField(blank=True, max_length=100)
+    desc1 = models.TextField(blank=True)
+    date_from2 = models.DateField(blank=True, validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
+    date_to2 = models.DateField(blank=True)
+    title2 = models.CharField(blank=True, max_length=100)
+    desc2 = models.TextField(blank=True)
+    date_from3 = models.DateField(blank=True, validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
+    date_to3 = models.DateField(blank=True)
+    title3 = models.CharField(blank=True, max_length=100)
+    desc3 = models.TextField(blank=True)
     user = models.ForeignKey(User, related_name="employments", on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
@@ -234,13 +247,45 @@ class EducationManager(models.Manager):
             errors['school'] = "Schools need to be spelled out"
         if postData['program'] != '' and len(postData['program']) < 5:
             errors['program'] = "Program needs to be spelled out"
+        if postData['school1'] != '' and len(postData['school1']) < 2:
+            errors['school1'] = "Schools need to be spelled out"
+        if postData['program1'] != '' and len(postData['program1']) < 5:
+            errors['program1'] = "Program needs to be spelled out"
+        if postData['school2'] != '' and len(postData['school2']) < 2:
+            errors['school2'] = "Schools need to be spelled out"
+        if postData['program2'] != '' and len(postData['program2']) < 5:
+            errors['program2'] = "Program needs to be spelled out"
+        if postData['school3'] != '' and len(postData['school3']) < 2:
+            errors['school3'] = "Schools need to be spelled out"
+        if postData['program3'] != '' and len(postData['program3']) < 5:
+            errors['program3'] = "Program needs to be spelled out"
+        if postData['school4'] != '' and len(postData['school4']) < 2:
+            errors['school4'] = "Schools need to be spelled out"
+        if postData['program4'] != '' and len(postData['program4']) < 5:
+            errors['program4'] = "Program needs to be spelled out"
         return errors
 
 class Education(models.Model):
-    date_from = models.DateField(validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
+    date_from = models.DateField(blank=True)
     school = models.CharField(max_length=255)
     program = models.CharField(max_length=255)
     grad = models.CharField(max_length=1)
+    date_from1 = models.DateField(blank=True, null=True, validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
+    school1 = models.CharField(max_length=255)
+    program1 = models.CharField(max_length=255)
+    grad1 = models.CharField(max_length=1)
+    date_from2 = models.DateField(blank=True, null=True, validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
+    school2 = models.CharField(max_length=255)
+    program2 = models.CharField(max_length=255)
+    grad2 = models.CharField(max_length=1)
+    date_from3 = models.DateField(blank=True, null=True, validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
+    school3 = models.CharField(max_length=255)
+    program3 = models.CharField(max_length=255)
+    grad3 = models.CharField(max_length=1)
+    date_from4 = models.DateField(blank=True, null=True, validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
+    school4 = models.CharField(max_length=255)
+    program4 = models.CharField(max_length=255)
+    grad4 = models.CharField(max_length=1)
     user = models.ForeignKey(User, related_name="educations", on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
@@ -251,10 +296,28 @@ class AdditionalManager(models.Manager):
         errors = {}
         if postData['info'] != '' and len(postData['info']) < 5:
             errors['info'] = "You should expand on your shorter entry"
+        if postData['info1'] != '' and len(postData['info1']) < 5:
+            errors['info1'] = "You should expand on your shorter entry"
+        if postData['info2'] != '' and len(postData['info2']) < 5:
+            errors['info2'] = "You should expand on your shorter entry"
+        if postData['info3'] != '' and len(postData['info3']) < 5:
+            errors['info3'] = "You should expand on your shorter entry"
+        if postData['info4'] != '' and len(postData['info4']) < 5:
+            errors['info4'] = "You should expand on your shorter entry"
+        if postData['info5'] != '' and len(postData['info5']) < 5:
+            errors['info5'] = "You should expand on your shorter entry"
+        if postData['info6'] != '' and len(postData['info6']) < 5:
+            errors['info6'] = "You should expand on your shorter entry"
         return errors
 
 class Additional(models.Model):
     info = models.CharField(max_length=255)
+    info1 = models.CharField(blank=True, max_length=255)
+    info2 = models.CharField(blank=True, max_length=255)
+    info3 = models.CharField(blank=True, max_length=255)
+    info4 = models.CharField(blank=True, max_length=255)
+    info5 = models.CharField(blank=True, max_length=255)
+    info6 = models.CharField(blank=True, max_length=255)
     user = models.ForeignKey(User, related_name="additionals", on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)

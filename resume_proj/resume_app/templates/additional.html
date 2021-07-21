@@ -71,25 +71,38 @@
                 <label for="info" class="form-label">Additional Info Entry</label>
                 <input type="text" class="form-control" id="addl_info" name="info">
             </div>
+            <div class="mb-3" id="title_div">
+                <label for="info1" class="form-label">Additional Info Entry</label>
+                <input type="text" class="form-control" id="addl_info" name="info1">
+            </div>
+            <div class="mb-3" id="title_div">
+                <label for="info2" class="form-label">Additional Info Entry</label>
+                <input type="text" class="form-control" id="addl_info" name="info2">
+            </div>
+            <div class="mb-3" id="title_div">
+                <label for="info3" class="form-label">Additional Info Entry</label>
+                <input type="text" class="form-control" id="addl_info" name="info3">
+            </div>
+            <div class="mb-3" id="title_div">
+                <label for="info4" class="form-label">Additional Info Entry</label>
+                <input type="text" class="form-control" id="addl_info" name="info4">
+            </div>
+            <div class="mb-3" id="title_div">
+                <label for="info5" class="form-label">Additional Info Entry</label>
+                <input type="text" class="form-control" id="addl_info" name="info5">
+            </div>
+            <div class="mb-3" id="title_div">
+                <label for="info6" class="form-label">Additional Info Entry</label>
+                <input type="text" class="form-control" id="addl_info" name="info6">
+            </div>
         </div>
         <br>
         <br>
-        <div class="d-grid gap-2 col-2 mx-auto" id="final_btm_btn">
-            <button class="btn btn-primary" id="submit" type="submit">Add Additional</button>
-        </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a class="btn btn-primary" href="/picturepage" role="button" id="next_page">Almost done - Upload Photo</a>
-        </div>
+            <button type="submit" class="btn btn-primary">Almost done - Upload Photo</button>
+        </div> 
         </form>
-        {% if user.additionals.all %}
-    <div id="emp_table">
-            {% for additional in user.additionals.all %}
-            <ul>
-                <li>{{ additional.info }}</li>
-            </ul>
-            {% endfor %}
-    </div>  
-    {% endif %}
     </div>
+    </body>
     
             

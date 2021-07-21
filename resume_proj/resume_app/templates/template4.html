@@ -37,8 +37,8 @@
 
 <body>
     <div id="container">
-        <div class="defining_info">
-            <div id="contact_info">
+        <!-- <div class="clearfix"> -->
+            <!-- <img src="{{ user.picture.img.url }}" class="col-md-6 float-md-end mb-3 ms-md-3" alt="profile pic"> -->
                 <div class="name">
                     <h1>{{user.first_name}} {{user.last_name}}</h1>
                     <!-- <h1>{{user.name}}</h1> -->
@@ -93,26 +93,24 @@
                 {% endif %} -->
                 {% if user.social_medias.all %}
                 <div id="nav_bar">
+                    <ul>
                     {% for social in user.social_medias.all %}
                     {% if social.github %}
-                    <p>{{social.github}}</p>
+                    <li>{{social.github}}</li>
                     {% endif %}
                     {% if social.linkedin %}
-                    <p>{{social.linkedin}}</p>
+                    <li>{{social.linkedin}}</li>
                     {% endif %}
                     {% if social.facebook %}
-                    <p>{{social.facebook}}</p>
+                    <li>{{social.facebook}}</li>
                     {% endif %}
                     {% if social.twitter %}
-                    <p>{{social.twitter}}</p>
+                    <li>{{social.twitter}}</li>
                     {% endif %}
+                    </ul>
                     {% endfor %}
                 {% endif %}
                 </div>
-            </div>
-            <div id="pro_pic">
-                <img src="{{ user.picture.img.url }}" class="profile" alt="profile pic">
-            </div>
         </div>
         <div class="intro">
             <h2>Objective:</h2>

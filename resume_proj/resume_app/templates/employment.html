@@ -56,7 +56,7 @@
     </nav><!-- /NAVBAR -->
     <br>
     <h2>Employment <span class="emp_notes">(start with most current)</span></h2>
-    <h6>3 should be your maximum entries</h6>
+    <p>Maximum of 3 entries</p>
     {% for message in messages %}
     <ul>
         <li>{{ message }}</li>
@@ -69,49 +69,66 @@
         <div class="emp_form">
             <div class="row">
                 <div class="col">
-                    <label for="date_from" class="form-label">From <span class="emp_notes">(must be in the past)</span></label>
-                    <input type="date" class="form-control" id="emp_from" name="date_from">
+                    <label for="date_from1" class="form-label">From <span class="emp_notes">(must be in the past)</span></label>
+                    <input type="date" class="form-control" id="emp_from" name="date_from1">
                 </div>
                 <div class="col">
-                    <label for="date_to" class="form-label">To</label>
-                    <input type="date" class="form-control" id="emp_to" name="date_to">
+                    <label for="date_to1" class="form-label">To</label>
+                    <input type="date" class="form-control" id="emp_to" name="date_to1">
                 </div>
             </div>
             <div class="mb-3" id="title_div">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="emp_title" name="title">
+                <label for="title1" class="form-label">Title</label>
+                <input type="text" class="form-control" id="emp_title" name="title1">
             </div>
             <div class="mb-3">
-                <label for="desc" class="desc-form-label">Description</label>
-                <textarea class="form-control" id="emp_desc" rows="3" name="desc"></textarea>
+                <label for="desc1" class="desc-form-label">Description</label>
+                <textarea class="form-control" id="emp_desc" rows="3" name="desc1"></textarea>
             </div>
-        </div>
-        <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
-            <button class="btn btn-primary" id="submit" type="submit">Add Employment</button>
         </div>  
+        <div class="emp_form">
+            <div class="row">
+                <div class="col">
+                    <label for="date_from2" class="form-label">From <span class="emp_notes">(must be in the past)</span></label>
+                    <input type="date" class="form-control" id="emp_from" name="date_from2">
+                </div>
+                <div class="col">
+                    <label for="date_to2" class="form-label">To</label>
+                    <input type="date" class="form-control" id="emp_to" name="date_to2">
+                </div>
+            </div>
+            <div class="mb-3" id="title_div">
+                <label for="title2" class="form-label">Title</label>
+                <input type="text" class="form-control" id="emp_title" name="title2">
+            </div>
+            <div class="mb-3">
+                <label for="desc2" class="desc-form-label">Description</label>
+                <textarea class="form-control" id="emp_desc" rows="3" name="desc2"></textarea>
+            </div>
+        </div> 
+        <div class="emp_form">
+            <div class="row">
+                <div class="col">
+                    <label for="date_from3" class="form-label">From <span class="emp_notes">(must be in the past)</span></label>
+                    <input type="date" class="form-control" id="emp_from" name="date_from3">
+                </div>
+                <div class="col">
+                    <label for="date_to3" class="form-label">To</label>
+                    <input type="date" class="form-control" id="emp_to" name="date_to3">
+                </div>
+            </div>
+            <div class="mb-3" id="title_div">
+                <label for="title3" class="form-label">Title</label>
+                <input type="text" class="form-control" id="emp_title" name="title3">
+            </div>
+            <div class="mb-3">
+                <label for="desc3" class="desc-form-label">Description</label>
+                <textarea class="form-control" id="emp_desc" rows="3" name="desc3"></textarea>
+            </div>
+        </div> 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-primary" ><a href="/educationpage" id="next_page">Next page - Education</a></button>
-        </div>       
+            <button type="submit" class="btn btn-primary">Next page - Education</button>
+        </div>        
         </form>
     </div>
-    {% if user.employments.all %}
-    <div id="emp_table">
-        <table style="width: fit-content;" class="table table-bordered">
-            <tr>
-                <th>From</th>
-                <th>To</th>
-                <th>Title</th>
-                <th>Description</th>
-            </tr>
-            {% for employment in user.employments.all %}
-            <tr>
-                <td>{{ employment.date_from|date:"M y" }}</td>
-                <td>{{ employment.date_to|date:"M y" }}</td>
-                <td>{{ employment.title }}</td>
-                <td>{{ employment.desc }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>  
-    {% endif %}
 </body>

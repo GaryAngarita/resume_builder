@@ -22,7 +22,7 @@
     <title>Edit Experience</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/expemp.css' %}">
-    <script>
+    <!-- <script>
         $(document).ready(function(){
             
             var counter = 0;
@@ -33,7 +33,7 @@
                 $('.exp_form').append( $(newElement) )
             })            
         })
-    </script>
+    </script> -->
 </head>
 <body>
     <!-- NAVBAR -->
@@ -56,21 +56,20 @@
     <h2>Experience</h2>
     <br>
     <div id="exp_form">
-        <form action="/editexperience/{{user.id}}" method="POST" id="experience">
+        <form action="/editexperience" method="POST" id="experience">
             {% csrf_token %}
-            {% for experience in experiences %}
+            {% for experience in user.experiences.all %}
         <div class="exp_form">
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="exp_title" value="{{user.experience.title}}" name="title">
+                <input type="text" class="form-control" id="exp_title" value="{{experience.title}}" name="title">
             </div>
             <div class="mb-3">
                 <label for="desc" class="desc-form-label">Description</label>
-                <textarea class="form-control" id="exp_desc" rows="3" name="desc">{{user.experience.desc}}</textarea>
+                <textarea class="form-control" id="exp_desc" rows="3" name="desc">{{experience.desc}}</textarea>
             </div>
         </div>
-            {% endfor %}   
-            <input type="button" id="add_new" value="Add Experience">
+            {% endfor %}
             <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
                 <button class="btn btn-primary" id="submit" type="submit">Back Home</button>
             </div>  
