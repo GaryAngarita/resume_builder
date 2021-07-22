@@ -56,40 +56,126 @@
     <h2>Education</h2>
     <br>
     <div id="edu_form">
-        <form action="/editeducation/{{user.id}}" method="POST" id="education">
+        <form action="/editeducation" method="POST" id="education">
             {% csrf_token %}
-            {% for education in educations %}
-        <div class="edu_form">
-            <div class="row">
-                <div class="col">
-                    <label for="date_from" class="form-label">From</label>
-                    <input type="date" class="form-control" id="edu_from" value="{{education.date_from}}" name="date_from">
+            {% for education in user.educations.all %}
+            <div class="edu_form">
+                <div class="row">
+                    <div class="col">
+                        <label for="date_from" class="form-label">Date Completed or, if still attending, today's date</label>
+                        <input type="date|date:%Y-%m-%d" class="form-control" id="edu_from" value="{{education.date_from|date:date}}" name="date_from">
+                    </div>
                 </div>
-                <div class="col">
-                    <label for="date_to" class="form-label">To</label>
-                    <input type="date" class="form-control" id="edu_to" value="{{education.date_to}}" name="date_to">
+                <div class="mb-3" id="title_div">
+                    <label for="school" class="form-label">School Name</label>
+                    <input type="text" class="form-control" id="edu_title" value="{{education.school}}" name="school">
                 </div>
+                <div class="mb-3">
+                    <label for="program" class="desc-form-label">Program <span>(ex: Bachelor of Science in Aeronautics)</span></label>
+                    <input type="text" class="form-control" id="edu_program" value="{{education.program}}" name="program">
+                </div>
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="grad">
+                    <option selected>{{education.grad}}</option>
+                    <option value="Y">Yes</option>
+                    <option value="N">No</option>
+                </select>
             </div>
-            <div class="mb-3" id="title_div">
-                <label for="school" class="form-label">School Name</label>
-                <input type="text" class="form-control" id="edu_title" value="{{education.school}}" name="school">
+            {% if education.date_from1 %}
+            <div class="edu_form">
+                <div class="row">
+                    <div class="col">
+                        <label for="date_from" class="form-label">Date Completed or, if still attending, today's date</label>
+                        <input type="date|date:%Y-%m-%d" class="form-control" id="edu_from" value="{{education.date_from1|date:date}}" name="date_from1">
+                    </div>
+                </div>
+                <div class="mb-3" id="title_div">
+                    <label for="school" class="form-label">School Name</label>
+                    <input type="text" class="form-control" id="edu_title" value="{{education.school1}}" name="school1">
+                </div>
+                <div class="mb-3">
+                    <label for="program" class="desc-form-label">Program <span>(ex: Bachelor of Science in Aeronautics)</span></label>
+                    <input type="text" class="form-control" id="edu_program" value="{{education.program1}}" name="program1">
+                </div>
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="grad1">
+                    <option selected>{{education.grad1}}</option>
+                    <option value="Y">Yes</option>
+                    <option value="N">No</option>
+                </select>
             </div>
-            <div class="mb-3">
-                <label for="program" class="desc-form-label">Program <span>(ex: Bachelor of Science in Aeronautics)</span></label>
-                <input type="text" class="form-control" id="edu_program" value="{{education.program}}" name="program">
+            {% endif %}
+            {% if education.date_from2 %}
+            <div class="edu_form">
+                <div class="row">
+                    <div class="col">
+                        <label for="date_from" class="form-label">Date Completed or, if still attending, today's date</label>
+                        <input type="date|date:%Y-%m-%d" class="form-control" id="edu_from" value="{{education.date_from2|date:date}}" name="date_from2">
+                    </div>
+                </div>
+                <div class="mb-3" id="title_div">
+                    <label for="school" class="form-label">School Name</label>
+                    <input type="text" class="form-control" id="edu_title" value="{{education.school2}}" name="school2">
+                </div>
+                <div class="mb-3">
+                    <label for="program" class="desc-form-label">Program <span>(ex: Bachelor of Science in Aeronautics)</span></label>
+                    <input type="text" class="form-control" id="edu_program" value="{{education.program2}}" name="program2">
+                </div>
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="grad2">
+                    <option selected>{{education.grad2}}</option>
+                    <option value="Y">Yes</option>
+                    <option value="N">No</option>
+                </select>
             </div>
-            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="grad">
-                <option selected>value="{{education.grad}}"</option>
-                {% for key, value in grad_choices %}
-                <option value="{{choice.key}}">{{choice.value}}</option>
-                {% endfor %}
-            </select>
-        </div>      
-            {% endfor %} 
+            {% endif %}
+            {% if education.date_from3 %}
+            <div class="edu_form">
+                <div class="row">
+                    <div class="col">
+                        <label for="date_from" class="form-label">Date Completed or, if still attending, today's date</label>
+                        <input type="date|date:%Y-%m-%d" class="form-control" id="edu_from" value="{{education.date_from3|date:date}}" name="date_from3">
+                    </div>
+                </div>
+                <div class="mb-3" id="title_div">
+                    <label for="school" class="form-label">School Name</label>
+                    <input type="text" class="form-control" id="edu_title" value="{{education.school3}}" name="school3">
+                </div>
+                <div class="mb-3">
+                    <label for="program" class="desc-form-label">Program <span>(ex: Bachelor of Science in Aeronautics)</span></label>
+                    <input type="text" class="form-control" id="edu_program" value="{{education.program3}}" name="program3">
+                </div>
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="grad3">
+                    <option selected>{{education.grad3}}</option>
+                    <option value="Y">Yes</option>
+                    <option value="N">No</option>
+                </select>
+            </div>
+            {% endif %}
+            {% if education.date_from4 %}
+            <div class="edu_form">
+                <div class="row">
+                    <div class="col">
+                        <label for="date_from" class="form-label">Date Completed or, if still attending, today's date</label>
+                        <input type="date|date:%Y-%m-%d" class="form-control" id="edu_from" value="{{education.date_from4|date:date}}" name="date_from4">
+                    </div>
+                </div>
+                <div class="mb-3" id="title_div">
+                    <label for="school" class="form-label">School Name</label>
+                    <input type="text" class="form-control" id="edu_title" value="{{education.school4}}" name="school4">
+                </div>
+                <div class="mb-3">
+                    <label for="program" class="desc-form-label">Program <span>(ex: Bachelor of Science in Aeronautics)</span></label>
+                    <input type="text" class="form-control" id="edu_program" value="{{education.program4}}" name="program4">
+                </div>
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="grad4">
+                    <option selected>{{education.grad4}}</option>
+                    <option value="Y">Yes</option>
+                    <option value="N">No</option>
+                </select>
+            </div>
+            {% endif %} 
+            {% endfor %}  
+            <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
+                <button class="btn btn-primary" id="submit" type="submit">Back Home</button>
+            </div>
         </form>
-    </div>
-    <input type="button" id="add_new" value="Add Education">
-    <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
-        <button class="btn btn-primary" id="submit" type="submit">Back Home</button>
-    </div>
+    </div>    
 </body>

@@ -1,0 +1,150 @@
+#container{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode:soft-light;
+    /* width: 1000px auto;
+    height: 2000px auto; */
+    margin: 0px auto;
+    padding: 0px;
+    background-color: skyblue;
+}
+
+.defining_info{
+    display: flex;
+    place-content: center;
+}
+
+#pro_pic, #contact_info{
+    display: inline-block;
+}
+
+#contact_info{
+    width: auto;
+    padding-right: 50px;
+}
+
+#pro_pic{    
+    vertical-align: top;
+}
+
+img{
+    height: 300px;
+    width: 250px;
+}
+
+.col-9, .col-3{
+    padding: 3px 0px 3px 0px;
+    border: 1px solid black;
+}
+
+.name{
+    display: flex;
+    place-content: center;
+    width: 1000px auto;
+    align-items: center;
+    height: 75px auto;
+}
+h1{
+    font-size: 50px;
+}
+
+svg{
+    color: black;
+}
+
+h2{
+    margin: 5px;
+}
+/* May put in less margin for h2 */
+.address1, .address2{
+    display: flex;
+    place-content: center;
+    align-items: center;
+    width: 1000px auto;
+    height: 25px;
+}
+
+.phone{
+    display: flex;
+    place-content: center;
+    align-items: center;
+    height: 25px;
+}
+.nav_bar ul{
+    display: flex;
+    place-content: center;
+    list-style: none;
+    width: 500px auto;
+    height: fit-content;
+}
+
+.nav_bar ul li{
+    display: inline;
+    padding-right: 20px;
+}
+
+#nav_bar ul{
+    list-style-type: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#nav_bar ul li{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#nav_bar p{
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    place-content: center;
+    align-items: center;
+}
+
+/* div{
+    background-color: green;
+} */
+
+.intro p{
+    width: 500px auto;
+    text-align: center;
+}
+
+.skills{
+    display: flex;
+    place-content: center;
+    padding-left: 100px;
+
+}
+.skills ul{
+    /* padding-bottom: 0px; */
+    margin: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.skills1{
+    display: inline-block;
+    width:50%;
+    place-content: center;
+    height: fit-content;
+}
+.skills li{
+    padding-bottom: 5px;
+    font-size:medium;
+}
+.date, .title{
+    font-weight: bold;
+}
+
+table{
+    text-align: center;
+}
+
+.additional ul{
+    list-style-type: square;
+}
+
+.job_title{
+    font-style: italic;
+}

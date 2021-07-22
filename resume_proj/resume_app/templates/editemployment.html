@@ -58,36 +58,79 @@
     <h2>Employment</h2>
     <br>
     <div id="emp_form">
-        <form action="/editemployment/{{user.id}}" method="POST" id="employment">
+        <form action="/editemployment" method="POST" id="employment">
             {% csrf_token %}
-            {% for employment in employments %}
-        <div class="emp_form">
-            <div class="row">
-                <div class="col">
-                    <label for="date_from" class="form-label">From</label>
-                    <input type="date" class="form-control" id="emp_from" value="{{employment.date_from}}" name="date_from">
+            {% for employment in user.employments.all %}
+            {% if employment.title1 %}
+            <div class="emp_form">
+                <div class="row">
+                    <div class="col">
+                        <label for="date_from" class="form-label">From</label>
+                        <input type="date|date:%Y-%m-%d" class="form-control" id="emp_from" value="{{employment.date_from1|date:date}}" name="date_from1">
+                    </div>
+                    <div class="col">
+                        <label for="date_to" class="form-label">To</label>
+                        <input type="date|date:%Y-%m-%d" class="form-control" id="emp_to" value="{{employment.date_to1|date:date}}" name="date_to1">
+                    </div>
                 </div>
-                <div class="col">
-                    <label for="date_to" class="form-label">To</label>
-                    <input type="date" class="form-control" id="emp_to" value="{{employment.date_to}}" name="date_to">
+                <div class="mb-3" id="title_div">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="emp_title" value="{{employment.title1}}" name="title1">
+                </div>
+                <div class="mb-3">
+                    <label for="desc" class="desc-form-label">Description</label>
+                    <textarea class="form-control" id="emp_desc" rows="3" name="desc1">{{employment.desc1}}</textarea>
                 </div>
             </div>
-            <div class="mb-3" id="title_div">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="emp_title" value="{{employment.title}}" name="title">
+            {% endif %}
+            {% if employment.title2 %}
+            <div class="emp_form">
+                <div class="row">
+                    <div class="col">
+                        <label for="date_from" class="form-label">From</label>
+                        <input type="date|date:%Y-%m-%d" class="form-control" id="emp_from" value="{{employment.date_from2|date:date}}" name="date_from2">
+                    </div>
+                    <div class="col">
+                        <label for="date_to" class="form-label">To</label>
+                        <input type="date|date:%Y-%m-%d" class="form-control" id="emp_to" value="{{employment.date_to2|date:date}}" name="date_to2">
+                    </div>
+                </div>
+                <div class="mb-3" id="title_div">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="emp_title" value="{{employment.title2}}" name="title2">
+                </div>
+                <div class="mb-3">
+                    <label for="desc" class="desc-form-label">Description</label>
+                    <textarea class="form-control" id="emp_desc" rows="3" name="desc2">{{employment.desc2}}</textarea>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="desc" class="desc-form-label">Description</label>
-                <textarea class="form-control" id="emp_desc" rows="3" name="desc">{{employment.desc}}</textarea>
+            {% endif %}
+            {% if employment.title3 %}
+            <div class="emp_form">
+                <div class="row">
+                    <div class="col">
+                        <label for="date_from" class="form-label">From</label>
+                        <input type="date|date:%Y-%m-%d" class="form-control" id="emp_from" value="{{employment.date_from3|date:date}}" name="date_from3">
+                    </div>
+                    <div class="col">
+                        <label for="date_to" class="form-label">To</label>
+                        <input type="date|date:%Y-%m-%d" class="form-control" id="emp_to" value="{{employment.date_to3|date:date}}" name="date_to3">
+                    </div>
+                </div>
+                <div class="mb-3" id="title_div">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="emp_title" value="{{employment.title3}}" name="title3">
+                </div>
+                <div class="mb-3">
+                    <label for="desc" class="desc-form-label">Description</label>
+                    <textarea class="form-control" id="emp_desc" rows="3" name="desc3">{{employment.desc3}}</textarea>
+                </div>
             </div>
-        </div>
-            {% endfor %}       
-        </form>
-    </div>
-    <input type="button" id="add_new" value="Add Employment">
-    <div id="add_new">
+            {% endif %}
+            {% endfor %}   
             <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
                 <button class="btn btn-primary" id="submit" type="submit">Back Home</button>
-            </div>
+            </div>    
+        </form>            
     </div>
 </body>

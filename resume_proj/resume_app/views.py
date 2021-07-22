@@ -368,9 +368,8 @@ def editpersonalpage(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
-        user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id)
+            'user': User.objects.get(id = request.session['id'])
         }
     return render(request, 'editpersonal.html', context)
 
@@ -387,7 +386,7 @@ def editcontact(request):
         for key, value in errors.items():
             messages.error(request, value)
         return redirect(f'/editpersonalpage')
-    frauds = User.objects.reg_validator(request.POST)
+    frauds = User.objects.simp_validator(request.POST)
     if len(frauds) > 0:
         for key, value in frauds.items():
             messages.error(request, value)
@@ -418,9 +417,8 @@ def editobjandskillpage(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
-        user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id)
+            'user': User.objects.get(id = request.session['id'])
         }
     return render(request, 'editobjandskill.html', context)
 
@@ -459,9 +457,8 @@ def editexperiencepage(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
-        user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id)
+            'user': User.objects.get(id = request.session['id'])
         }
     return render(request, 'editexperience.html', context)
 
@@ -489,9 +486,9 @@ def editemploymentpage(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
-        user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id)
+            'date': 'Y-m-d',
+            'user': User.objects.get(id = request.session['id'])
         }
     return render(request, 'editemployment.html', context)
 
@@ -525,9 +522,9 @@ def editeducationpage(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
-        user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id)
+            'date': 'Y-m-d',
+            'user': User.objects.get(id = request.session['id'])
         }
     return render(request, 'editeducation.html', context)
 
@@ -542,10 +539,43 @@ def editeducation(request):
     else:
         user = User.objects.get(id = request.session['id'])
         updated = Education.objects.get(user = user)
+        school3 = request.POST['school3']
+        if request.POST['date_from3'] != None:
+            school3 = request.POST['school3']
+            program3 = request.POST['program3']
+            grad3 = request.POST['grad3']
+            school4 = request.POST['school4']
+            program4 = request.POST['program4']
+            grad4 = request.POST['grad4']
+        else:
+            school3 = False
+            program3 = False
+            grad3 = False
+            school4 = False
+            program4 = False
+            grad4 = False
+            updated.save()
+                
         updated.date_from = request.POST['date_from']
         updated.school = request.POST['school']
         updated.program = request.POST['program']
         updated.grad = request.POST['grad']
+        updated.date_from1 = request.POST['date_from1']
+        updated.school1 = request.POST['school1']
+        updated.program1 = request.POST['program1']
+        updated.grad1 = request.POST['grad1']
+        updated.date_from2 = request.POST['date_from2']
+        updated.school2 = request.POST['school2']
+        updated.program2 = request.POST['program2']
+        updated.grad2 = request.POST['grad2']
+        updated.date_from3 = request.POST['date_from3']
+        updated.school3 = school3
+        updated.program3 = program3
+        updated.grad3 = grad3
+        updated.date_from4 = request.POST['date_from4']
+        updated.school4 = school4
+        updated.program4 = program4
+        updated.grad4 = grad4
         updated.save()
         return redirect(f'/resumehome/{user.id}')
 
@@ -553,9 +583,8 @@ def editadditionalpage(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
-        user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id)
+            'user': User.objects.get(id = request.session['id'])
         }
     return render(request, 'editadditional.html', context)
 
@@ -569,8 +598,14 @@ def editadditional(request):
         return redirect('/editadditionalpage')
     else:
         user = User.objects.get(id = request.session['id'])
-        updated = Additional.objects.get(id = user)
-        updated.info = request.POST.getlist('info')
+        updated = Additional.objects.get(user = user)
+        updated.info = request.POST['info']
+        updated.info1 = request.POST['info1']
+        updated.info2 = request.POST['info2']
+        updated.info3 = request.POST['info3']
+        updated.info4 = request.POST['info4']
+        updated.info5 = request.POST['info5']
+        updated.info6 = request.POST['info6']
         updated.save()
         return redirect(f'/resumehome/{user.id}')
 
@@ -578,9 +613,8 @@ def editpicturepage(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
-        user_id = request.session['id']
         context = {
-            'user': User.objects.get(id = user_id)
+            'user': User.objects.get(id = request.session['id'])
         }
     return render(request, 'editpicture.html', context)
 

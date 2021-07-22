@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Resume Display</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/template2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/template4.css' %}">
     <!-- <script>
         $(document).ready(function () {
             $('.experience, .row, .employment, .additional').hide();
@@ -93,25 +93,22 @@
                 {% endif %} -->
                 {% if user.social_medias.all %}
                 <div id="nav_bar">
-                    <ul>
                     {% for social in user.social_medias.all %}
                     {% if social.github %}
-                    <li>{{social.github}}</li>
+                    <p>{{social.github}}</p>
                     {% endif %}
                     {% if social.linkedin %}
-                    <li>{{social.linkedin}}</li>
+                    <p>{{social.linkedin}}</p>
                     {% endif %}
                     {% if social.facebook %}
-                    <li>{{social.facebook}}</li>
+                    <p>{{social.facebook}}</p>
                     {% endif %}
                     {% if social.twitter %}
-                    <li>{{social.twitter}}</li>
+                    <p>{{social.twitter}}</p>
                     {% endif %}
-                    </ul>
                     {% endfor %}
                 {% endif %}
                 </div>
-        </div>
         <div class="intro">
             <h2>Objective:</h2>
             <p>{{user.objective.content}}.</p>

@@ -10,7 +10,7 @@
 }
 
 .bgded{
-    background-image: url( "{% static '{{ user.picture.img }}' %}");
+    background-image: url( "{% static 'img/948656-Jamesbondskyfall-1441105545-700-640x480.jpg' %}");
 }
 
 #intro, #profile_pic{

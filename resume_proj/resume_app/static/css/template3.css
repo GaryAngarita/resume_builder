@@ -25,11 +25,13 @@
 
 #pro_pic{    
     vertical-align: top;
+    margin-top: 10px;
 }
 
 img{
     height: 300px;
     width: 250px;
+
 }
 
 .col-9, .col-3{
@@ -56,12 +58,13 @@ h2{
     margin: 5px;
 }
 /* May put in less margin for h2 */
-.address1, .address2{
+.address1, .address2, .phone{
     display: flex;
     place-content: center;
     align-items: center;
     width: 1000px auto;
     height: 25px;
+    font-size: 20px;
 }
 
 .phone{
@@ -95,6 +98,8 @@ h2{
 }
 
 #nav_bar p{
+    margin: 0px;
+    padding: 0px;
     display: flex;
     place-content: center;
     align-items: center;
@@ -112,6 +117,7 @@ h2{
 .skills{
     display: flex;
     place-content: center;
+    padding-left: 100px;
 
 }
 .skills ul{
@@ -122,7 +128,7 @@ h2{
 }
 .skills1{
     display: inline-block;
-    width: 250px;
+    width: 50%;
     place-content: center;
     height: fit-content;
 }

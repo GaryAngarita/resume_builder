@@ -59,6 +59,24 @@ class UserManager(models.Manager):
             errors['bad_password'] = "Email and password do not match"
         return errors
         
+    def simp_validator(self, postData):
+        errors = {}
+        user_emails = User.objects.filter(email = postData['email'])
+        if len(postData['first_name']) == 0:
+            errors['blank_first'] = "First name cannot be blank"
+        if len(postData['first_name']) < 2:
+            errors['first_name'] = "First name must be 2 letters or more"
+        if len(postData['last_name']) == 0:
+            errors['blank_last'] = 'Last name cannot be blank'
+        if len(postData['last_name']) < 2:
+            errors['last_name'] = "Last name must be 2 letters or more"
+        if len(postData['email']) == 0:
+            errors['blank_email'] = "Email cannot be blank"
+        if not email_regex.match(postData['email']):
+            errors['email'] = "Invalid email address"
+        if not user_emails:
+            errors['mismatch'] = "Email does not exist"
+        return errors
 
 class User(models.Model):
     first_name = models.CharField(max_length=255)
@@ -279,11 +297,11 @@ class Education(models.Model):
     program2 = models.CharField(max_length=255)
     grad2 = models.CharField(max_length=1)
     date_from3 = models.DateField(blank=True, null=True, validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
-    school3 = models.CharField(max_length=255)
+    school3 = models.CharField(blank=True, max_length=255)
     program3 = models.CharField(max_length=255)
     grad3 = models.CharField(max_length=1)
     date_from4 = models.DateField(blank=True, null=True, validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
-    school4 = models.CharField(max_length=255)
+    school4 = models.CharField(blank=True, max_length=255)
     program4 = models.CharField(max_length=255)
     grad4 = models.CharField(max_length=1)
     user = models.ForeignKey(User, related_name="educations", on_delete=models.CASCADE)
