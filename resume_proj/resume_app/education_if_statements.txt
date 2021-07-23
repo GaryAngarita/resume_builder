@@ -1,0 +1,51 @@
+
+        date_from1 = request.POST['date_from1']
+        school1 = request.POST['school1']
+        if request.POST['date_from1'] == '':
+            date_from1 = None
+            school1 = ''
+        date_from2 = request.POST['date_from2']
+        if request.POST['date_from2'] == '':
+            date_from2 = None
+        date_from3 = request.POST['date_from3']
+        school3 = request.POST['school3']
+        if request.POST['date_from3'] == '':
+            date_from3 = None
+            school3 = ''
+        date_from4 = request.POST['date_from4']
+        if request.POST['date_from4'] == '':
+            date_from4 = None
+
+school3 = request.POST['school3']
+            program3 = request.POST['program3']
+            grad3 = request.POST['grad3']
+            school4 = request.POST['school4']
+            program4 = request.POST['program4']
+            grad4 = request.POST['grad4']
+        else:
+            school3 = False
+            program3 = False
+            grad3 = False
+            school4 = False
+            program4 = False
+            grad4 = False
+            updated.save()
+
+# date_from3 = request.POST['date_from3']
+        # school3 = request.POST['school3']
+        # program4 = request.POST['program4']
+        # grad4 = request.POST['grad4']
+        # if request.POST['date_from3'] == None:
+        #     date_from3 = None
+        #     school3 = None
+        #     program3 = ''
+        #     grad3 = ''
+        # date_from4 = request.POST['date_from4']
+        # school4 = request.POST['school4']
+        # program4 = request.POST['program4']
+        # grad4 = request.POST['grad4'] 
+        # if request.POST['date_from4'] == None:
+        #     school4 = ''
+        #     program4 = ''
+        #     grad4 = ''   
+                

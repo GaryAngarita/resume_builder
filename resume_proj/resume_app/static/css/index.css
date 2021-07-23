@@ -1,0 +1,24 @@
+img{
+    height: 262px;
+    width: 267px;
+    display: flex;
+    place-content: center;
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h5{
+    text-align: center;
+    height: 60px;
+}
+
+a{
+    text-align: center;
+    max-width: 240px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    place-content: center;
+    align-content: center;
+}

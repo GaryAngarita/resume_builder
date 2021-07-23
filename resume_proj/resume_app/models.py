@@ -201,10 +201,12 @@ class ExperienceManager(models.Manager):
             errors['title2'] = "Title should be expanded"
         if postData['desc2'] != '' and len(postData['desc2']) < 10:
             errors['desc2'] = "Experience description should be expanded"
-        if postData['title3'] != '' and len(postData['title3']) < 2:
-            errors['title3'] = "Title should be expanded"
-        if postData['desc3'] != '' and len(postData['desc3']) < 10:
-            errors['desc3'] = "Experience description should be expanded"
+        if postData.get('title3'):
+            if postData['title3'] != '' and len(postData['title3']) < 2:
+                errors['title3'] = "Title should be expanded"
+        if postData.get('desc3'):
+            if postData['desc3'] != '' and len(postData['desc3']) < 10:
+                errors['desc3'] = "Experience description should be expanded"
         return errors
 
 class Experience(models.Model):
@@ -233,10 +235,12 @@ class EmploymentManager(models.Manager):
             errors['title2'] = "Title should be expanded"
         if postData['desc2'] != '' and len(postData['desc2']) < 10:
             errors['desc2'] = "Employment description should be expanded"
-        if postData['title3'] != '' and len(postData['title3']) < 2:
-            errors['title3'] = "Title should be expanded"
-        if postData['desc3'] != '' and len(postData['desc3']) < 10:
-            errors['desc3'] = "Employment description should be expanded"
+        if postData.get('title3'):
+            if postData['title3'] != '' and len(postData['title3']) < 2:
+                errors['title3'] = "Title should be expanded"
+        if postData.get('desc3'):
+            if postData['desc3'] != '' and len(postData['desc3']) < 10:
+                errors['desc3'] = "Employment description should be expanded"
         return errors
 
 class Employment(models.Model):
@@ -269,18 +273,24 @@ class EducationManager(models.Manager):
             errors['school1'] = "Schools need to be spelled out"
         if postData['program1'] != '' and len(postData['program1']) < 5:
             errors['program1'] = "Program needs to be spelled out"
-        if postData['school2'] != '' and len(postData['school2']) < 2:
-            errors['school2'] = "Schools need to be spelled out"
-        if postData['program2'] != '' and len(postData['program2']) < 5:
-            errors['program2'] = "Program needs to be spelled out"
-        if postData['school3'] != '' and len(postData['school3']) < 2:
-            errors['school3'] = "Schools need to be spelled out"
-        if postData['program3'] != '' and len(postData['program3']) < 5:
-            errors['program3'] = "Program needs to be spelled out"
-        if postData['school4'] != '' and len(postData['school4']) < 2:
-            errors['school4'] = "Schools need to be spelled out"
-        if postData['program4'] != '' and len(postData['program4']) < 5:
-            errors['program4'] = "Program needs to be spelled out"
+        if postData.get('school2'):
+            if postData['school2'] != '' and len(postData['school2']) < 2:
+                errors['school2'] = "Schools need to be spelled out"
+        if postData.get('program2'):
+            if postData['program2'] != '' and len(postData['program2']) < 5:
+                errors['program2'] = "Program needs to be spelled out"
+        if postData.get('school3'):
+            if postData['school3'] != '' and len(postData['school3']) < 2:
+                errors['school3'] = "Schools need to be spelled out"
+        if postData.get('program3'):
+            if postData['program3'] != '' and len(postData['program3']) < 5:
+                errors['program3'] = "Program needs to be spelled out"
+        if postData.get('school4'):
+            if postData['school4'] != '' and len(postData['school4']) < 2:
+                errors['school4'] = "Schools need to be spelled out"
+        if postData.get('program4'):
+            if postData['program4'] != '' and len(postData['program4']) < 5:
+                errors['program4'] = "Program needs to be spelled out"
         return errors
 
 class Education(models.Model):
@@ -297,13 +307,13 @@ class Education(models.Model):
     program2 = models.CharField(max_length=255)
     grad2 = models.CharField(max_length=1)
     date_from3 = models.DateField(blank=True, null=True, validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
-    school3 = models.CharField(blank=True, max_length=255)
+    school3 = models.CharField(blank=True, null=True, max_length=255)
     program3 = models.CharField(max_length=255)
-    grad3 = models.CharField(max_length=1)
+    grad3 = models.CharField(blank=True, null=True, max_length=1)
     date_from4 = models.DateField(blank=True, null=True, validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
     school4 = models.CharField(blank=True, max_length=255)
     program4 = models.CharField(max_length=255)
-    grad4 = models.CharField(max_length=1)
+    grad4 = models.CharField(blank=True, null=True, max_length=1)
     user = models.ForeignKey(User, related_name="educations", on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
@@ -312,20 +322,27 @@ class Education(models.Model):
 class AdditionalManager(models.Manager):
     def add_validator(self, postData):
         errors = {}
-        if postData['info'] != '' and len(postData['info']) < 5:
-            errors['info'] = "You should expand on your shorter entry"
-        if postData['info1'] != '' and len(postData['info1']) < 5:
-            errors['info1'] = "You should expand on your shorter entry"
-        if postData['info2'] != '' and len(postData['info2']) < 5:
-            errors['info2'] = "You should expand on your shorter entry"
-        if postData['info3'] != '' and len(postData['info3']) < 5:
-            errors['info3'] = "You should expand on your shorter entry"
-        if postData['info4'] != '' and len(postData['info4']) < 5:
-            errors['info4'] = "You should expand on your shorter entry"
-        if postData['info5'] != '' and len(postData['info5']) < 5:
-            errors['info5'] = "You should expand on your shorter entry"
-        if postData['info6'] != '' and len(postData['info6']) < 5:
-            errors['info6'] = "You should expand on your shorter entry"
+        if postData.get('info'):
+            if postData['info'] != '' and len(postData['info']) < 5:
+                errors['info'] = "You should expand on your shorter entry"
+        if postData.get('info1'):
+            if postData['info1'] != '' and len(postData['info1']) < 5:
+                errors['info1'] = "You should expand on your shorter entry"
+        if postData.get('info2'):
+            if postData['info2'] != '' and len(postData['info2']) < 5:
+                errors['info2'] = "You should expand on your shorter entry"
+        if postData.get('info3'):
+            if postData['info3'] != '' and len(postData['info3']) < 5:
+                errors['info3'] = "You should expand on your shorter entry"
+        if postData.get('info4'):
+            if postData['info4'] != '' and len(postData['info4']) < 5:
+                errors['info4'] = "You should expand on your shorter entry"
+        if postData.get('info5'):
+            if postData['info5'] != '' and len(postData['info5']) < 5:
+                errors['info5'] = "You should expand on your shorter entry"
+        if postData.get('info6'):
+            if postData['info6'] != '' and len(postData['info6']) < 5:
+                errors['info6'] = "You should expand on your shorter entry"
         return errors
 
 class Additional(models.Model):
