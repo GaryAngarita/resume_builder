@@ -1,3 +1,7 @@
+#pics{
+    max-width: fit-content;
+}
+
 img{
     height: 262px;
     width: 267px;
@@ -13,12 +17,16 @@ h5{
     height: 60px;
 }
 
-a{
+p{
     text-align: center;
-    max-width: 240px;
+    max-width: 267px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
     place-content: center;
     align-content: center;
+}
+
+h3{
+    text-align: center;
 }

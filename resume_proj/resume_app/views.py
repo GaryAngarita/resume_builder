@@ -10,6 +10,9 @@ from .models import *
 def index(request):
     return render(request, 'index.html')
 
+def about(request):
+    return render(request, "about.html")
+
 def logreg(request):
     return render(request, 'logreg.html')
 

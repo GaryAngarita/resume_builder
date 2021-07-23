@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Theme Simply Me</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+</head>
+
+<body>
+<!-- NAVBAR -->
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand">Profile Resume</a>
+        <div class="d-flex">
+            <a href="/">Home</a>
+        </div>
+    </div>
+</nav><!-- /NAVBAR -->
+    <div class="container-fluid bg-1 text-center">
+        <h3>Who Am I?</h3>
+        <img src="{% static 'img/FB_IMG_1507835697822~2.jpg' %}" class="img-circle" alt="Bird">
+        <!-- <h3></h3> -->
+    </div>
+
+    <div class="container-fluid bg-2 text-center">
+        <h3>About Me</h3>
+        <p>I am Veteran, single-father, and an up-and-coming software developer who likes to experiment with
+            out-of-the-box ideas. My true passion is raising efficiency. I like to create new means and methods for
+            saving time and resources. </p>
+    </div>
+
+    <div class="container-fluid bg-3 text-center">
+        <h3>Come Find Me!</h3>
+        <p>In Sunny Florida! I think Florida gets a bad rap. Sure, it's humid, swampy, and it costs more to register a car
+            than to buy a car. Buuuut, you can't beat the beaches, Southern hospitality, gas prices, breweries, and all the
+            sports you can shake a pom-pom at.</p>
+    </div>
+
+    <footer class="container-fluid bg-4 text-center">
+        <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p>
+    </footer>
+
+</body>
+
+</html>
