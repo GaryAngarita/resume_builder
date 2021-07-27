@@ -21,12 +21,26 @@ span a{
     padding-bottom: 50px;
 }
 
-img{
-    border-radius: 50%;
-}
-
-
 .bg-4 {
     background-color: #2f2f2f;
     color: #ffffff;
+}
+
+h2, p{
+    text-align: center;
+}
+
+#pic_temps{
+    display: flex;
+    place-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 100px;
+}
+
+.temp_one_two, .temp_three_four, .temp_five_six{
+    display: flex;
+    place-content: center;
+    width: 450px;
+    height: fit-content;
 }

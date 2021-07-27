@@ -113,14 +113,18 @@ class Contact(models.Model):
 class SocialManager(models.Manager):
     def site_validator(self, postData):
         errors = {}
-        if len(postData['github']) < 4:
-            errors['github'] = "Check your GitHub site again"
-        if len(postData['linkedin']) < 4:
-            errors['linkedin'] = "Check your LinkedIn site again"
-        if len(postData['facebook']) < 4:
-            errors['facebook'] = "Check your Facebook site again"
-        if len(postData['twitter']) < 4:
-            errors['twitter'] = "Check your Twitter site again"
+        if postData.get('github'):
+            if len(postData['github']) < 4:
+                errors['github'] = "Check your GitHub site again"
+        if postData.get('linkedin'):
+            if len(postData['linkedin']) < 4:
+                errors['linkedin'] = "Check your LinkedIn site again"
+        if postData.get('facebook'):
+            if len(postData['facebook']) < 4:
+                errors['facebook'] = "Check your Facebook site again"
+        if postData.get('twitter'):
+            if len(postData['twitter']) < 4:
+                errors['twitter'] = "Check your Twitter site again"
         # if postData['site'] != '':
         #     if not url_regex.match(postData['site']):
         #         errors['site'] = 'Check your website and try again'
@@ -193,14 +197,18 @@ class Skill(models.Model):
 class ExperienceManager(models.Manager):
     def exp_validator(self, postData):
         errors = {}
-        if postData['title1'] != '' and len(postData['title1']) < 2:
-            errors['title1'] = "Title should be expanded"
-        if postData['desc1'] != '' and len(postData['desc1']) < 10:
-            errors['desc1'] = "Experience description should be expanded"
-        if postData['title2'] != '' and len(postData['title2']) < 2:
-            errors['title2'] = "Title should be expanded"
-        if postData['desc2'] != '' and len(postData['desc2']) < 10:
-            errors['desc2'] = "Experience description should be expanded"
+        if postData.get('title1'):
+            if postData['title1'] != '' and len(postData['title1']) < 2:
+                errors['title1'] = "Title should be expanded"
+        if postData.get('desc1'):
+            if postData['desc1'] != '' and len(postData['desc1']) < 10:
+                errors['desc1'] = "Experience description should be expanded"
+        if postData.get('title2'):
+            if postData['title2'] != '' and len(postData['title2']) < 2:
+                errors['title2'] = "Title should be expanded"
+        if postData.get('desc2'):
+            if postData['desc2'] != '' and len(postData['desc2']) < 10:
+                errors['desc2'] = "Experience description should be expanded"
         if postData.get('title3'):
             if postData['title3'] != '' and len(postData['title3']) < 2:
                 errors['title3'] = "Title should be expanded"
@@ -227,14 +235,18 @@ class EmploymentManager(models.Manager):
         #need to figure out how to deal with date
         # if postData['date_from'] >= timezone.now().date():
         #     errors['date_from'] = "Date must be in the past"
-        if postData['title1'] != '' and len(postData['title1']) < 2:
-            errors['title1'] = "Title should be expanded"
-        if postData['desc1'] != '' and len(postData['desc1']) < 10:
-            errors['desc1'] = "Employment description should be expanded"
-        if postData['title2'] != '' and len(postData['title2']) < 2:
-            errors['title2'] = "Title should be expanded"
-        if postData['desc2'] != '' and len(postData['desc2']) < 10:
-            errors['desc2'] = "Employment description should be expanded"
+        if postData.get('title1'):   
+            if postData['title1'] != '' and len(postData['title1']) < 2:
+                errors['title1'] = "Title should be expanded"
+        if postData.get('desc1'):    
+            if postData['desc1'] != '' and len(postData['desc1']) < 10:
+                errors['desc1'] = "Employment description should be expanded"
+        if postData.get('title2'):
+            if postData['title2'] != '' and len(postData['title2']) < 2:
+                errors['title2'] = "Title should be expanded"
+        if postData.get('desc2'):
+            if postData['desc2'] != '' and len(postData['desc2']) < 10:
+                errors['desc2'] = "Employment description should be expanded"
         if postData.get('title3'):
             if postData['title3'] != '' and len(postData['title3']) < 2:
                 errors['title3'] = "Title should be expanded"
@@ -269,10 +281,12 @@ class EducationManager(models.Manager):
             errors['school'] = "Schools need to be spelled out"
         if postData['program'] != '' and len(postData['program']) < 5:
             errors['program'] = "Program needs to be spelled out"
-        if postData['school1'] != '' and len(postData['school1']) < 2:
-            errors['school1'] = "Schools need to be spelled out"
-        if postData['program1'] != '' and len(postData['program1']) < 5:
-            errors['program1'] = "Program needs to be spelled out"
+        if postData.get('school1'):
+            if postData['school1'] != '' and len(postData['school1']) < 2:
+                errors['school1'] = "Schools need to be spelled out"
+        if postData.get('program1'):
+            if postData['program1'] != '' and len(postData['program1']) < 5:
+                errors['program1'] = "Program needs to be spelled out"
         if postData.get('school2'):
             if postData['school2'] != '' and len(postData['school2']) < 2:
                 errors['school2'] = "Schools need to be spelled out"

@@ -1,0 +1,25 @@
+a{
+    padding-right: 10px;
+}
+
+h2, p{
+    text-align: center;
+}
+
+#first_pic, #second_pic, #third_pic, #fourth_pic{
+    width: 350px;
+    height: 350px;
+}
+
+#pic_temps{
+    display: flex;
+    place-content: center;
+    padding-top: 100px;
+}
+
+.temp_one_two, .temp_three_four{
+    display: inline-block;
+    width: 270px;
+    padding: 20px;
+    height: fit-content;
+}
