@@ -113,18 +113,17 @@ class Contact(models.Model):
 class SocialManager(models.Manager):
     def site_validator(self, postData):
         errors = {}
-        if postData.get('github'):
-            if len(postData['github']) < 4:
-                errors['github'] = "Check your GitHub site again"
-        if postData.get('linkedin'):
-            if len(postData['linkedin']) < 4:
-                errors['linkedin'] = "Check your LinkedIn site again"
-        if postData.get('facebook'):
-            if len(postData['facebook']) < 4:
-                errors['facebook'] = "Check your Facebook site again"
-        if postData.get('twitter'):
-            if len(postData['twitter']) < 4:
-                errors['twitter'] = "Check your Twitter site again"
+        if len(postData['github']) < 4:
+            errors['github'] = "Check your GitHub site again"
+        
+        if len(postData['linkedin']) < 4:
+            errors['linkedin'] = "Check your LinkedIn site again"
+        
+        if len(postData['facebook']) < 4:
+            errors['facebook'] = "Check your Facebook site again"
+        
+        if len(postData['twitter']) < 4:
+            errors['twitter'] = "Check your Twitter site again"
         # if postData['site'] != '':
         #     if not url_regex.match(postData['site']):
         #         errors['site'] = 'Check your website and try again'
@@ -235,12 +234,10 @@ class EmploymentManager(models.Manager):
         #need to figure out how to deal with date
         # if postData['date_from'] >= timezone.now().date():
         #     errors['date_from'] = "Date must be in the past"
-        if postData.get('title1'):   
-            if postData['title1'] != '' and len(postData['title1']) < 2:
-                errors['title1'] = "Title should be expanded"
-        if postData.get('desc1'):    
-            if postData['desc1'] != '' and len(postData['desc1']) < 10:
-                errors['desc1'] = "Employment description should be expanded"
+        if postData['title1'] != '' and len(postData['title1']) < 2:
+            errors['title1'] = "Title should be expanded"
+        if postData['desc1'] != '' and len(postData['desc1']) < 10:
+            errors['desc1'] = "Employment description should be expanded"
         if postData.get('title2'):
             if postData['title2'] != '' and len(postData['title2']) < 2:
                 errors['title2'] = "Title should be expanded"
@@ -256,16 +253,16 @@ class EmploymentManager(models.Manager):
         return errors
 
 class Employment(models.Model):
-    date_from1 = models.DateField(blank=True, validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
-    date_to1 = models.DateField(blank=False)
+    date_from1 = models.DateField(blank=True, null=False)
+    date_to1 = models.DateField(blank=False, null=True)
     title1 = models.CharField(blank=True, max_length=100)
     desc1 = models.TextField(blank=True)
-    date_from2 = models.DateField(blank=True, validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
-    date_to2 = models.DateField(blank=True)
+    date_from2 = models.DateField(blank=True, null=True)
+    date_to2 = models.DateField(blank=True, null=True)
     title2 = models.CharField(blank=True, max_length=100)
     desc2 = models.TextField(blank=True)
-    date_from3 = models.DateField(blank=True, validators=[MaxValueValidator(limit_value=date.today, message="Date must be in the past")])
-    date_to3 = models.DateField(blank=True)
+    date_from3 = models.DateField(blank=True, null=True)
+    date_to3 = models.DateField(blank=True, null=True)
     title3 = models.CharField(blank=True, max_length=100)
     desc3 = models.TextField(blank=True)
     user = models.ForeignKey(User, related_name="employments", on_delete=models.CASCADE)
@@ -308,7 +305,7 @@ class EducationManager(models.Manager):
         return errors
 
 class Education(models.Model):
-    date_from = models.DateField(blank=True)
+    date_from = models.DateField(blank=True, null=True)
     school = models.CharField(max_length=255)
     program = models.CharField(max_length=255)
     grad = models.CharField(max_length=1)

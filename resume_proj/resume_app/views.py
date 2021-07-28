@@ -99,10 +99,10 @@ def social(request):
         zip = request.POST['zip'], 
         phone_number = request.POST['phone_number'],
         user = user)
-        Social.objects.create(github = request.POST.get('github'),
-        linkedin = request.POST.get('linkedin'),
-        facebook = request.POST.get('facebook'),
-        twitter = request.POST.get('twitter'), 
+        Social.objects.create(github = request.POST['github'],
+        linkedin = request.POST['linkedin'],
+        facebook = request.POST['facebook'],
+        twitter = request.POST['twitter'], 
         user = user)
         return redirect('/objectiveandskill')
 
@@ -163,12 +163,12 @@ def experience(request):
         return redirect('/experiencepage')
     else:
         user = User.objects.get(id = request.session['id'])
-        Experience.objects.create(title1 = request.POST.get('title1'), 
-        desc1 = request.POST.get('desc1'),
-        title2 = request.POST.get('title2'), 
-        desc2 = request.POST.get('desc2'),
-        title3 = request.POST.get('title3'), 
-        desc3 = request.POST.get('desc3'), 
+        Experience.objects.create(title1 = request.POST['title1'], 
+        desc1 = request.POST['desc1'],
+        title2 = request.POST['title2'], 
+        desc2 = request.POST['desc2'],
+        title3 = request.POST['title3'], 
+        desc3 = request.POST['desc3'], 
         user = user)
         return redirect('/employmentpage')
 
@@ -176,10 +176,8 @@ def employmentpage(request):
     if 'id' not in request.session:
         return redirect('/')
     else:
-        user_id = request.session['id']
         context = {
-            'date': 'Y-m-d',
-            'user': User.objects.get(id = user_id)
+            'user': User.objects.get(id = request.session['id'])
         }
     return render(request, 'employment.html', context)
 
@@ -191,21 +189,45 @@ def employment(request):
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/employmentpage')
-    else:        
+    else:
+        if request.POST['date_from1'] == '':
+            date_from1 = None
+        else:
+            date_from1 = request.POST['date_from1']
+        if request.POST['date_to1'] == '':
+            date_to1 = None
+        else:
+            date_to1 = request.POST['date_to2']
+        if request.POST['date_from2'] == '':
+            date_from2 = None
+        else:
+            date_from2 = request.POST['date_from2']
+        if request.POST['date_to2'] == '':
+            date_to2 = None
+        else:
+            date_to2 = request.POST['date_to2']
+        if request.POST['date_from3'] == '':
+            date_from3 = None
+        else:
+            date_from3 = request.POST['date_from3']
+        if request.POST['date_to3'] == '':
+            date_to3 = None
+        else:
+            date_to3 = request.POST['date_to3']
         user = User.objects.get(id = request.session['id'])
-        print(type(request.POST['date_from1']))
-        Employment.objects.create(date_from1 = datetime.strptime(request.POST['date_from1'], '%Y-%m-%d').strftime('%Y-%m-%d'), 
-        date_to1 = request.POST.get('date_to1', "%Y-%m-%d"), 
-        title1 = request.POST.get('title1'), 
-        desc1 = request.POST.get('desc1'),
-        date_from2 = request.POST.get('date_from2'), 
-        date_to2 = request.POST.get('date_to2'), 
-        title2 = request.POST.get('title2'), 
-        desc2 = request.POST.get('desc2'),
-        date_from3 = request.POST.get('date_from3'), 
-        date_to3 = request.POST.get('date_to3'), 
-        title3 = request.POST.get('title3'), 
-        desc3 = request.POST.get('desc3'), 
+        print(request.POST['date_from1'])
+        Employment.objects.create(date_from1 = date_from1,
+        date_to1 = date_to1, 
+        title1 = request.POST['title1'], 
+        desc1 = request.POST['desc1'],
+        date_from2 = date_from2, 
+        date_to2 = date_to2, 
+        title2 = request.POST.get('title2', ''), 
+        desc2 = request.POST.get('desc2', ''),
+        date_from3 = date_from3, 
+        date_to3 = date_to3, 
+        title3 = request.POST.get('title3', ''), 
+        desc3 = request.POST.get('desc3', ''), 
         user = user)
         return redirect('/educationpage')
 
@@ -230,6 +252,9 @@ def education(request):
         return redirect('/educationpage')
     else: 
         user = User.objects.get(id = request.session['id'])
+        date_from = request.POST['date_from']
+        if request.POST['date_from'] == '':
+            date_from = None
         date_from1 = request.POST['date_from1']
         if request.POST['date_from1'] == '':
             date_from1 = None
@@ -242,7 +267,7 @@ def education(request):
         date_from4 = request.POST['date_from4']
         if request.POST['date_from4'] == '':
             date_from4 = None
-        Education.objects.create(date_from = datetime.strptime(request.POST['date_from'], '%Y-%m-%d').strftime('%Y-%m-%d'),
+        Education.objects.create(date_from = date_from,
         school = request.POST['school'], 
         program = request.POST['program'], 
         grad = request.POST['grad'], 
@@ -311,10 +336,13 @@ def picture(request):
     #     for key, value in mistakes.items():
     #         messages.error(request, value)
     #     return redirect('/picturepage')
-    else:        
-        user_id = request.session['id']
-        user = User.objects.get(id = user_id)
-        Picture.objects.create(img = request.FILES['img'], 
+    else:
+        if request.FILES['img'] == '':
+            img = None
+        else:
+            img = request.FILES['img']        
+        user = User.objects.get(id = request.session['id'])
+        Picture.objects.create(img = img, 
         user = user)
         print(imghdr.what(request.FILES['img']))
         return redirect('/templatepage')
