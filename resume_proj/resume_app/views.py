@@ -197,7 +197,7 @@ def employment(request):
         if request.POST['date_to1'] == '':
             date_to1 = None
         else:
-            date_to1 = request.POST['date_to2']
+            date_to1 = request.POST['date_to1']
         if request.POST['date_from2'] == '':
             date_from2 = None
         else:
@@ -337,15 +337,16 @@ def picture(request):
     #         messages.error(request, value)
     #     return redirect('/picturepage')
     else:
-        if request.FILES['img'] == '':
-            img = None
-        else:
-            img = request.FILES['img']        
+        img = (request.FILES, request.POST)
         user = User.objects.get(id = request.session['id'])
-        Picture.objects.create(img = img, 
-        user = user)
-        print(imghdr.what(request.FILES['img']))
+        if request.method == 'POST' and 'img' in request.FILES and request.FILES == '':
+            Picture.objects.create(img = '', 
+            user = user)
+        elif request.method == 'POST' and 'img' in request.FILES and request.FILES != '':
+            Picture.objects.create(img = img, 
+            user = user)
         return redirect('/templatepage')
+        
 
 # def picture(request):
 #     if request.method == 'POST':

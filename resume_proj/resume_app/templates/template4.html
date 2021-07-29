@@ -139,19 +139,26 @@
         </div>
         {% endfor %}
         </div>
-        <h2 id="exp">Experience</h2>
-        <div class="exp_block">
-                {% for experience in user.experiences.all %}
-                <ul class="experience">
-                <li><span class="title">{{experience.title1}}</span> - {{experience.desc1}}</li>
-                {% if experience.title2 %}
-                <li><span class="title">{{experience.title2}}</span> - {{experience.desc2}}</li>
-                {% endif %}
-                {% if experience.title3 %}
-                <li><span class="title">{{experience.title3}}</span> - {{experience.desc3}}</li>
-                {% endif %}
-                {% endfor %}
-        </div>
+        {% for experience in user.experiences.all %}        
+        {% if experience.title1 != '' or experience.title2 != '' or experience.title3 != '' %}
+        <div>
+            <h2 id="exp">Experience</h2>
+            <div class="exp_block">
+                    <ul class="experience">
+                    {% if experience.title1 %}
+                    <li><span class="title">{{experience.title1}}</span> - {{experience.desc1}}</li>
+                    {% endif %}
+                    {% if experience.title2 %}
+                    <li><span class="title">{{experience.title2}}</span> - {{experience.desc2}}</li>
+                    {% endif %}
+                    {% if experience.title3 %}
+                    <li><span class="title">{{experience.title3}}</span> - {{experience.desc3}}</li>
+                    {% endif %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+        {% endfor %}
         <h2 id="emp">Employment</h2>
         <div class="emp_block">
             {% for employment in user.employments.all %}
@@ -177,10 +184,12 @@
                     </tr>
                     {% for education in user.educations.all %}
                     <tr>
+                        {% if education.date_from %}
                         <td>{{education.date_from|date:"M y"}}</td>
                         <td>{{education.school}}</td>
                         <td>{{education.program}}</td>
                         <td>{{education.grad}}</td>
+                        {% endif %}
                     </tr>
                     <tr>
                         {% if education.date_from1 %}

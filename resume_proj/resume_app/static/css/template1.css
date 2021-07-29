@@ -1,17 +1,12 @@
-#container{
+#bg{
     background-repeat: no-repeat;
     background-size: cover;
-    background-blend-mode:soft-light;
     /* width: 1000px auto;
     height: 2000px auto; */
     margin: 0px auto;
     padding: 0px;
-    /* background-color: skyblue; */
 }
 
-.bgded{
-    background-image: url( "{% static 'img/948656-Jamesbondskyfall-1441105545-700-640x480.jpg' %}");
-}
 
 #intro, #profile_pic{
     display: inline-block;
@@ -29,6 +24,11 @@
     align-items: center;
     height: 75px auto;
 }
+
+h1, h2, p, li, th, td{
+    color: white;
+}
+
 h1{
     font-size: 50px;
 }
@@ -68,6 +68,25 @@ h2{
     padding-right: 20px;
 }
 
+#nav_bar ul{
+    list-style-type: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#nav_bar ul li{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#nav_bar p{
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    place-content: center;
+    align-items: center;
+}
+
 /* div{
     background-color: green;
 } */
@@ -93,6 +112,7 @@ h2{
     height: fit-content;
 }
 .skills li{
+    color: white;
     padding-bottom: 5px;
     font-size:medium;
 }

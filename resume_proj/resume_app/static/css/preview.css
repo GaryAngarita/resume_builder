@@ -22,3 +22,7 @@ h2, p{
 span{
     font-size: small;
 }
+
+#pic_form{
+    margin: 5px;
+}
