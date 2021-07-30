@@ -17,6 +17,12 @@ h5{
     height: 60px;
 }
 
+footer{
+    display: flex;
+    place-content: center;
+    align-content: center;
+}
+
 p{
     text-align: center;
     max-width: 267px;
