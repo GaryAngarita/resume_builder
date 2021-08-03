@@ -59,7 +59,6 @@
         <form action="/editexperience" method="POST" id="experience">
             {% csrf_token %}
             {% for experience in user.experiences.all %}
-            {% if experience.title1 %}
             <div class="exp_form">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
@@ -70,8 +69,6 @@
                     <textarea class="form-control" id="exp_desc" rows="3" name="desc1">{{experience.desc1}}</textarea>
                 </div>
             </div>
-            {% endif %}
-            {% if experience.title2 %}
             <div class="exp_form">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
@@ -82,8 +79,6 @@
                     <textarea class="form-control" id="exp_desc" rows="3" name="desc2">{{experience.desc2}}</textarea>
                 </div>
             </div>
-            {% endif %}
-            {% if experience.title3 %}
             <div class="exp_form">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
@@ -94,7 +89,6 @@
                     <textarea class="form-control" id="exp_desc" rows="3" name="desc3">{{experience.desc3}}</textarea>
                 </div>
             </div>
-            {% endif %}
             {% endfor %}
             <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
                 <button class="btn btn-primary" id="submit" type="submit">Back Home</button>

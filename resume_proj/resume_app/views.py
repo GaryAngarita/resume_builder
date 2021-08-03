@@ -448,10 +448,10 @@ def editcontact(request):
         updated.phone_number = request.POST['phone_number']
         updated.save()
         new_soc = Social.objects.get(user = user)
-        new_soc.github = request.POST.get('github')
-        new_soc.linkedin = request.POST.get('linkedin')
-        new_soc.facebook = request.POST.get('facebook')
-        new_soc.twitter = request.POST.get('twitter')
+        new_soc.github = request.POST.get('github', "")
+        new_soc.linkedin = request.POST.get('linkedin', "")
+        new_soc.facebook = request.POST.get('facebook', "")
+        new_soc.twitter = request.POST.get('twitter', "")
         new_soc.save()
         return redirect(f'/resumehome/{user.id}')
 
@@ -581,24 +581,38 @@ def editeducation(request):
     else:
         user = User.objects.get(id = request.session['id'])
         updated = Education.objects.get(user = user)
-        
-        updated.date_from = request.POST['date_from']
+        date_from = request.POST['date_from']
+        if request.POST['date_from'] == '':
+            date_from = None
+        date_from1 = request.POST['date_from1']
+        if request.POST['date_from1'] == '':
+            date_from1 = None
+        date_from2 = request.POST['date_from2']
+        if request.POST['date_from2'] == '':
+            date_from2 = None
+        date_from3 = request.POST['date_from3']
+        if request.POST['date_from3'] == '':
+            date_from3 = None
+        date_from4 = request.POST['date_from4']
+        if request.POST['date_from4'] == '':
+            date_from4 = None
+        updated.date_from = date_from
         updated.school = request.POST['school']
         updated.program = request.POST['program']
         updated.grad = request.POST['grad']
-        updated.date_from1 = request.POST.get('date_from1', None)
+        updated.date_from1 = date_from1
         updated.school1 = request.POST.get('school1', '')
         updated.program1 = request.POST.get('program1', '')
         updated.grad1 = request.POST.get('grad1', None)
-        updated.date_from2 = request.POST.get('date_from2', None)
+        updated.date_from2 = date_from2
         updated.school2 = request.POST.get('school2', '')
         updated.program2 = request.POST.get('program2', '')
         updated.grad2 = request.POST.get('grad2', None)
-        updated.date_from3 = request.POST.get('date_from3', None)
+        updated.date_from3 = date_from3
         updated.school3 = request.POST.get('school3', '')
         updated.program3 = request.POST.get('program3', '')
         updated.grad3 = request.POST.get('grad3', None)
-        updated.date_from4 = request.POST.get('date_from4', None)
+        updated.date_from4 = date_from4
         updated.school4 = request.POST.get('school4', '')
         updated.program4 = request.POST.get('program4', '')
         updated.grad4 = request.POST.get('grad4', None)

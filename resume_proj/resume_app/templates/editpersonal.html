@@ -173,31 +173,22 @@
             {% for social in user.social_medias.all %}
             <div class="col">
                 <label for="github" class="form-label">GitHub</label>
-                {% if social.github %}
                 <input type="text" class="form-control" id="exampleFormControlInput1" value="{{social.github}}" name="github">
-                {% endif %}
             </div>
             <div class="col">
                 <label for="linkedin" class="form-label">LinkedIn</label>
-                {% if social.linkedin %}
                 <input type="text" class="form-control" id="exampleFormControlInput1" value="{{social.linkedin}}" name="linkedin">
-                {% endif %}
             </div>
         </div>
         <div class="site_row">
             <div class="col">
                 <label for="facebook" class="form-label">Facebook</label>
-                {% if social.facebook %}
                 <input type="text" class="form-control" id="exampleFormControlInput1" value="{{social.facebook}}" name="facebook">
-                {% endif %}
             </div>
             <div class="col">
                 <label for="twitter" class="form-label">Twitter</label>
-                {% if social.twitter %}
                 <input type="text" class="form-control" id="exampleFormControlInput1" value="{{social.twitter}}" name="twitter">
-                {% endif %}
-            </div>
-            
+            </div>            
             {% endfor %}
         </div>
     </div>

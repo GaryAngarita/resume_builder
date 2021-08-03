@@ -113,16 +113,16 @@ class Contact(models.Model):
 class SocialManager(models.Manager):
     def site_validator(self, postData):
         errors = {}
-        if len(postData['github']) < 4:
+        if postData['github'] != '' and len(postData['github']) < 4:
             errors['github'] = "Check your GitHub site again"
         
-        if len(postData['linkedin']) < 4:
+        if postData['linkedin'] != '' and len(postData['linkedin']) < 4:
             errors['linkedin'] = "Check your LinkedIn site again"
         
-        if len(postData['facebook']) < 4:
+        if postData['facebook'] != '' and len(postData['facebook']) < 4:
             errors['facebook'] = "Check your Facebook site again"
         
-        if len(postData['twitter']) < 4:
+        if postData['twitter'] != '' and len(postData['twitter']) < 4:
             errors['twitter'] = "Check your Twitter site again"
         # if postData['site'] != '':
         #     if not url_regex.match(postData['site']):

@@ -61,7 +61,6 @@
         <form action="/editemployment" method="POST" id="employment">
             {% csrf_token %}
             {% for employment in user.employments.all %}
-            {% if employment.title1 %}
             <div class="emp_form">
                 <div class="row">
                     <div class="col">
@@ -82,8 +81,6 @@
                     <textarea class="form-control" id="emp_desc" rows="3" name="desc1">{{employment.desc1}}</textarea>
                 </div>
             </div>
-            {% endif %}
-            {% if employment.title2 %}
             <div class="emp_form">
                 <div class="row">
                     <div class="col">
@@ -104,8 +101,6 @@
                     <textarea class="form-control" id="emp_desc" rows="3" name="desc2">{{employment.desc2}}</textarea>
                 </div>
             </div>
-            {% endif %}
-            {% if employment.title3 %}
             <div class="emp_form">
                 <div class="row">
                     <div class="col">
@@ -126,7 +121,6 @@
                     <textarea class="form-control" id="emp_desc" rows="3" name="desc3">{{employment.desc3}}</textarea>
                 </div>
             </div>
-            {% endif %}
             {% endfor %}   
             <div class="d-grid gap-2 col-2 mx-auto" id="btm_btn">
                 <button class="btn btn-primary" id="submit" type="submit">Back Home</button>
