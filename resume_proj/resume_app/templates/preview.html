@@ -46,8 +46,8 @@
     <br>
     <div id="pic_temps">
         <div class="temp_one_two">
-            <a href="/template1/{{user.id}}" id="temp_one" role="button"><img src="{% static 'img/Background_picture_template_v2.jpg' %}" class="mx-auto d-block" alt="Template 1" id="first_pic"></a>
-            <p><a href="/template1/{{user.id}}" id="temp_one" role="button">Coming soon! Resume with profile picture in the background</a></p>
+            <a href="/template1/{{user.id}}" id="temp_one" role="button"><img src="{% static 'img/Resume_template1_v3.jpg' %}" class="mx-auto d-block" alt="Template 1" id="first_pic"></a>
+            <p><a href="/template1/{{user.id}}" id="temp_one" role="button">Resume with profile picture in the background</a></p>
             <a href="/template2/{{user.id}}" id="temp_one" role="radio"><img src="{% static 'img/Background_picture_template2_v3.jpg' %}" class="mx-auto d-block" alt="Template 2" id="second_pic"></a>
             <p><a href="/template2/{{user.id}}" id="temp_one" role="radio">Resume with profile picture</a></p>
         </div>
@@ -58,4 +58,15 @@
             <p><a href="/template4/{{user.id}}" id="temp_one" role="radio">Resume with no picture</a></p>
         </div>
     </div>
+    {% if user.picture.img.url != '' %}
+    <div id="pic_preview">
+        <img class="img-fluid" src="{{ user.picture.img.url }}" alt="User image thumbnail"> 
+    </div>
+    <div id="delete_btn">
+        <a href="/delete_pic/{{user.id}}" class="btn btn-primary">Delete pic</a>
+    </div>
+    {% else %}
+    <br>
+    <p>A preview will be available here once you have uploaded your pic</p>
+    {% endif %}
 </body>

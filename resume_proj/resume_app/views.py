@@ -337,7 +337,7 @@ def picture(request):
     #         messages.error(request, value)
     #     return redirect('/picturepage')
     else:
-        img = (request.FILES, request.POST)
+        img = request.FILES['img']
         user = User.objects.get(id = request.session['id'])
         if request.method == 'POST' and 'img' in request.FILES and request.FILES == '':
             Picture.objects.create(img = '', 
@@ -660,10 +660,19 @@ def editpicturepage(request):
 
 def delete_pic(request, user_id):
     if 'id' not in request.session:
-        return render(request, "editpicture.html")
+        return redirect('/')
     user = User.objects.get(id = user_id)
-    Picture.objects.get(user = user).delete()
+    pic = Picture.objects.get(user = user)
+    pic.img.delete()
     return redirect('/editpicturepage')
+
+def delete_profilepic(request, user_id):
+    if 'id' not in request.session:
+        return redirect('/')
+    user = User.objects.get(id = user_id)
+    pic = Picture.objects.get(user = user)
+    pic.img.delete()
+    return redirect('/templatepage')
 
 def editpicture(request):
     if request.method == 'GET':
@@ -674,13 +683,12 @@ def editpicture(request):
     #         messages.error(request, value)
         # return redirect('/editpicturepage')
     else:
-        img = (request.FILES, request.POST)
         user = User.objects.get(id = request.session['id'])        
         updated = Picture.objects.get(user = user)
         if request.method == 'POST' and 'img' in request.FILES and request.FILES == '':
             updated.img = None
         elif request.method == 'POST' and 'img' in request.FILES and request.FILES != '':
-            updated.img = img
+            updated.img = request.FILES['img']
         updated.save()
         return redirect(f'/resumehome/{user.id}')
 

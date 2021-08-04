@@ -64,13 +64,16 @@
         </div>
         </form>
     </div>
-    {% if user.picture.img.url %}
+    {% if user.picture.img.url != '' %}
     <div id="pic_preview">
         <img class="img-fluid" src="{{ user.picture.img.url }}" alt="User image thumbnail"> 
     </div>
     <div id="delete_btn">
         <a href="/delete_pic/{{user.id}}" class="btn btn-primary">Delete pic</a>
     </div>
+    {% else %}
+    <br>
+    <p>A preview will be available here once you have uploaded your pic</p>
     {% endif %}
 </body>
 </html>
