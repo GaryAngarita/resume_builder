@@ -658,6 +658,13 @@ def editpicturepage(request):
         }
     return render(request, 'editpicture.html', context)
 
+def delete_pic(request, user_id):
+    if 'id' not in request.session:
+        return render(request, "editpicture.html")
+    user = User.objects.get(id = user_id)
+    Picture.objects.get(user = user).delete()
+    return redirect('/editpicturepage')
+
 def editpicture(request):
     if request.method == 'GET':
         return redirect('/')
@@ -667,9 +674,13 @@ def editpicture(request):
     #         messages.error(request, value)
         # return redirect('/editpicturepage')
     else:
-        user = User.objects.get(id = request.session['id'])
+        img = (request.FILES, request.POST)
+        user = User.objects.get(id = request.session['id'])        
         updated = Picture.objects.get(user = user)
-        updated.img = request.FILES['img']
+        if request.method == 'POST' and 'img' in request.FILES and request.FILES == '':
+            updated.img = None
+        elif request.method == 'POST' and 'img' in request.FILES and request.FILES != '':
+            updated.img = img
         updated.save()
         return redirect(f'/resumehome/{user.id}')
 

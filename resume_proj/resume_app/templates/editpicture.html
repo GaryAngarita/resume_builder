@@ -22,11 +22,12 @@
     <title>Fill out Additional and Upload Photo</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/preview.css' %}">
+</head>
 <body>
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">Welcome {{user.first_name}} {{user.last_name}}!</a>
+            <a class="navbar-brand" href="/resumehome/{{user.id}}">Welcome {{user.first_name}} {{user.last_name}}!</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -63,5 +64,15 @@
         </div>
         </form>
     </div>
+    {% if user.picture.img.url %}
+    <div id="pic_preview">
+        <img class="img-fluid" src="{{ user.picture.img.url }}" alt="User image thumbnail"> 
+    </div>
+    <div id="delete_btn">
+        <a href="/delete_pic/{{user.id}}" class="btn btn-primary">Delete pic</a>
+    </div>
+    {% endif %}
+</body>
+</html>
     
             

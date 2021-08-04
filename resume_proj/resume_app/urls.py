@@ -45,5 +45,6 @@ urlpatterns = [
     path('editadditional', views.editadditional),
     path('editpicturepage', views.editpicturepage),
     path('editpicture', views.editpicture),
+    path('delete_pic/<int:user_id>', views.delete_pic),
     path('logout', views.logout),
 ]

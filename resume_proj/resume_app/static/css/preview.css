@@ -26,3 +26,14 @@ span{
 #pic_form{
     margin: 5px;
 }
+
+#pic_preview{
+    display: flex;
+    place-content: center;
+}
+
+#delete_btn{
+    margin-top: 5px;
+    display: flex;
+    place-content: center;
+}

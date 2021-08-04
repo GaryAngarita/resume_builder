@@ -22,7 +22,7 @@
     <title>Edit Additional and Photo</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/eduaddl.css' %}">
-    <script>
+    <!-- <script>
         $(document).ready(function(){
             
             var counter = 0;
@@ -35,7 +35,7 @@
                 $('#add_new').remove()
             })            
         })
-    </script>
+    </script> -->
 </head>
 <body>
     <!-- NAVBAR -->
@@ -68,54 +68,42 @@
                 <input type="text" class="form-control" id="addl_info" value="{{additional.info}}" name="info">
             </div>
         </div>
-        {% if additional.info1 %}
         <div class="addl_form">
             <div class="mb-3" id="title_div">
                 <label for="info" class="form-label">Additional Info Entry</label>
                 <input type="text" class="form-control" id="addl_info" value="{{additional.info1}}" name="info1">
             </div>
         </div>
-        {% endif %}
-        {% if additional.info2 %}
         <div class="addl_form">
             <div class="mb-3" id="title_div">
                 <label for="info" class="form-label">Additional Info Entry</label>
                 <input type="text" class="form-control" id="addl_info" value="{{additional.info2}}" name="info2">
             </div>
         </div>
-        {% endif %}
-        {% if additional.info3 %}
         <div class="addl_form">
             <div class="mb-3" id="title_div">
                 <label for="info" class="form-label">Additional Info Entry</label>
                 <input type="text" class="form-control" id="addl_info" value="{{additional.info3}}" name="info3">
             </div>
         </div>
-        {% endif %}
-        {% if additional.info4 %}
         <div class="addl_form">
             <div class="mb-3" id="title_div">
                 <label for="info" class="form-label">Additional Info Entry</label>
                 <input type="text" class="form-control" id="addl_info" value="{{additional.info4}}" name="info4">
             </div>
         </div>
-        {% endif %}
-        {% if additional.info5 %}
         <div class="addl_form">
             <div class="mb-3" id="title_div">
                 <label for="info" class="form-label">Additional Info Entry</label>
                 <input type="text" class="form-control" id="addl_info" value="{{additional.info5}}" name="info5">
             </div>
         </div>
-        {% endif %}
-        {% if additional.info6 %}
         <div class="addl_form">
             <div class="mb-3" id="title_div">
                 <label for="info" class="form-label">Additional Info Entry</label>
                 <input type="text" class="form-control" id="addl_info" value="{{additional.info6}}" name="info6">
             </div>
         </div>
-        {% endif %}
             {% endfor %}
             <div class="d-grid gap-2 col-2 mx-auto" id="final_btm_btn">
                 <button class="btn btn-primary" id="submit" type="submit">Back Home</button>
