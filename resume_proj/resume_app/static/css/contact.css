@@ -11,7 +11,7 @@ h2, p{
     height: 350px;
 }
 
-#pic_temps{
+#contact_temps{
     display: flex;
     place-content: center;
     padding-top: 100px;
@@ -22,4 +22,14 @@ h2, p{
     width: 270px;
     padding: 20px;
     height: fit-content;
+    border: 1px solid black;
+}
+
+.temp_three_four{
+    height: 336px;
+    padding-top: 80px;
+}
+
+#subbut{
+    justify-content: center;
 }

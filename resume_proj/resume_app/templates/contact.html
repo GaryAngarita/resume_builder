@@ -19,9 +19,32 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
-    <title>Select Resume Template</title>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <title>Kwiz Whiz Contact Form</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+    <script type="text/javascript">
+        (function() {
+            // https://dashboard.emailjs.com/admin/integration
+            emailjs.init('YOUR_USER_ID');
+        })();
+    </script>
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // generate a five digit number for the contact_number variable
+                this.contact_number.value = Math.random() * 100000 | 0;
+                // these IDs from the previous steps
+                emailjs.sendForm('contact_service', 'contact_form', this)
+                    .then(function() {
+                        console.log('SUCCESS!');
+                    }, function(error) {
+                        console.log('FAILED...', error);
+                    });
+            });
+        }
+    </script>
     </head>
 <body>
     <!-- NAVBAR -->
@@ -35,7 +58,7 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto"></ul>
                 <span class="navbar-text">
-                    <a href="/">Home</a>
+                    <a href="/logreg">Register</a>
                     <a href="/about">About</a>
                     <a href="/media">Media</a>
                     <a href="/recommend">Recommendations</a>
@@ -46,14 +69,22 @@
     <br>
     <h2>Need to Get In Touch With Someone?</h2>
     <br>
-    <div id="pic_temps">
+    <div id="contact_temps">
         <div class="temp_one_two">
-            <br>
-            <h4>Send emails to:</h4>
-            <h5>gary.angarita@gmail.com</h5>
+            <form id="contact-form">
+                <input type="hidden" name="contact_number">
+                <label>Name</label>
+                <input type="text" name="user_name">
+                <label>Email</label>
+                <input type="email" name="user_email">
+                <label>Message</label>
+                <textarea name="message" rows="4" cols="25"></textarea>
+                <input id="subbut" type="submit" value="Send">
+            </form>
         </div>
         <div class="temp_three_four">
             <h4>Send post mail to:</h4>
+            <br>
             <h5>Gary Angarita</h5>
             <h5>13364 Beach Blvd</h5>
             <h5>Jacksonville, FL 32224</h5>
