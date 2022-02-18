@@ -34,8 +34,11 @@
 
     </script>
 </head>
-
+{% if user.picture.img %}
 <body style="background-image: url('{{ user.picture.img.url }}');" id="bg">
+{% else %}
+<body id="backup">
+{% endif %}
     <div id="container">    
         <div class="name">
             <h1>{{user.first_name}} {{user.last_name}}</h1>
@@ -108,158 +111,158 @@
             {% endfor %}
         {% endif %}
         </div>
-</div>
-<div class="intro">
-    <h2>Objective:</h2>
-    <p>{{user.objective.content}}.</p>
-</div>
-<h2>Skills:</h2>
-<div class="skills">
-{% for skill in user.skills.all %}
-<div class="skills1">
-    <ul>
-        <li>{{skill.selected1}}</li>
-        <li>{{skill.selected2}}</li>
-        <li>{{skill.selected3}}</li>
-    </ul>
-</div>
-<div class="skills1">
-    <ul>
-        <li>{{skill.selected4}}</li>
-        <li>{{skill.selected5}}</li>
-        <li>{{skill.selected6}}</li>
-    </ul>
-</div>
-<div class="skills1">
-    <ul>
-        <li>{{skill.selected7}}</li>
-        <li>{{skill.selected8}}</li>
-        <li>{{skill.selected9}}</li>
-    </ul>
-</div>
-{% endfor %}
-</div>
-{% for experience in user.experiences.all %}        
-        {% if experience.title1 != '' or experience.title2 != '' or experience.title3 != '' %}
-        <div>
-            <h2 id="exp">Experience</h2>
-            <div class="exp_block">
-                <ul class="experience">
-                {% if experience.title1 %}
-                <li><span class="title">{{experience.title1}}</span> - {{experience.desc1}}</li>
-                {% endif %}
-                {% if experience.title2 %}
-                <li><span class="title">{{experience.title2}}</span> - {{experience.desc2}}</li>
-                {% endif %}
-                {% if experience.title3 %}
-                <li><span class="title">{{experience.title3}}</span> - {{experience.desc3}}</li>
-                {% endif %}
+    </div>
+    <div class="intro">
+        <h2>Objective:</h2>
+        <p>{{user.objective.content}}.</p>
+    </div>
+    <h2>Skills:</h2>
+    <div class="skills">
+    {% for skill in user.skills.all %}
+    <div class="skills1">
+        <ul>
+            <li>{{skill.selected1}}</li>
+            <li>{{skill.selected2}}</li>
+            <li>{{skill.selected3}}</li>
+        </ul>
+    </div>
+    <div class="skills1">
+        <ul>
+            <li>{{skill.selected4}}</li>
+            <li>{{skill.selected5}}</li>
+            <li>{{skill.selected6}}</li>
+        </ul>
+    </div>
+    <div class="skills1">
+        <ul>
+            <li>{{skill.selected7}}</li>
+            <li>{{skill.selected8}}</li>
+            <li>{{skill.selected9}}</li>
+        </ul>
+    </div>
+    {% endfor %}
+    </div>
+    {% for experience in user.experiences.all %}        
+            {% if experience.title1 != '' or experience.title2 != '' or experience.title3 != '' %}
+            <div>
+                <h2 id="exp">Experience</h2>
+                <div class="exp_block">
+                    <ul class="experience">
+                    {% if experience.title1 %}
+                    <li><span class="title">{{experience.title1}}</span> - {{experience.desc1}}</li>
+                    {% endif %}
+                    {% if experience.title2 %}
+                    <li><span class="title">{{experience.title2}}</span> - {{experience.desc2}}</li>
+                    {% endif %}
+                    {% if experience.title3 %}
+                    <li><span class="title">{{experience.title3}}</span> - {{experience.desc3}}</li>
+                    {% endif %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <h2 id="emp">Employment</h2>
+            <div class="emp_block">
+                {% for employment in user.employments.all %}
+                <ul class="employment">
+                    <li><span class="date">{{employment.date_from1|date:"M y"}} - {{employment.date_to1|date:"M y"}}</span> - <span class="job_title">{{employment.title1}}</span> - {{employment.desc1}}</li>
+                    {% if employment.title2 %}
+                    <li><span class="date">{{employment.date_from2|date:"M y"}} - {{employment.date_to2|date:"M y"}}</span> - <span class="job_title">{{employment.title2}}</span> - {{employment.desc2}}</li>
+                    {% endif %}
+                    {% if employment.title3 %}
+                    <li><span class="date">{{employment.date_from3|date:"M y"}} - {{employment.date_to3|date:"M y"}}</span> - <span class="job_title">{{employment.title3}}</span> - {{employment.desc3}}</li>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <h2 id="edu">Education</h2>
+            <div class="container">
+                <div class="row">
+                    <table style="width: 100%" class="table table-bordered">
+                        <tr>
+                            <th>Completed</th>
+                            <th>Name</th>
+                            <th>Program/Degree</th>
+                            <th>Graduated?</th>
+                        </tr>
+                        {% for education in user.educations.all %}
+                        <tr>
+                            {% if education.date_from %}
+                            <td>{{education.date_from|date:"M y"}}</td>
+                            <td>{{education.school}}</td>
+                            <td>{{education.program}}</td>
+                            <td>{{education.grad}}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            {% if education.date_from1 %}
+                            <td>{{education.date_from1|date:"M y"}}</td>
+                            <td>{{education.school1}}</td>
+                            <td>{{education.program1}}</td>
+                            <td>{{education.grad1}}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            {% if education.date_from2 %}
+                            <td>{{education.date_from2|date:"M y"}}</td>
+                            <td>{{education.school2}}</td>
+                            <td>{{education.program2}}</td>
+                            <td>{{education.grad2}}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            {% if education.date_from3 %}
+                            <td>{{education.date_from3|date:"M y"}}</td>
+                            <td>{{education.school3}}</td>
+                            <td>{{education.program3}}</td>
+                            <td>{{education.grad3}}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            {% if education.date_from4 %}
+                            <td>{{education.date_from4|date:"M y"}}</td>
+                            <td>{{education.school4}}</td>
+                            <td>{{education.program4}}</td>
+                            <td>{{education.grad4}}</td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            <h2 id="add">Additional Information</h2>
+            <div class="additional">
+                {% for additional in user.additionals.all %}
+                <ul>
+                    {% if additional.info %}
+                    <li>{{ additional.info }}</li>
+                    {% endif %}
+                    {% if additional.info1 %}
+                    <li>{{ additional.info1 }}</li>
+                    {% endif %}
+                    {% if additional.info2 %}
+                    <li>{{ additional.info2 }}</li>
+                    {% endif %}
+                    {% if additional.info3 %}
+                    <li>{{ additional.info3 }}</li>
+                    {% endif %}
+                    {% if additional.info4 %}
+                    <li>{{ additional.info4 }}</li>
+                    {% endif %}
+                    {% if additional.info5%}
+                    <li>{{ additional.info5 }}</li>
+                    {% endif %}
+                    {% if additional.info6 %}
+                    <li>{{ additional.info6 }}</li>
+                    {% endif %}
                 </ul>
+                {% endfor %}
             </div>
-        </div>
-        {% endif %}
-        {% endfor %}
-        <h2 id="emp">Employment</h2>
-        <div class="emp_block">
-            {% for employment in user.employments.all %}
-            <ul class="employment">
-                <li><span class="date">{{employment.date_from1|date:"M y"}} - {{employment.date_to1|date:"M y"}}</span> - <span class="job_title">{{employment.title1}}</span> - {{employment.desc1}}</li>
-                {% if employment.title2 %}
-                <li><span class="date">{{employment.date_from2|date:"M y"}} - {{employment.date_to2|date:"M y"}}</span> - <span class="job_title">{{employment.title2}}</span> - {{employment.desc2}}</li>
-                {% endif %}
-                {% if employment.title3 %}
-                <li><span class="date">{{employment.date_from3|date:"M y"}} - {{employment.date_to3|date:"M y"}}</span> - <span class="job_title">{{employment.title3}}</span> - {{employment.desc3}}</li>
-                {% endif %}
-            {% endfor %}
-        </div>
-        <h2 id="edu">Education</h2>
-        <div class="container">
-            <div class="row">
-                <table style="width: 100%" class="table table-bordered">
-                    <tr>
-                        <th>Completed</th>
-                        <th>Name</th>
-                        <th>Program/Degree</th>
-                        <th>Graduated?</th>
-                    </tr>
-                    {% for education in user.educations.all %}
-                    <tr>
-                        {% if education.date_from %}
-                        <td>{{education.date_from|date:"M y"}}</td>
-                        <td>{{education.school}}</td>
-                        <td>{{education.program}}</td>
-                        <td>{{education.grad}}</td>
-                        {% endif %}
-                    </tr>
-                    <tr>
-                        {% if education.date_from1 %}
-                        <td>{{education.date_from1|date:"M y"}}</td>
-                        <td>{{education.school1}}</td>
-                        <td>{{education.program1}}</td>
-                        <td>{{education.grad1}}</td>
-                        {% endif %}
-                    </tr>
-                    <tr>
-                        {% if education.date_from2 %}
-                        <td>{{education.date_from2|date:"M y"}}</td>
-                        <td>{{education.school2}}</td>
-                        <td>{{education.program2}}</td>
-                        <td>{{education.grad2}}</td>
-                        {% endif %}
-                    </tr>
-                    <tr>
-                        {% if education.date_from3 %}
-                        <td>{{education.date_from3|date:"M y"}}</td>
-                        <td>{{education.school3}}</td>
-                        <td>{{education.program3}}</td>
-                        <td>{{education.grad3}}</td>
-                        {% endif %}
-                    </tr>
-                    <tr>
-                        {% if education.date_from4 %}
-                        <td>{{education.date_from4|date:"M y"}}</td>
-                        <td>{{education.school4}}</td>
-                        <td>{{education.program4}}</td>
-                        <td>{{education.grad4}}</td>
-                        {% endif %}
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
-        <h2 id="add">Additional Information</h2>
-        <div class="additional">
-            {% for additional in user.additionals.all %}
-            <ul>
-                {% if additional.info %}
-                <li>{{ additional.info }}</li>
-                {% endif %}
-                {% if additional.info1 %}
-                <li>{{ additional.info1 }}</li>
-                {% endif %}
-                {% if additional.info2 %}
-                <li>{{ additional.info2 }}</li>
-                {% endif %}
-                {% if additional.info3 %}
-                <li>{{ additional.info3 }}</li>
-                {% endif %}
-                {% if additional.info4 %}
-                <li>{{ additional.info4 }}</li>
-                {% endif %}
-                {% if additional.info5%}
-                <li>{{ additional.info5 }}</li>
-                {% endif %}
-                {% if additional.info6 %}
-                <li>{{ additional.info6 }}</li>
-                {% endif %}
-            </ul>
-            {% endfor %}
-        </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-crossorigin="anonymous"></script>
-</td>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"></script>
+    </td>
 </body>
 
 </html>

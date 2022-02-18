@@ -9,6 +9,10 @@ h1{
     width: 300px;
 }
 
+h5{
+    color: ivory;
+}
+
 .center p, h1, h3{
     text-align: center;
     word-wrap: break-word;

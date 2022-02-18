@@ -7,6 +7,10 @@
     padding: 0px;
 }
 
+#backup{
+    background-color: blue
+}
+
 
 #intro, #profile_pic{
     display: inline-block;

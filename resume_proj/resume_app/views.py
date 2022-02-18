@@ -30,7 +30,7 @@ def register(request):
     if errors:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect('/logreg')
     else:
         password = request.POST['password']
         pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
@@ -50,7 +50,7 @@ def login(request):
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect('/logreg')
     else:
         user = User.objects.get(email = request.POST['email'])
         request.session['id'] = user.id

@@ -2,6 +2,10 @@ h2, p{
     text-align: center;
 }
 
+h5{
+    color: ivory;
+}
+
 #first_pic, #second_pic, #third_pic, #fourth_pic{
     width: 350px;
     height: 350px;
