@@ -2,12 +2,11 @@ from django.contrib.messages.api import error
 from django.db import models
 import re
 from datetime import date, datetime
-
+import bcrypt
 from django.utils import timezone
 from django.db.models.fields import DateTimeField
 from django.core.validators import RegexValidator, URLValidator, validate_image_file_extension, MaxValueValidator
 from django.db.models.fields.files import ImageField
-import bcrypt
 
 email_regex = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 url_regex = re.compile(
